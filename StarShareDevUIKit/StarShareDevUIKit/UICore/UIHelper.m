@@ -7,6 +7,7 @@
 //
 
 #import "UIHelper.h"
+#import "UIScene.h"
 #import "UIScene+UI.h"
 #import "UIColor+UI.h"
 #import <objc/runtime.h>

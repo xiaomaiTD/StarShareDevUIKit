@@ -10,7 +10,7 @@
 #import "UICore.h"
 #import "UIScrollView+UI.h"
 
-@implementation UITableView (UI)
+@implementation UITableScene (UI)
 
 - (void)renderGlobalStyle {
   UIColor *backgroundColor = nil;
