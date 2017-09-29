@@ -180,7 +180,6 @@ CGRectToFixed(CGRect rect, NSUInteger precision) {
   return result;
 }
 
-/// 计算view的垂直居中，传入父view和子view的frame，返回子view在垂直居中时的y值
 CG_INLINE CGFloat
 CGRectGetMinYVerticallyCenterInParentRect(CGRect parentRect, CGRect childRect) {
   return flatf((CGRectGetHeight(parentRect) - CGRectGetHeight(childRect)) / 2.0);
@@ -205,6 +204,24 @@ CG_INLINE CGPoint
 CGPointToFixed(CGPoint point, NSUInteger precision) {
   CGPoint result = CGPointMake(CGFloatToFixed(point.x, precision), CGFloatToFixed(point.y, precision));
   return result;
+}
+
+CG_INLINE CGRect
+CGRectInsetEdges(CGRect rect, UIEdgeInsets insets) {
+  rect.origin.x += insets.left;
+  rect.origin.y += insets.top;
+  rect.size.width -= UIEdgeInsetsGetHorizontalValue(insets);
+  rect.size.height -= UIEdgeInsetsGetVerticalValue(insets);
+  return rect;
+}
+
+CG_INLINE UIEdgeInsets
+UIEdgeInsetsConcat(UIEdgeInsets insets1, UIEdgeInsets insets2) {
+  insets1.top += insets2.top;
+  insets1.left += insets2.left;
+  insets1.bottom += insets2.bottom;
+  insets1.right += insets2.right;
+  return insets1;
 }
 
 CG_INLINE UIEdgeInsets

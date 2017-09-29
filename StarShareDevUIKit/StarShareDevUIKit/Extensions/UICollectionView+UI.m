@@ -1,15 +1,15 @@
 //
-//  UICollectionScene+UI.m
+//  UICollectionView+UI.m
 //  Project
 //
 //  Created by jearoc on 2017/9/27.
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UICollectionScene+UI.h"
+#import "UICollectionView+UI.h"
 #import "UICore.h"
 
-@implementation UICollectionScene (UI)
+@implementation UICollectionView (UI)
 
 - (void)renderGlobalStyle
 {

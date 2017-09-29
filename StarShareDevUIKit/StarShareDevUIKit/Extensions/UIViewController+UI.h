@@ -1,5 +1,5 @@
 //
-//  UIScene+UI.h
+//  UIViewController+UI.h
 //  Project
 //
 //  Created by jearoc on 2017/9/25.
@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIScene.h"
+#import "SSUIViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

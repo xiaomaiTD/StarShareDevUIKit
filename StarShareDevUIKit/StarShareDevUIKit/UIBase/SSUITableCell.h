@@ -1,5 +1,5 @@
 //
-//  UITableCellScene.h
+//  SSUITableCell.h
 //  Project
 //
 //  Created by jearoc on 2017/9/26.
@@ -10,7 +10,7 @@
 #import "UIComponents.h"
 #import "UIExtensions.h"
 
-@interface UITableCellScene : UITableViewCell
+@interface SSUITableCell : UITableViewCell
 @property(nonatomic, assign, readonly) UITableViewCellStyle style;
 @property(nonatomic, assign) UIEdgeInsets imageEdgeInsets;
 @property(nonatomic, assign) UIEdgeInsets textLabelEdgeInsets;
@@ -24,7 +24,7 @@
 - (instancetype)initForTableView:(UITableView *)tableView withReuseIdentifier:(NSString *)reuseIdentifier;
 @end
 
-@interface UITableCellScene (Hooks)
+@interface SSUITableCell (Hooks)
 /// 用于继承的接口，设置一些cell相关的UI，需要自 cellForRowAtIndexPath 里面调用。默认实现是设置当前cell在哪个position。
 - (void)updateCellAppearanceWithIndexPath:(NSIndexPath *)indexPath;
 @end

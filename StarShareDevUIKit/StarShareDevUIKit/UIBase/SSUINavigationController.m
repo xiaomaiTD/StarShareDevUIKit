@@ -1,22 +1,23 @@
 //
-//  UINavigationScene.m
+//  SSUINavigationController.m
 //  XX_iOS_APP
 //
 //  Created by pmo on 2017/8/16.
 //  Copyright © 2017年 pmo. All rights reserved.
 //
 
+#import "SSUINavigationController.h"
 #import "UICommonDefines.h"
 #import "UIComponents.h"
 #import "UIExtensions.h"
 #import <objc/runtime.h>
 #import "UICore.h"
 
-@interface UIViewController (UINavigationScene)
+@interface UIViewController (SSUINavigationController)
 @property(nonatomic, assign) BOOL isViewWillAppear;
 @end
 
-@implementation UIViewController (UINavigationScene)
+@implementation UIViewController (SSUINavigationController)
 
 + (void)load {
   static dispatch_once_t onceToken;
@@ -49,13 +50,13 @@
 
 @end
 
-@interface UINavigationScene ()
+@interface SSUINavigationController ()
 @property(nonatomic, assign) BOOL isViewControllerTransiting;
 @property(nonatomic, weak) UIViewController *viewControllerPopping;
 @property(nonatomic, weak) id <UINavigationControllerDelegate> delegateProxy;
 @end
 
-@implementation UINavigationScene
+@implementation SSUINavigationController
 
 #pragma mark - 生命周期函数 && 基类方法重写
 
@@ -112,11 +113,11 @@
   UIViewController *viewController = [self topViewController];
   self.viewControllerPopping = viewController;
   if ([viewController respondsToSelector:@selector(willPopInNavigationControllerWithAnimated:)]) {
-    [((UIViewController<UINavigationSceneDelegate> *)viewController) willPopInNavigationControllerWithAnimated:animated];
+    [((UIViewController<UINavigationCustomTransitionDelegate> *)viewController) willPopInNavigationControllerWithAnimated:animated];
   }
   viewController = [super popViewControllerAnimated:animated];
   if ([viewController respondsToSelector:@selector(didPopInNavigationControllerWithAnimated:)]) {
-    [((UIViewController<UINavigationSceneDelegate> *)viewController) didPopInNavigationControllerWithAnimated:animated];
+    [((UIViewController<UINavigationCustomTransitionDelegate> *)viewController) didPopInNavigationControllerWithAnimated:animated];
   }
   return viewController;
 }
@@ -138,7 +139,7 @@
     }
     if ([viewControllerPopping respondsToSelector:@selector(willPopInNavigationControllerWithAnimated:)]) {
       BOOL animatedArgument = i == self.viewControllers.count - 1 ? animated : NO;
-      [((UIViewController<UINavigationSceneDelegate> *)viewControllerPopping) willPopInNavigationControllerWithAnimated:animatedArgument];
+      [((UIViewController<UINavigationCustomTransitionDelegate> *)viewControllerPopping) willPopInNavigationControllerWithAnimated:animatedArgument];
     }
   }
   
@@ -147,7 +148,7 @@
     UIViewController *viewControllerPopped = poppedViewControllers[i];
     if ([viewControllerPopped respondsToSelector:@selector(didPopInNavigationControllerWithAnimated:)]) {
       BOOL animatedArgument = i == poppedViewControllers.count - 1 ? animated : NO;
-      [((UIViewController<UINavigationSceneDelegate> *)viewControllerPopped) didPopInNavigationControllerWithAnimated:animatedArgument];
+      [((UIViewController<UINavigationCustomTransitionDelegate> *)viewControllerPopped) didPopInNavigationControllerWithAnimated:animatedArgument];
     }
   }
   
@@ -168,7 +169,7 @@
     UIViewController *viewControllerPopping = self.viewControllers[i];
     if ([viewControllerPopping respondsToSelector:@selector(willPopInNavigationControllerWithAnimated:)]) {
       BOOL animatedArgument = i == self.viewControllers.count - 1 ? animated : NO;
-      [((UIViewController<UINavigationSceneDelegate> *)viewControllerPopping) willPopInNavigationControllerWithAnimated:animatedArgument];
+      [((UIViewController<UINavigationCustomTransitionDelegate> *)viewControllerPopping) willPopInNavigationControllerWithAnimated:animatedArgument];
     }
   }
   
@@ -177,7 +178,7 @@
     UIViewController *viewControllerPopped = poppedViewControllers[i];
     if ([viewControllerPopped respondsToSelector:@selector(didPopInNavigationControllerWithAnimated:)]) {
       BOOL animatedArgument = i == poppedViewControllers.count - 1 ? animated : NO;
-      [((UIViewController<UINavigationSceneDelegate> *)viewControllerPopped) didPopInNavigationControllerWithAnimated:animatedArgument];
+      [((UIViewController<UINavigationCustomTransitionDelegate> *)viewControllerPopped) didPopInNavigationControllerWithAnimated:animatedArgument];
     }
   }
   return poppedViewControllers;
@@ -191,7 +192,7 @@
   [viewControllersPopping enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     if ([obj respondsToSelector:@selector(willPopInNavigationControllerWithAnimated:)]) {
       BOOL animatedArgument = obj == topViewController ? animated : NO;
-      [((UIViewController<UINavigationSceneDelegate> *)obj) willPopInNavigationControllerWithAnimated:animatedArgument];
+      [((UIViewController<UINavigationCustomTransitionDelegate> *)obj) willPopInNavigationControllerWithAnimated:animatedArgument];
     }
   }];
   
@@ -200,13 +201,13 @@
   [viewControllersPopping enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     if ([obj respondsToSelector:@selector(didPopInNavigationControllerWithAnimated:)]) {
       BOOL animatedArgument = obj == topViewController ? animated : NO;
-      [((UIViewController<UINavigationSceneDelegate> *)obj) didPopInNavigationControllerWithAnimated:animatedArgument];
+      [((UIViewController<UINavigationCustomTransitionDelegate> *)obj) didPopInNavigationControllerWithAnimated:animatedArgument];
     }
   }];
   
   if (topViewController == viewControllers.lastObject) {
     if ([topViewController respondsToSelector:@selector(viewControllerKeepingAppearWhenSetViewControllersWithAnimated:)]) {
-      [((UIViewController<UINavigationSceneDelegate> *)topViewController) viewControllerKeepingAppearWhenSetViewControllersWithAnimated:animated];
+      [((UIViewController<UINavigationCustomTransitionDelegate> *)topViewController) viewControllerKeepingAppearWhenSetViewControllersWithAnimated:animated];
     }
   }
 }
@@ -230,7 +231,7 @@
                                                                                                   target:nil
                                                                                                   action:NULL];
     } else {
-      UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)viewController;
+      UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)viewController;
       if ([vc respondsToSelector:@selector(backBarButtonItemTitleWithPreviousViewController:)]) {
         NSString *title = [vc backBarButtonItemTitleWithPreviousViewController:currentViewController];
         currentViewController.navigationItem.backBarButtonItem = [UINavigationButton barButtonItemWithType:UINavigationButtonTypeNormal

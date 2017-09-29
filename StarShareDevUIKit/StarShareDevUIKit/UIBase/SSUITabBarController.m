@@ -1,20 +1,20 @@
 //
-//  UITabBarScene.m
+//  SSUITabBarController.m
 //  XX_iOS_APP
 //
 //  Created by pmo on 2017/8/16.
 //  Copyright © 2017年 pmo. All rights reserved.
 //
 
-#import "UITabBarScene.h"
+#import "SSUITabBarController.h"
 #import "UIExtensions.h"
 #import "UICore.h"
 
-@interface UITabBarScene ()
+@interface SSUITabBarController ()
 
 @end
 
-@implementation UITabBarScene
+@implementation SSUITabBarController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {

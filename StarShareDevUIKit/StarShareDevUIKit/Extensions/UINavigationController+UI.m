@@ -1,13 +1,13 @@
 //
-//  UINavigationScene+UI.m
+//  UINavigationController+UI.m
 //  Project
 //
 //  Created by pmo on 2017/9/24.
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UINavigationScene+UI.h"
-#import "UIScene+UI.h"
+#import "UINavigationController+UI.h"
+#import "UIViewController+UI.h"
 #import "UICore.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
