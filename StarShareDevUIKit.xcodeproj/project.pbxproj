@@ -274,7 +274,6 @@
 				E51900E01F7DE3C500F280A0 /* UIColor+UI.m */,
 				E51900E11F7DE3C500F280A0 /* UIControl+UI.h */,
 				E51900E21F7DE3C500F280A0 /* UIControl+UI.m */,
-				E51900E31F7DE3C500F280A0 /* UIExtensions.h */,
 				E51900E41F7DE3C500F280A0 /* UIFont+UI.h */,
 				E51900E51F7DE3C500F280A0 /* UIFont+UI.m */,
 				E51900E61F7DE3C500F280A0 /* UIImage+UI.h */,
@@ -289,6 +288,7 @@
 				E51900EF1F7DE3C500F280A0 /* UITableScene+UI.m */,
 				E51900F41F7DE3C500F280A0 /* UIView+UI.h */,
 				E51900F51F7DE3C500F280A0 /* UIView+UI.m */,
+				E51900E31F7DE3C500F280A0 /* UIExtensions.h */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,7 +296,6 @@
 		E51900F61F7DE3C500F280A0 /* UIBase */ = {
 			isa = PBXGroup;
 			children = (
-				E51900F71F7DE3C500F280A0 /* UIBase.h */,
 				E51900F81F7DE3C500F280A0 /* UICollectionScene.h */,
 				E51900F91F7DE3C500F280A0 /* UICollectionScene.m */,
 				E51900FA1F7DE3C500F280A0 /* UIListScene.h */,
@@ -311,6 +310,7 @@
 				E51901031F7DE3C500F280A0 /* UITableCellScene.m */,
 				E51901041F7DE3C500F280A0 /* UITableScene.h */,
 				E51901051F7DE3C500F280A0 /* UITableScene.m */,
+				E51900F71F7DE3C500F280A0 /* UIBase.h */,
 			);
 			path = UIBase;
 			sourceTree = "<group>";
@@ -319,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				E51901081F7DE3C500F280A0 /* NavigationBarTransition */,
-				E519010E1F7DE3C500F280A0 /* UIComponents.h */,
 				E519010F1F7DE3C500F280A0 /* UICustomButton.h */,
 				E51901101F7DE3C500F280A0 /* UICustomButton.m */,
 				E51901111F7DE3C500F280A0 /* UICustomLable.h */,
@@ -336,6 +335,7 @@
 				E519011A1F7DE3C500F280A0 /* UINavigationButton.m */,
 				E519011B1F7DE3C500F280A0 /* UINavigationTitleView.h */,
 				E519011C1F7DE3C500F280A0 /* UINavigationTitleView.m */,
+				E519010E1F7DE3C500F280A0 /* UIComponents.h */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -356,12 +356,12 @@
 			isa = PBXGroup;
 			children = (
 				E519011E1F7DE3C500F280A0 /* UICommonDefines.h */,
-				E519011F1F7DE3C500F280A0 /* UICore.h */,
 				E51901201F7DE3C500F280A0 /* UIConfiguration.h */,
 				E51901211F7DE3C500F280A0 /* UIConfiguration.m */,
 				E51901221F7DE3C500F280A0 /* UIConfigurationMacros.h */,
 				E51901231F7DE3C500F280A0 /* UIHelper.h */,
 				E51901241F7DE3C500F280A0 /* UIHelper.m */,
+				E519011F1F7DE3C500F280A0 /* UICore.h */,
 			);
 			path = UICore;
 			sourceTree = "<group>";
