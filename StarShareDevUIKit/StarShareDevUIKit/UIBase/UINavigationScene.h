@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UINavigationScene : UINavigationController<UINavigationControllerDelegate>
+@interface UINavigationScene : UINavigationController<UINavigationSceneDelegate>
 - (void)didInitialized NS_REQUIRES_SUPER;
 @end
 

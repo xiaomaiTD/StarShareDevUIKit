@@ -6,9 +6,9 @@
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UICollectionScene.h"
+#import <UIKit/UIKit.h>
 
-@interface UICollectionScene (UI)
+@interface UICollectionView (UI)
 - (void)renderGlobalStyle;
 - (void)clearsSelection;
 - (void)reloadDataKeepingSelection;

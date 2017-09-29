@@ -10,8 +10,7 @@
 #import "UINavigationBar+Transition.h"
 #import "UICore.h"
 #import "UIExtensions.h"
-
-@class UIScene;
+#import "UIScene.h"
 
 @interface _UITransitionNavigationBar : UINavigationBar
 @end

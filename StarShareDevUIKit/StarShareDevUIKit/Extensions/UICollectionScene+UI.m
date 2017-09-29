@@ -9,7 +9,7 @@
 #import "UICollectionScene+UI.h"
 #import "UICore.h"
 
-@implementation UICollectionScene (UI)
+@implementation UICollectionView (UI)
 
 - (void)renderGlobalStyle
 {

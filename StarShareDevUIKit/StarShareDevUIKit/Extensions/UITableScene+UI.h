@@ -6,7 +6,7 @@
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UITableScene.h"
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, UITableCellScenePosition) {
   UITableCellScenePositionNone = -1, // 初始化用

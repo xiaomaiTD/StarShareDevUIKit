@@ -89,10 +89,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "StarShareDevUIKit/StarShareDevUIKit/StarShareDevUIKit.h"
+  #  s.source_files  = "StarShareDevUIKit/StarShareDevUIKit/StarShareDevUIKit.h"
 
   s.subspec "UICore" do |ss|
-    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UICore/*.{h,m}"
+    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UICore","StarShareDevUIKit/StarShareDevUIKit/Extensions"
   end
 
   # s.subspec "Extensions" do |ss|
@@ -120,7 +120,7 @@ Pod::Spec.new do |s|
 
   #  s.exclude_files = "Classes/Exclude"
 
-  s.public_header_files = "StarShareDevUIKit/StarShareDevUIKit/StarShareDevUIKit.h"
+  #  s.public_header_files = "StarShareDevUIKit/StarShareDevUIKit/StarShareDevUIKit.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
