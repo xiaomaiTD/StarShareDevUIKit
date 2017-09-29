@@ -9,7 +9,6 @@
 #import "UIConfiguration.h"
 #import "UICommonDefines.h"
 #import "UIConfiguration.h"
-#import "UIImage+UI.h"
 #import "UIHelper.h"
 
 @implementation UIConfiguration
@@ -102,12 +101,12 @@
   self.navBarTitleFont = nil;
   self.navBarBackButtonTitlePositionAdjustment = UIOffsetZero;
   self.navBarBackIndicatorImage = nil;
-  self.navBarCloseButtonImage = [UIImage imageWithShape:UIImageShapeNavClose size:CGSizeMake(16, 16) tintColor:self.navBarTintColor];
+  self.navBarCloseButtonImage = nil;
   
   self.navBarLoadingMarginRight = 3;
   self.navBarAccessoryViewMarginLeft = 5;
   self.navBarActivityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-  self.navBarAccessoryViewTypeDisclosureIndicatorImage = [[UIImage imageWithShape:UIImageShapeTriangle size:CGSizeMake(8, 5) tintColor:self.navBarTitleColor] imageWithOrientation:UIImageOrientationDown];
+  self.navBarAccessoryViewTypeDisclosureIndicatorImage = nil;
   
 #pragma mark - TabBar
   
@@ -278,10 +277,12 @@
     CGSize customBackIndicatorImageSize = _navBarBackIndicatorImage.size;
     if (!CGSizeEqualToSize(customBackIndicatorImageSize, systemBackIndicatorImageSize)) {
       CGFloat imageExtensionVerticalFloat = CGFloatGetCenter(systemBackIndicatorImageSize.height, customBackIndicatorImageSize.height);
-      _navBarBackIndicatorImage = [_navBarBackIndicatorImage imageWithSpacingExtensionInsets:UIEdgeInsetsMake(imageExtensionVerticalFloat,
-                                                                                                              0,
-                                                                                                              imageExtensionVerticalFloat,
-                                                                                                              systemBackIndicatorImageSize.width - customBackIndicatorImageSize.width)];
+      UIEdgeInsets insets = UIEdgeInsetsMake(imageExtensionVerticalFloat,
+                                              0,
+                                              imageExtensionVerticalFloat,
+                                              systemBackIndicatorImageSize.width -customBackIndicatorImageSize.width);
+      _navBarBackIndicatorImage = [UIConfiguration imageWithSpacingExtensionInsets:insets
+                                                                             image:_navBarBackIndicatorImage];
     }
     
     navBarAppearance.backIndicatorImage = _navBarBackIndicatorImage;
@@ -327,9 +328,8 @@
 - (void)setToolBarShadowImageColor:(UIColor *)toolBarShadowImageColor {
   _toolBarShadowImageColor = toolBarShadowImageColor;
   if (_toolBarShadowImageColor) {
-    UIImage *shadowImage = [UIImage imageWithColor:_toolBarShadowImageColor
-                                              size:CGSizeMake(1, 1 / [[UIScreen mainScreen] scale])
-                                      cornerRadius:0];
+    UIImage *shadowImage = [UIConfiguration imageWithColor:_toolBarShadowImageColor
+                                                      size:CGSizeMake(1, 1 / [[UIScreen mainScreen] scale])];
     [[UIToolbar appearance] setShadowImage:shadowImage forToolbarPosition:UIBarPositionAny];
     [[UIHelper visibleViewController].navigationController.toolbar setShadowImage:shadowImage forToolbarPosition:UIBarPositionAny];
   }
@@ -361,9 +361,8 @@
 - (void)setTabBarShadowImageColor:(UIColor *)tabBarShadowImageColor {
   _tabBarShadowImageColor = tabBarShadowImageColor;
   if (_tabBarShadowImageColor) {
-    UIImage *shadowImage = [UIImage imageWithColor:_tabBarShadowImageColor
-                                              size:CGSizeMake(1, 1 / [[UIScreen mainScreen] scale])
-                                      cornerRadius:0];
+    UIImage *shadowImage = [UIConfiguration imageWithColor:_tabBarShadowImageColor
+                                                      size:CGSizeMake(1, 1 / [[UIScreen mainScreen] scale])];
     [[UITabBar appearance] setShadowImage:shadowImage];
     [UIHelper visibleViewController].tabBarController.tabBar.shadowImage = shadowImage;
   }
@@ -403,6 +402,37 @@
       [obj setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
     }];
   }
+}
+
+#pragma mark - tools
+
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
+{
+  size = CGSizeFlatted(size);
+  CGContextInspectSize(size);
+  
+  UIImage *resultImage = nil;
+  color = color ? color : [UIColor whiteColor];
+  
+  UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetFillColorWithColor(context, color.CGColor);
+  CGContextFillRect(context, CGRectMakeWithSize(size));
+  
+  resultImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  return resultImage;
+}
+
++ (UIImage *)imageWithSpacingExtensionInsets:(UIEdgeInsets)extension image:(UIImage *)image
+{
+  CGSize contextSize = CGSizeMake(image.size.width + UIEdgeInsetsGetHorizontalValue(extension),
+                                  image.size.height + UIEdgeInsetsGetVerticalValue(extension));
+  UIGraphicsBeginImageContextWithOptions(contextSize, NO, image.scale);
+  [image drawAtPoint:CGPointMake(extension.left, extension.top)];
+  UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  return finalImage;
 }
 
 @end

@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/StarShare/StarShareDevUIKit.gitt", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/StarShare/StarShareDevUIKit.git", :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -95,27 +95,32 @@ Pod::Spec.new do |s|
     ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UICore/*.{h,m}"
   end
 
-  s.subspec "Extensions" do |ss|
-    ss.dependency "StarShareDevUIKit/UICore"
-    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/Extensions/*.{h,m}"
-  end
+  # s.subspec "Extensions" do |ss|
+  #   ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/Extensions/*.{h,m}"
+  #   ss.dependency "StarShareDevUIKit/UICore"
+  # end
 
-  s.subspec "UIComponents" do |ss|
-    ss.dependency "StarShareDevUIKit/UICore"
-    ss.dependency "StarShareDevUIKit/Extensions"
-    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/*.{h,m}"
-  end
+  # s.subspec "UIComponents" do |ss|
+  #   ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UIComponents/*.{h,m}"
+  #   ss.dependency "StarShareDevUIKit/UICore"
+  #   ss.dependency "StarShareDevUIKit/Extensions"
+  #   ss.subspec "NavigationBarTransition" do |sss|
+  #     sss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UIComponents/NavigationBarTransition/*.{h,m}"
+  #     sss.dependency "StarShareDevUIKit/UICore"
+  #     sss.dependency "StarShareDevUIKit/Extensions"
+  #   end
+  # end
 
-  s.subspec "UICore" do |ss|
-    ss.dependency "StarShareDevUIKit/UICore"
-    ss.dependency "StarShareDevUIKit/Extensions"
-    ss.dependency "StarShareDevUIKit/UIComponents"
-    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/*.{h,m}"
-  end
+  # s.subspec "UIBase" do |ss|
+  #   ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UIBase/*.{h,m}"
+  #   ss.dependency "StarShareDevUIKit/UICore"
+  #   ss.dependency "StarShareDevUIKit/Extensions"
+  #   ss.dependency "StarShareDevUIKit/UIComponents"
+  # end
 
   #  s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
+  s.public_header_files = "StarShareDevUIKit/StarShareDevUIKit/StarShareDevUIKit.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
