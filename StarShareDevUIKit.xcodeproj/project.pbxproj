@@ -160,6 +160,7 @@
 		E51901241F7DE3C500F280A0 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelper.m; sourceTree = "<group>"; };
 		E51901491F7DE68800F280A0 /* UIThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIThemeManager.m; sourceTree = "<group>"; };
 		E519014A1F7DE68900F280A0 /* UIThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIThemeManager.h; sourceTree = "<group>"; };
+		E5F9B0941F7E17F70090654A /* StarShareDevUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarShareDevUIKit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +250,7 @@
 				E51900D21F7DE3C500F280A0 /* Extensions */,
 				E51901061F7DE3C500F280A0 /* UIComponents */,
 				E51900F61F7DE3C500F280A0 /* UIBase */,
+				E5F9B0941F7E17F70090654A /* StarShareDevUIKit.h */,
 			);
 			path = StarShareDevUIKit;
 			sourceTree = "<group>";
