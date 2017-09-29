@@ -17,17 +17,16 @@ Pod::Spec.new do |s|
 
   s.name         = "StarShareDevUIKit"
   s.version      = "0.0.1"
-  s.summary      = "A short description of StarShareDevUIKit."
+  s.summary      = "UI Components for iOS ~"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  s.description  = <<-DESC
-                   DESC
+  s.description  = "UI Components for iOS of StarShareDevUIKit."
 
-  s.homepage     = "http://EXAMPLE/StarShareDevUIKit"
+  s.homepage     = "https://github.com/StarShare/StarShareDevUIKit"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -38,7 +37,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT (example)"
+  s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
@@ -52,7 +51,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "wangrui" => "wr@sunako.org" }
+  s.author             = { "wangrui" => "wangrui@bangbangbang.cn" }
   # Or just: s.author    = "wangrui"
   # s.authors            = { "wangrui" => "wr@sunako.org" }
   # s.social_media_url   = "http://twitter.com/wangrui"
@@ -64,7 +63,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  # s.platform     = :ios, "5.0"
+  s.platform     = :ios, "8.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
@@ -79,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "http://EXAMPLE/StarShareDevUIKit.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/StarShare/StarShareDevUIKit.gitt", :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -90,8 +89,31 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Classes", "Classes/**/*.{h,m}"
-  s.exclude_files = "Classes/Exclude"
+  s.source_files  = "StarShareDevUIKit/StarShareDevUIKit/StarShareDevUIKit.h"
+
+  s.subspec "UICore" do |ss|
+    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UICore/*.{h,m}"
+  end
+
+  s.subspec "Extensions" do |ss|
+    ss.dependency "StarShareDevUIKit/UICore"
+    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/Extensions/*.{h,m}"
+  end
+
+  s.subspec "UIComponents" do |ss|
+    ss.dependency "StarShareDevUIKit/UICore"
+    ss.dependency "StarShareDevUIKit/Extensions"
+    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/*.{h,m}"
+  end
+
+  s.subspec "UICore" do |ss|
+    ss.dependency "StarShareDevUIKit/UICore"
+    ss.dependency "StarShareDevUIKit/Extensions"
+    ss.dependency "StarShareDevUIKit/UIComponents"
+    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/*.{h,m}"
+  end
+
+  #  s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
 
@@ -117,7 +139,7 @@ Pod::Spec.new do |s|
   #
 
   # s.framework  = "SomeFramework"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
+  s.frameworks = "Foundation", "UIKit"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"
