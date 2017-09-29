@@ -7,9 +7,6 @@
 //
 
 #import "UIHelper.h"
-#import "UIScene.h"
-#import "UIScene+UI.h"
-#import "UIColor+UI.h"
 #import <objc/runtime.h>
 #import "UIConfigurationMacros.h"
 #import "UICommonDefines.h"
@@ -23,7 +20,7 @@
   
   UIGraphicsBeginImageContextWithOptions(size, YES, 0);
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGGradientRef gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), (CFArrayRef)@[(id)color.CGColor, (id)[color colorWithAlphaAddedToWhite:.86].CGColor], NULL);
+  CGGradientRef gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), (CFArrayRef)@[(id)color.CGColor, (id)[UIHelper __colorWithAlphaAddedToWhite:.86 color:color].CGColor], NULL);
   CGContextDrawLinearGradient(context, gradient, CGPointZero, CGPointMake(0, size.height), kCGGradientDrawsBeforeStartLocation);
   
   resultImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -33,13 +30,63 @@
   return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)];
 }
 
++ (UIColor *)__colorWithAlphaAddedToWhite:(CGFloat)alpha color:(UIColor *)color
+{
+  UIColor *fontColor = [color colorWithAlphaComponent:alpha];
+  
+  CGFloat r;
+  if (![color getRed:&r green:0 blue:0 alpha:0]) { r = 0;}
+  CGFloat g;
+  if (![color getRed:0 green:&g blue:0 alpha:0]) { g = 0;}
+  CGFloat b;
+  if (![color getRed:0 green:0 blue:&b alpha:0]) { b = 0;}
+  CGFloat a;
+  if (![color getRed:0 green:0 blue:0 alpha:&a]) { a = 0;}
+  
+  CGFloat rf;
+  if (![fontColor getRed:&rf green:0 blue:0 alpha:0]) { rf = 0;}
+  CGFloat gf;
+  if (![fontColor getRed:0 green:&gf blue:0 alpha:0]) { gf = 0;}
+  CGFloat bf;
+  if (![fontColor getRed:0 green:0 blue:&bf alpha:0]) { bf = 0;}
+  CGFloat af;
+  if (![fontColor getRed:0 green:0 blue:0 alpha:&af]) { af = 0;}
+  
+  CGFloat resultAlpha = af + a * (1 - af);
+  CGFloat resultRed = (rf * af + rf * a * (1 - af)) / resultAlpha;
+  CGFloat resultGreen = (gf * af + g * a * (1 - af)) / resultAlpha;
+  CGFloat resultBlue = (bf * af + b * a * (1 - af)) / resultAlpha;
+  return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:resultAlpha];
+}
+
 @end
 
 @implementation UIHelper (ViewController)
 + (nullable UIViewController *)visibleViewController {
   UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-  UIViewController *visibleViewController = [rootViewController visibleViewControllerIfExist];
+  UIViewController *visibleViewController = [UIHelper __visibleViewControllerIfExist:rootViewController];
   return visibleViewController;
+}
++ (UIViewController *)__visibleViewControllerIfExist:(UIViewController *)controller {
+  
+  if (controller.presentedViewController) {
+    return [UIHelper __visibleViewControllerIfExist:controller.presentedViewController];
+  }
+  
+  if ([self isKindOfClass:[UINavigationController class]]) {
+    return [UIHelper __visibleViewControllerIfExist:((UINavigationController *)self).visibleViewController];
+  }
+  
+  if ([self isKindOfClass:[UITabBarController class]]) {
+    return [UIHelper __visibleViewControllerIfExist:((UITabBarController *)self).selectedViewController];
+  }
+  
+  if (controller.isViewLoaded && controller.view.window) {
+    return controller;
+  } else {
+    NSLog(@"visibleViewControllerIfExist:，找不到可见的viewController。self = %@, window = %@", controller,controller.view.window);
+    return nil;
+  }
 }
 @end
 
