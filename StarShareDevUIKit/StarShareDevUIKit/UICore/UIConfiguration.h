@@ -79,12 +79,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) UIFont   *navBarTitleFont;
 @property(nonatomic, assign) UIOffset           navBarBackButtonTitlePositionAdjustment;
 @property(nonatomic, strong, nullable) UIImage  *navBarBackIndicatorImage;
-@property(nonatomic, strong) UIImage            *navBarCloseButtonImage;
+@property(nonatomic, strong, nullable) UIImage  *navBarCloseButtonImage;
 
 @property(nonatomic, assign) CGFloat            navBarLoadingMarginRight;
 @property(nonatomic, assign) CGFloat            navBarAccessoryViewMarginLeft;
 @property(nonatomic, assign) UIActivityIndicatorViewStyle navBarActivityIndicatorViewStyle;
-@property(nonatomic, strong) UIImage            *navBarAccessoryViewTypeDisclosureIndicatorImage;
 
 #pragma mark - TabBar
 

@@ -7,9 +7,6 @@
 //
 
 #import "UIHelper.h"
-#import "UIScene.h"
-#import "UIScene+UI.h"
-#import "UIColor+UI.h"
 #import <objc/runtime.h>
 #import "UIConfigurationMacros.h"
 #import "UICommonDefines.h"
@@ -18,19 +15,8 @@
 
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color {
   CGSize size = CGSizeMake(4, 88);// 适配 iPhone X
-  UIImage *resultImage = nil;
   color = color ? color : UIColorClear;
-  
-  UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-  CGContextRef context = UIGraphicsGetCurrentContext();
-  CGGradientRef gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), (CFArrayRef)@[(id)color.CGColor, (id)[color colorWithAlphaAddedToWhite:.86].CGColor], NULL);
-  CGContextDrawLinearGradient(context, gradient, CGPointZero, CGPointMake(0, size.height), kCGGradientDrawsBeforeStartLocation);
-  
-  resultImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  
-  CGGradientRelease(gradient);
-  return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)];
+  return __UIImageMake(size, color);
 }
 
 @end
@@ -38,8 +24,30 @@
 @implementation UIHelper (ViewController)
 + (nullable UIViewController *)visibleViewController {
   UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-  UIViewController *visibleViewController = [rootViewController visibleViewControllerIfExist];
+  UIViewController *visibleViewController = [self __visibleViewControllerIfExist:rootViewController];
   return visibleViewController;
+}
+
++ (UIViewController *)__visibleViewControllerIfExist:(UIViewController *)controller
+{
+  if (controller.presentedViewController) {
+    return [self __visibleViewControllerIfExist:controller.presentedViewController];
+  }
+  
+  if ([self isKindOfClass:[UINavigationController class]]) {
+    return [self __visibleViewControllerIfExist:((UINavigationController *)controller).visibleViewController];
+  }
+  
+  if ([self isKindOfClass:[UITabBarController class]]) {
+    return [self __visibleViewControllerIfExist:((UITabBarController *)controller).selectedViewController];
+  }
+  
+  if (controller.isViewLoaded && controller.view.window) {
+    return controller;
+  } else {
+    NSLog(@"visibleViewControllerIfExist:，找不到可见的viewController。self = %@, window = %@", controller,controller.view.window);
+    return nil;
+  }
 }
 @end
 

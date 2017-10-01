@@ -1,15 +1,15 @@
 //
-//  UITableCellScene.m
+//  SSUITableCell.m
 //  Project
 //
 //  Created by jearoc on 2017/9/26.
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UITableCellScene.h"
+#import "SSUITableCell.h"
 #import "UICore.h"
 
-@interface UITableCellScene() <UIScrollViewDelegate>
+@interface SSUITableCell() <UIScrollViewDelegate>
 @property(nonatomic, assign, readwrite) UITableCellScenePosition cellPosition;
 @property(nonatomic, assign, readwrite) UITableViewCellStyle style;
 @property(nonatomic, strong) UIImageView *defaultAccessoryImageView;
@@ -17,7 +17,7 @@
 @property(nonatomic, strong) UIView *defaultDetailDisclosureView;
 @end
 
-@implementation UITableCellScene
+@implementation SSUITableCell
 
 #pragma mark - 生命周期
 
@@ -344,7 +344,7 @@
 
 @end
 
-@implementation UITableCellScene (Hooks)
+@implementation SSUITableCell (Hooks)
 
 - (void)updateCellAppearanceWithIndexPath:(NSIndexPath *)indexPath {
   // 子类继承

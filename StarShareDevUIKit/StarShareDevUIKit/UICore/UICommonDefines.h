@@ -8,16 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import "UIHelper.h"
 
 #define ScreenScale ([[UIScreen mainScreen] scale])
 #define UIColorMake(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 #define UIColorMakeWithRGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a/1.0]
 #define UIFontMake(size) [UIFont systemFontOfSize:size]
 #define UIFontBoldMake(size) [UIFont boldSystemFontOfSize:size]
-#define UIFontMediumMake(fontSize) [UIFont fontWithName:[[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 ? @"PingFangSC-Medium" : @"HelveticaNeue-Medium" size:fontSize]
-#define UIImageMake(img) [UIImage imageNamed:img inBundle:nil compatibleWithTraitCollection:nil]
-#define UIImageMakeWithFile(name) UIImageMakeWithFileAndSuffix(name, @"png")
-#define UIImageMakeWithFileAndSuffix(name, suffix) [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.%@", [[NSBundle mainBundle] resourcePath], name, suffix]]
 
 #define PixelOne [UIHelper pixelOne]
 
@@ -49,6 +46,7 @@
 
 // 屏幕高度，跟横竖屏无关
 #define DEVICE_HEIGHT (IS_LANDSCAPE ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height)
+
 
 CG_INLINE void
 ReplaceMethod(Class _class, SEL _originSelector, SEL _newSelector) {
@@ -180,7 +178,6 @@ CGRectToFixed(CGRect rect, NSUInteger precision) {
   return result;
 }
 
-/// 计算view的垂直居中，传入父view和子view的frame，返回子view在垂直居中时的y值
 CG_INLINE CGFloat
 CGRectGetMinYVerticallyCenterInParentRect(CGRect parentRect, CGRect childRect) {
   return flatf((CGRectGetHeight(parentRect) - CGRectGetHeight(childRect)) / 2.0);
@@ -207,6 +204,24 @@ CGPointToFixed(CGPoint point, NSUInteger precision) {
   return result;
 }
 
+CG_INLINE CGRect
+CGRectInsetEdges(CGRect rect, UIEdgeInsets insets) {
+  rect.origin.x += insets.left;
+  rect.origin.y += insets.top;
+  rect.size.width -= UIEdgeInsetsGetHorizontalValue(insets);
+  rect.size.height -= UIEdgeInsetsGetVerticalValue(insets);
+  return rect;
+}
+
+CG_INLINE UIEdgeInsets
+UIEdgeInsetsConcat(UIEdgeInsets insets1, UIEdgeInsets insets2) {
+  insets1.top += insets2.top;
+  insets1.left += insets2.left;
+  insets1.bottom += insets2.bottom;
+  insets1.right += insets2.right;
+  return insets1;
+}
+
 CG_INLINE UIEdgeInsets
 UIEdgeInsetsSetTop(UIEdgeInsets insets, CGFloat top) {
   insets.top = flatfSpecificScale(top,0);
@@ -231,4 +246,26 @@ CG_INLINE UIEdgeInsets
 UIEdgeInsetsRemoveFloatMin(UIEdgeInsets insets) {
   UIEdgeInsets result = UIEdgeInsetsMake(removeFloatMin(insets.top), removeFloatMin(insets.left), removeFloatMin(insets.bottom), removeFloatMin(insets.right));
   return result;
+}
+
+#pragma mark --
+
+CG_INLINE UIImage *
+__UIImageMake(CGSize size,UIColor *color)
+{
+  size = CGSizeFlatted(size);
+  CGContextInspectSize(size);
+  
+  UIImage *resultImage = nil;
+  color = color ? color : [UIColor whiteColor];
+  
+  UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetFillColorWithColor(context, color.CGColor);
+  
+  CGContextFillRect(context, CGRectMakeWithSize(size));
+  
+  resultImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  return resultImage;
 }

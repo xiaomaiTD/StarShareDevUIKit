@@ -1,31 +1,31 @@
 //
-//  UIScene.m
+//  SSUIViewController.m
 //  XX_iOS_APP
 //
 //  Created by pmo on 2017/8/16.
 //  Copyright © 2017年 pmo. All rights reserved.
 //
 
-#import "UIScene.h"
+#import "SSUIViewController.h"
 #import "UIExtensions.h"
-#import "UINavigationScene.h"
+#import "SSUINavigationController.h"
 #import "UIComponents.h"
 #import "UICore.h"
 
-@interface UISceneHideKeyboardDelegateObject : NSObject <UIGestureRecognizerDelegate, UIKeyboardManagerDelegate>
-@property(nonatomic, weak) UIScene *scene;
-- (instancetype)initWithScene:(UIScene *)scene;
+@interface SSUIViewControllerHideKeyboardDelegateObject : NSObject <UIGestureRecognizerDelegate, UIKeyboardManagerDelegate>
+@property(nonatomic, weak) SSUIViewController *viewController;
+- (instancetype)initWithViewController:(SSUIViewController *)viewController;
 @end
 
-@interface UIScene (){
+@interface SSUIViewController (){
   UITapGestureRecognizer *_hideKeyboardTapGestureRecognizer;
   UIKeyboardManager *_hideKeyboardManager;
-  UISceneHideKeyboardDelegateObject *_hideKeyboadDelegateObject;
+  SSUIViewControllerHideKeyboardDelegateObject *_hideKeyboadDelegateObject;
 }
 @property(nonatomic,strong,readwrite) UINavigationTitleView *titleView;
 @end
 
-@implementation UIScene
+@implementation SSUIViewController
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
@@ -93,7 +93,7 @@
     }
   }
   
-  _hideKeyboadDelegateObject = [[UISceneHideKeyboardDelegateObject alloc] initWithScene:self];
+  _hideKeyboadDelegateObject = [[SSUIViewControllerHideKeyboardDelegateObject alloc] initWithViewController:self];
   _hideKeyboardTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:nil action:NULL];
   self.hideKeyboardTapGestureRecognizer.delegate = _hideKeyboadDelegateObject;
   self.hideKeyboardTapGestureRecognizer.enabled = NO;
@@ -219,7 +219,7 @@
 #pragma clang diagnostic pop
 @end
 
-@implementation UIScene (UIKeyboard)
+@implementation SSUIViewController (UIKeyboard)
 - (UITapGestureRecognizer *)hideKeyboardTapGestureRecognizer {
   return _hideKeyboardTapGestureRecognizer;
 }
@@ -231,11 +231,11 @@
 }
 @end
 
-@implementation UISceneHideKeyboardDelegateObject
+@implementation SSUIViewControllerHideKeyboardDelegateObject
 
-- (instancetype)initWithScene:(UIScene *)scene {
+- (instancetype)initWithViewController:(SSUIViewController *)viewController {
   if (self = [super init]) {
-    self.scene = scene;
+    self.viewController = viewController;
   }
   return self;
 }
@@ -243,7 +243,7 @@
 #pragma mark - <UIGestureRecognizerDelegate>
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-  if (gestureRecognizer != self.scene.hideKeyboardTapGestureRecognizer) {
+  if (gestureRecognizer != self.viewController.hideKeyboardTapGestureRecognizer) {
     return YES;
   }
   
@@ -260,27 +260,27 @@
     return NO;
   }
   
-  if ([self.scene shouldHideKeyboardWhenTouchInView:targetView]) {
-    [self.scene.view endEditing:YES];
+  if ([self.viewController shouldHideKeyboardWhenTouchInView:targetView]) {
+    [self.viewController.view endEditing:YES];
   }
   return NO;
 }
 
-#pragma mark - <QMUIKeyboardManagerDelegate>
+#pragma mark - <UIKeyboardManagerDelegate>
 
 - (void)keyboardWillShowWithUserInfo:(UIKeyboardUserInfo *)keyboardUserInfo {
-  if (![self.scene isViewLoadedAndVisible]) return;
-  BOOL hasOverrideMethod = [self.scene hasOverrideMethod:@selector(shouldHideKeyboardWhenTouchInView:) ofSuperclass:[UIScene class]];
-  self.scene.hideKeyboardTapGestureRecognizer.enabled = hasOverrideMethod;
+  if (![self.viewController isViewLoadedAndVisible]) return;
+  BOOL hasOverrideMethod = [self.viewController hasOverrideMethod:@selector(shouldHideKeyboardWhenTouchInView:) ofSuperclass:[SSUIViewController class]];
+  self.viewController.hideKeyboardTapGestureRecognizer.enabled = hasOverrideMethod;
 }
 
 - (void)keyboardWillHideWithUserInfo:(UIKeyboardUserInfo *)keyboardUserInfo {
-  self.scene.hideKeyboardTapGestureRecognizer.enabled = NO;
+  self.viewController.hideKeyboardTapGestureRecognizer.enabled = NO;
 }
 
 @end
 
-@implementation UIScene (Hooks)
+@implementation SSUIViewController (Hooks)
 - (void)initSubviews {}
 - (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
   self.navigationItem.titleView = self.titleView;

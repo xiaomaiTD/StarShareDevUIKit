@@ -1,26 +1,26 @@
 //
-//  UIListScene.m
+//  SSUIListViewController.m
 //  Project
 //
 //  Created by jearoc on 2017/9/26.
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UIListScene.h"
+#import "SSUIListViewController.h"
 #import "UIComponents.h"
 #import "UIExtensions.h"
 #import "UICore.h"
 
-const UIEdgeInsets UIListSceneInitialContentInsetNotSet = {-1, -1, -1, -1};
+const UIEdgeInsets SSUIListViewControllerInitialContentInsetNotSet = {-1, -1, -1, -1};
 const NSInteger kSectionHeaderFooterLabelTag = 1024;
 
-@interface UIListScene ()
-@property(nonatomic, strong, readwrite) UITableScene *tableView;
+@interface SSUIListViewController ()
+@property(nonatomic, strong, readwrite) SSUITableView *tableView;
 @property(nonatomic, assign) BOOL hasSetInitialContentInset;
 @property(nonatomic, assign) BOOL hasHideTableHeaderViewInitial;
 @end
 
-@implementation UIListScene
+@implementation SSUIListViewController
 
 #pragma mark - 生命周期
 
@@ -49,8 +49,8 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
 - (void)didInitializedWithStyle:(UITableViewStyle)style {
   _style = style;
   self.hasHideTableHeaderViewInitial = NO;
-  self.tableViewInitialContentInset = UIListSceneInitialContentInsetNotSet;
-  self.tableViewInitialScrollIndicatorInsets = UIListSceneInitialContentInsetNotSet;
+  self.tableViewInitialContentInset = SSUIListViewControllerInitialContentInsetNotSet;
+  self.tableViewInitialScrollIndicatorInsets = SSUIListViewControllerInitialContentInsetNotSet;
   
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(handleThemeChangedNotification:)
@@ -133,7 +133,7 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
       // 默认和tableView.contentInset一致
       self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     }
-    [self.tableView scrollToTop];
+    [self.tableView scrollToTopAnimated:NO];
     self.hasSetInitialContentInset = YES;
   }
   
@@ -144,7 +144,7 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
 
 #pragma mark - 工具方法
 
-- (UITableScene *)tableView {
+- (SSUITableView *)tableView {
   if (!_tableView) {
     [self loadViewIfNeeded];
   }
@@ -177,12 +177,12 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
 }
 
 - (BOOL)shouldAdjustTableViewContentInsetsInitially {
-  BOOL shouldAdjust = !UIEdgeInsetsEqualToEdgeInsets(self.tableViewInitialContentInset, UIListSceneInitialContentInsetNotSet);
+  BOOL shouldAdjust = !UIEdgeInsetsEqualToEdgeInsets(self.tableViewInitialContentInset, SSUIListViewControllerInitialContentInsetNotSet);
   return shouldAdjust;
 }
 
 - (BOOL)shouldAdjustTableViewScrollIndicatorInsetsInitially {
-  BOOL shouldAdjust = !UIEdgeInsetsEqualToEdgeInsets(self.tableViewInitialScrollIndicatorInsets, UIListSceneInitialContentInsetNotSet);
+  BOOL shouldAdjust = !UIEdgeInsetsEqualToEdgeInsets(self.tableViewInitialScrollIndicatorInsets, SSUIListViewControllerInitialContentInsetNotSet);
   return shouldAdjust;
 }
 
@@ -231,7 +231,7 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
   [super didReceiveMemoryWarning];
 }
 
-#pragma mark - <UITableSceneDelegate, UITableSceneDataSource>
+#pragma mark - <SSUITableViewDelegate, SSUITableViewDataSource>
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return 1;
@@ -333,10 +333,10 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
 
 @end
 
-@implementation UIListScene (Hooks)
+@implementation SSUIListViewController (Hooks)
 - (void)initTableView {
   if (!_tableView) {
-    _tableView = [[UITableScene alloc] initWithFrame:self.view.bounds style:self.style];
+    _tableView = [[SSUITableView alloc] initWithFrame:self.view.bounds style:self.style];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];

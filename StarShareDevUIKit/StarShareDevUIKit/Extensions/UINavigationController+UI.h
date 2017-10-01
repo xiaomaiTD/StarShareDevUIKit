@@ -1,5 +1,5 @@
 //
-//  UINavigationScene+UI.h
+//  UINavigationController+UI.h
 //  Project
 //
 //  Created by pmo on 2017/9/24.
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)forceEnableInteractivePopGestureRecognizer;
 @end
 
-@protocol UINavigationSceneDelegate <NSObject>
+@protocol UINavigationCustomTransitionDelegate <NSObject>
 @required
 - (BOOL)shouldSetStatusBarStyleLight;
 - (BOOL)preferredNavigationBarHidden;

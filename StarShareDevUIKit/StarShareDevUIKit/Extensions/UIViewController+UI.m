@@ -1,13 +1,13 @@
 //
-//  UIScene+UI.m
+//  UIViewController+UI.m
 //  Project
 //
 //  Created by jearoc on 2017/9/25.
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UIScene+UI.h"
-#import "UINavigationScene+UI.h"
+#import "UIViewController+UI.h"
+#import "UINavigationController+UI.h"
 #import "NSObject+UI.h"
 #import <objc/message.h>
 #import <objc/runtime.h>

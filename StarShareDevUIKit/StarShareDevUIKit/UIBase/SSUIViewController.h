@@ -1,5 +1,5 @@
 //
-//  UIScene.h
+//  SSUIViewController.h
 //  XX_iOS_APP
 //
 //  Created by pmo on 2017/8/16.
@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UINavigationScene.h"
+#import "SSUINavigationController.h"
 #import "UIComponents.h"
 #import "UIExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIScene : UIViewController<UINavigationSceneDelegate>
+@interface SSUIViewController : UIViewController<UINavigationCustomTransitionDelegate>
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 - (void)didInitialized NS_REQUIRES_SUPER;
@@ -43,13 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)layoutEmptyView;
 @end
 
-@interface UIScene (UIKeyboard)
+@interface SSUIViewController (UIKeyboard)
 @property(nonatomic, strong, readonly) UITapGestureRecognizer *hideKeyboardTapGestureRecognizer;
 @property(nonatomic, strong, readonly) UIKeyboardManager *hideKeyboardManager;
 - (BOOL)shouldHideKeyboardWhenTouchInView:(UIView *)view;
 @end
 
-@interface UIScene (Hooks)
+@interface SSUIViewController (Hooks)
 - (void)initSubviews NS_REQUIRES_SUPER;
 - (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated;
 - (void)setToolbarItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated;

@@ -1,15 +1,15 @@
 //
-//  UITableScene.m
+//  SSUITableView.m
 //  Project
 //
 //  Created by jearoc on 2017/9/21.
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UITableScene.h"
+#import "SSUITableView.h"
 #import "UIExtensions.h"
 
-@implementation UITableScene
+@implementation SSUITableView
 
 @dynamic delegate;
 @dynamic dataSource;

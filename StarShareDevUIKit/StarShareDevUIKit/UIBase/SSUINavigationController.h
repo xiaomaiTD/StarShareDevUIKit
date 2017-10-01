@@ -1,5 +1,5 @@
 //
-//  UITabBarScene.h
+//  SSUINavigationController.h
 //  XX_iOS_APP
 //
 //  Created by pmo on 2017/8/16.
@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UITabBarScene : UITabBarController
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SSUINavigationController : UINavigationController<UINavigationControllerDelegate>
 - (void)didInitialized NS_REQUIRES_SUPER;
 @end
+
+NS_ASSUME_NONNULL_END

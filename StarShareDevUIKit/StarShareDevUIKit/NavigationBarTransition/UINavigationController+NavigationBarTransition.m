@@ -11,8 +11,6 @@
 #import "UICore.h"
 #import "UIExtensions.h"
 
-@class UIScene;
-
 @interface _UITransitionNavigationBar : UINavigationBar
 @end
 
@@ -183,7 +181,7 @@
 #pragma mark - 工具方法
 
 - (BOOL)respondUINavigationControllerDelegate {
-  return [[self class] conformsToProtocol:@protocol(UINavigationSceneDelegate)];
+  return [[self class] conformsToProtocol:@protocol(UINavigationCustomTransitionDelegate)];
 }
 
 - (void)renderNavigationStyleInViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -193,7 +191,7 @@
   }
   
   if (viewController.respondUINavigationControllerDelegate) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)viewController;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)viewController;
     
     // 控制界面的状态栏颜色
     if ([vc shouldSetStatusBarStyleLight]) {
@@ -244,13 +242,12 @@
     }
     
     // 导航栏title的颜色
-    if ([vc isKindOfClass:[UIScene class]]) {
-      UIScene *scene = (UIScene *)vc;
-      if ([scene respondsToSelector:@selector(titleViewTintColor)]) {
-        UIColor *tintColor = [scene titleViewTintColor];
-        scene.titleView.tintColor = tintColor;
+    if ([vc isKindOfClass:NSClassFromString(@"SSUIViewController")]) {
+      if ([vc respondsToSelector:@selector(titleViewTintColor)]) {
+        UIColor *tintColor = [vc performSelector:@selector(titleViewTintColor)];
+        [vc setValue:tintColor forKeyPath:@"titleView.tintColor"];
       } else {
-        scene.titleView.tintColor = NavBarTitleColor;
+        [vc setValue:NavBarTitleColor forKeyPath:@"titleView.tintColor"];
       }
     }
   }
@@ -268,7 +265,7 @@
 - (BOOL)respondCustomNavigationBarTransitionWhenPushAppearing {
   BOOL respondPushAppearing = NO;
   if ([self respondUINavigationControllerDelegate]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     if ([vc respondsToSelector:@selector(shouldCustomNavigationBarTransitionWhenPushAppearing)]) {
       respondPushAppearing = YES;
     }
@@ -279,7 +276,7 @@
 - (BOOL)respondCustomNavigationBarTransitionWhenPushDisappearing {
   BOOL respondPushDisappearing = NO;
   if ([self respondUINavigationControllerDelegate]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     if ([vc respondsToSelector:@selector(shouldCustomNavigationBarTransitionWhenPushDisappearing)]) {
       respondPushDisappearing = YES;
     }
@@ -290,7 +287,7 @@
 - (BOOL)respondCustomNavigationBarTransitionWhenPopAppearing {
   BOOL respondPopAppearing = NO;
   if ([self respondUINavigationControllerDelegate]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     if ([vc respondsToSelector:@selector(shouldCustomNavigationBarTransitionWhenPopAppearing)]) {
       respondPopAppearing = YES;
     }
@@ -301,7 +298,7 @@
 - (BOOL)respondCustomNavigationBarTransitionWhenPopDisappearing {
   BOOL respondPopDisappearing = NO;
   if ([self respondUINavigationControllerDelegate]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     if ([vc respondsToSelector:@selector(shouldCustomNavigationBarTransitionWhenPopDisappearing)]) {
       respondPopDisappearing = YES;
     }
@@ -312,7 +309,7 @@
 - (BOOL)respondCustomNavigationBarTransitionIfBarHiddenable {
   BOOL respondIfBarHiddenable = NO;
   if ([self respondUINavigationControllerDelegate]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     if ([vc respondsToSelector:@selector(shouldCustomNavigationBarTransitionIfBarHiddenable)]) {
       respondIfBarHiddenable = YES;
     }
@@ -323,7 +320,7 @@
 - (BOOL)respondCustomNavigationBarTransitionWithBarHiddenState {
   BOOL respondWithBarHidden = NO;
   if ([self respondUINavigationControllerDelegate]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     if ([vc respondsToSelector:@selector(preferredNavigationBarHidden)]) {
       respondWithBarHidden = YES;
     }
@@ -335,7 +332,7 @@
 
 - (BOOL)canCustomNavigationBarTransitionWhenPushAppearing {
   if ([self respondCustomNavigationBarTransitionWhenPushAppearing]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     return [vc shouldCustomNavigationBarTransitionWhenPushAppearing];
   }
   return NO;
@@ -343,7 +340,7 @@
 
 - (BOOL)canCustomNavigationBarTransitionWhenPushDisappearing {
   if ([self respondCustomNavigationBarTransitionWhenPushDisappearing]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     return [vc shouldCustomNavigationBarTransitionWhenPushDisappearing];
   }
   return NO;
@@ -351,7 +348,7 @@
 
 - (BOOL)canCustomNavigationBarTransitionWhenPopAppearing {
   if ([self respondCustomNavigationBarTransitionWhenPopAppearing]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     return [vc shouldCustomNavigationBarTransitionWhenPopAppearing];
   }
   return NO;
@@ -359,7 +356,7 @@
 
 - (BOOL)canCustomNavigationBarTransitionWhenPopDisappearing {
   if ([self respondCustomNavigationBarTransitionWhenPopDisappearing]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     return [vc shouldCustomNavigationBarTransitionWhenPopDisappearing];
   }
   return NO;
@@ -367,7 +364,7 @@
 
 - (BOOL)canCustomNavigationBarTransitionIfBarHiddenable {
   if ([self respondCustomNavigationBarTransitionIfBarHiddenable]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     return [vc shouldCustomNavigationBarTransitionIfBarHiddenable];
   }
   return NO;
@@ -375,7 +372,7 @@
 
 - (BOOL)hideNavigationBarWhenTransitioning {
   if ([self respondCustomNavigationBarTransitionWithBarHiddenState]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     BOOL hidden = [vc preferredNavigationBarHidden];
     return hidden;
   }
@@ -385,7 +382,7 @@
 - (UIColor *)containerViewBackgroundColor {
   UIColor *backgroundColor = UIColorWhite;
   if ([self respondUINavigationControllerDelegate]) {
-    UIViewController<UINavigationSceneDelegate> *vc = (UIViewController<UINavigationSceneDelegate> *)self;
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
     if ([vc respondsToSelector:@selector(containerViewBackgroundColorWhenTransitioning)]) {
       backgroundColor = [vc containerViewBackgroundColorWhenTransitioning];
     }

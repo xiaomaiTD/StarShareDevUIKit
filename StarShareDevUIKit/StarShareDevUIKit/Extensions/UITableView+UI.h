@@ -1,12 +1,12 @@
 //
-//  UITableScene+UI.h
+//  UITableView+UI.h
 //  Project
 //
 //  Created by jearoc on 2017/9/26.
 //  Copyright © 2017年 jearoc. All rights reserved.
 //
 
-#import "UITableScene.h"
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, UITableCellScenePosition) {
   UITableCellScenePositionNone = -1, // 初始化用

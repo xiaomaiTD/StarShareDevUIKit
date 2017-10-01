@@ -1,5 +1,5 @@
 //
-//  UIScene+UI.h
+//  UIViewController+UI.h
 //  Project
 //
 //  Created by jearoc on 2017/9/25.
@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIScene.h"
+#import "UINavigationController+UI.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol UINavigationControllerBackButtonHandlerProtocol;
 
 @interface UIViewController (UI)
 @property(nullable, nonatomic, weak, readonly) UIViewController *previousViewController;
