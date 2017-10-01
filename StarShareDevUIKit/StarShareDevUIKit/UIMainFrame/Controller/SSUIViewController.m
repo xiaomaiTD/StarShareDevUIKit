@@ -60,7 +60,6 @@
                                            selector:@selector(significantTimeChange:)
                                                name:UIApplicationSignificantTimeChangeNotification
                                              object:nil];
-  self.autorotate = YES;
   self.supportedOrientationMask = SupportedOrientationMask;
 }
 
@@ -190,7 +189,7 @@
 #pragma mark - 屏幕旋转
 
 - (BOOL)shouldAutorotate {
-  return self.autorotate;
+  return YES;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {

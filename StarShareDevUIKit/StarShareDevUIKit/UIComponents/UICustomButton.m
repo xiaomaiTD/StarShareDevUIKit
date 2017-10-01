@@ -96,7 +96,7 @@
     case UIButtonImagePositionLeft:
     case UIButtonImagePositionRight: {
       // 图片和文字水平排版时，高度以文字或图片的最大高度为最终高度
-      // 注意这里有一个和系统不一致的行为：当 titleLabel 为多行时，系统的 sizeThatFits: 计算结果固定是单行的，所以当 QMUIButtonImagePositionLeft 并且titleLabel 多行的情况下，QMUIButton 计算的结果与系统不一致
+      // 注意这里有一个和系统不一致的行为：当 titleLabel 为多行时，系统的 sizeThatFits: 计算结果固定是单行的，所以当 UIButtonImagePositionLeft 并且titleLabel 多行的情况下，UICustomButton 计算的结果与系统不一致
       
       if (isImageViewShowing) {
         CGFloat imageLimitHeight = contentLimitSize.height - UIEdgeInsetsGetVerticalValue(self.imageEdgeInsets);

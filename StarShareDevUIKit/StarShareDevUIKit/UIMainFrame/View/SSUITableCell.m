@@ -210,7 +210,7 @@
   }
 }
 
-// 重写accessoryType，如果是UITableViewCellAccessoryDisclosureIndicator类型的，则使用 QMUIConfigurationTemplate.m 配置表里的图片
+// 重写accessoryType，如果是UITableViewCellAccessoryDisclosureIndicator类型的，则使用 UIConfigurationTemplate.m 配置表里的图片
 - (void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType {
   [super setAccessoryType:accessoryType];
   

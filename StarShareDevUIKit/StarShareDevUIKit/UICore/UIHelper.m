@@ -9,6 +9,7 @@
 #import "UIHelper.h"
 #import "UIExtensions.h"
 #import <objc/runtime.h>
+#import <AVFoundation/AVFoundation.h>
 #import "UIConfigurationMacros.h"
 #import "UICommonDefines.h"
 
@@ -38,34 +39,6 @@
   UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
   UIViewController *visibleViewController = [rootViewController visibleViewControllerIfExist];
   return visibleViewController;
-}
-@end
-
-@implementation UIHelper (UIApplication)
-+ (void)renderStatusBarStyleDark {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-#pragma clang diagnostic pop
-}
-
-+ (void)renderStatusBarStyleLight {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-#pragma clang diagnostic pop
-}
-
-+ (void)dimmedApplicationWindow {
-  UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
-  window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-  [window tintColorDidChange];
-}
-
-+ (void)resetDimmedApplicationWindow {
-  UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
-  window.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-  [window tintColorDidChange];
 }
 @end
 
@@ -152,27 +125,6 @@ static char kAssociatedObjectKey_LastKeyboardHeight;
   UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
   tabBarItem.selectedImage = selectedImage;
   return tabBarItem;
-}
-@end
-
-@implementation UIHelper
-+ (instancetype)sharedInstance {
-  static dispatch_once_t onceToken;
-  static UIHelper *instance = nil;
-  dispatch_once(&onceToken,^{
-    instance = [[super allocWithZone:NULL] init];
-    [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-  });
-  return instance;
-}
-
-+ (id)allocWithZone:(struct _NSZone *)zone{
-  return [self sharedInstance];
-}
-
-- (void)dealloc {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
 
@@ -316,5 +268,202 @@ static CGFloat pixelOne = -1.0f;
   return NO;
 }
 
+@end
+
+@implementation UIHelper (AudioSession)
+
++ (void)redirectAudioRouteWithSpeaker:(BOOL)speaker temporary:(BOOL)temporary {
+  if (![[AVAudioSession sharedInstance].category isEqualToString:AVAudioSessionCategoryPlayAndRecord]) {
+    return;
+  }
+  if (temporary) {
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:speaker ? AVAudioSessionPortOverrideSpeaker : AVAudioSessionPortOverrideNone error:nil];
+  } else {
+    [[AVAudioSession sharedInstance] setCategory:[AVAudioSession sharedInstance].category withOptions:speaker ? AVAudioSessionCategoryOptionDefaultToSpeaker : 0 error:nil];
+  }
+}
+
++ (void)setAudioSessionCategory:(nullable NSString *)category {
+  
+  // 如果不属于系统category，返回
+  if (category != AVAudioSessionCategoryAmbient &&
+      category != AVAudioSessionCategorySoloAmbient &&
+      category != AVAudioSessionCategoryPlayback &&
+      category != AVAudioSessionCategoryRecord &&
+      category != AVAudioSessionCategoryPlayAndRecord &&
+      BeginIgnoreDeprecatedWarning
+      category != AVAudioSessionCategoryAudioProcessing)
+      EndIgnoreDeprecatedWarning
+  {
+    return;
+  }
+  
+  [[AVAudioSession sharedInstance] setCategory:category error:nil];
+}
+
++ (UInt32)categoryForLowVersionWithCategory:(NSString *)category {
+  if ([category isEqualToString:AVAudioSessionCategoryAmbient]) {
+    return kAudioSessionCategory_AmbientSound;
+  }
+  if ([category isEqualToString:AVAudioSessionCategorySoloAmbient]) {
+    return kAudioSessionCategory_SoloAmbientSound;
+  }
+  if ([category isEqualToString:AVAudioSessionCategoryPlayback]) {
+    return kAudioSessionCategory_MediaPlayback;
+  }
+  if ([category isEqualToString:AVAudioSessionCategoryRecord]) {
+    return kAudioSessionCategory_RecordAudio;
+  }
+  if ([category isEqualToString:AVAudioSessionCategoryPlayAndRecord]) {
+    return kAudioSessionCategory_PlayAndRecord;
+  }
+  BeginIgnoreDeprecatedWarning
+  if ([category isEqualToString:AVAudioSessionCategoryAudioProcessing]) {
+    return kAudioSessionCategory_AudioProcessing;
+  }
+  EndIgnoreDeprecatedWarning
+  return kAudioSessionCategory_AmbientSound;
+}
+
+@end
+
+@implementation UIHelper (Orientation)
+
+- (void)handleDeviceOrientationNotification:(NSNotification *)notification {
+  [UIHelper sharedInstance].orientationBeforeChangingByHelper = UIDeviceOrientationUnknown;
+}
+
++ (BOOL)rotateToDeviceOrientation:(UIDeviceOrientation)orientation {
+  if ([UIDevice currentDevice].orientation == orientation) {
+    [UIViewController attemptRotationToDeviceOrientation];
+    return NO;
+  }
+  
+  [[UIDevice currentDevice] setValue:@(orientation) forKey:@"orientation"];
+  return YES;
+}
+
+static char kAssociatedObjectKey_orientationBeforeChangedByHelper;
+- (void)setOrientationBeforeChangingByHelper:(UIDeviceOrientation)orientationBeforeChangedByHelper {
+  objc_setAssociatedObject(self,
+                           &kAssociatedObjectKey_orientationBeforeChangedByHelper,
+                           @(orientationBeforeChangedByHelper),
+                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIDeviceOrientation)orientationBeforeChangingByHelper {
+  return [((NSNumber *)objc_getAssociatedObject(self,
+                                                &kAssociatedObjectKey_orientationBeforeChangedByHelper)) integerValue];
+}
+
++ (CGFloat)angleForTransformWithInterfaceOrientation:(UIInterfaceOrientation)orientation {
+  CGFloat angle;
+  switch (orientation)
+  {
+    case UIInterfaceOrientationPortraitUpsideDown:
+      angle = M_PI;
+      break;
+    case UIInterfaceOrientationLandscapeLeft:
+      angle = -M_PI_2;
+      break;
+    case UIInterfaceOrientationLandscapeRight:
+      angle = M_PI_2;
+      break;
+    default:
+      angle = 0.0;
+      break;
+  }
+  return angle;
+}
+
++ (CGAffineTransform)transformForCurrentInterfaceOrientation {
+  return [UIHelper transformWithInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
++ (CGAffineTransform)transformWithInterfaceOrientation:(UIInterfaceOrientation)orientation {
+  CGFloat angle = [UIHelper angleForTransformWithInterfaceOrientation:orientation];
+  return CGAffineTransformMakeRotation(angle);
+}
+
+@end
+
+@implementation UIHelper (UIApplication)
++ (void)renderStatusBarStyleDark {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+#pragma clang diagnostic pop
+}
+
++ (void)renderStatusBarStyleLight {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+#pragma clang diagnostic pop
+}
+
++ (void)dimmedApplicationWindow {
+  UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+  window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+  [window tintColorDidChange];
+}
+
++ (void)resetDimmedApplicationWindow {
+  UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+  window.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+  [window tintColorDidChange];
+}
+@end
+
+NSString *const UISpringAnimationKey = @"UISpringAnimationKey";
+@implementation UIHelper (Animation)
+
++ (void)actionSpringAnimationForView:(UIView *)view {
+  NSTimeInterval duration = 0.6;
+  CAKeyframeAnimation *springAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+  springAnimation.values = @[@.85, @1.15, @.9, @1.0,];
+  springAnimation.keyTimes = @[@(0.0 / duration), @(0.15 / duration) , @(0.3 / duration), @(0.45 / duration),];
+  springAnimation.duration = duration;
+  [view.layer addAnimation:springAnimation forKey:UISpringAnimationKey];
+}
+
+@end
+
+@implementation UIHelper (Log)
+
+- (void)printLogWithCalledFunction:(nonnull const char *)func log:(nonnull NSString *)log, ... {
+  va_list args;
+  va_start(args, log);
+  NSString *logString = [[NSString alloc] initWithFormat:log arguments:args];
+  if ([self.helperDelegate respondsToSelector:@selector(UIHelperPrintLog:)]) {
+    [self.helperDelegate UIHelperPrintLog:[NSString stringWithFormat:@"StarShareDevUIKit - %@. Called By %s", logString, func]];
+  } else {
+    NSLog(@"StarShareDevUIKit - %@. Called By %s", logString, func);
+  }
+  va_end(args);
+}
+
+@end
+
+@implementation UIHelper
++ (instancetype)sharedInstance {
+  static dispatch_once_t onceToken;
+  static UIHelper *instance = nil;
+  dispatch_once(&onceToken,^{
+    instance = [[super allocWithZone:NULL] init];
+    [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(handleDeviceOrientationNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
+  });
+  return instance;
+}
+
++ (id)allocWithZone:(struct _NSZone *)zone{
+  return [self sharedInstance];
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end
 

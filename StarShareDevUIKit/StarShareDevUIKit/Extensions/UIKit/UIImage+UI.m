@@ -239,8 +239,8 @@
     contextSize = CGSizeMake(contextSize.height, contextSize.width);
   }
   
-  contextSize = CGSizeMake(flatfSpecificScale(contextSize.width, self.scale),
-                           flatfSpecificScale(contextSize.height, self.scale));
+  contextSize = CGSizeMake(flatSpecificScale(contextSize.width, self.scale),
+                           flatSpecificScale(contextSize.height, self.scale));
   
   UIGraphicsBeginImageContextWithOptions(contextSize, NO, self.scale);
   CGContextRef context = UIGraphicsGetCurrentContext();

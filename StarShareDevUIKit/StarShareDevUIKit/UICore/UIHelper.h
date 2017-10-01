@@ -11,8 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol UIHelperDelegate <NSObject>
+@required
+- (void)UIHelperPrintLog:(nonnull NSString *)log;
+@end
+
 @interface UIHelper : NSObject
 + (instancetype _Nonnull)sharedInstance;
+@property(nullable, nonatomic, weak) id<UIHelperDelegate> helperDelegate;
 @end
 
 @interface UIHelper (Theme)
@@ -66,13 +72,32 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UIHelper (UIGraphic)
-/// 获取一像素的大小
 + (CGFloat)pixelOne;
-/// 判断size是否超出范围
 + (void)inspectContextSize:(CGSize)size;
-/// context是否合法
 + (void)inspectContextIfInvalidatedInDebugMode:(CGContextRef _Nonnull)context;
 + (BOOL)inspectContextIfInvalidatedInReleaseMode:(CGContextRef _Nonnull)context;
+@end
+
+@interface UIHelper (AudioSession)
++ (void)redirectAudioRouteWithSpeaker:(BOOL)speaker temporary:(BOOL)temporary;
++ (void)setAudioSessionCategory:(nullable NSString *)category;
+@end
+
+extern NSString * __nonnull const UISpringAnimationKey;
+@interface UIHelper (Animation)
++ (void)actionSpringAnimationForView:(nonnull UIView *)view;
+@end
+
+@interface UIHelper (Orientation)
++ (BOOL)rotateToDeviceOrientation:(UIDeviceOrientation)orientation;
+@property(nonatomic, assign) UIDeviceOrientation orientationBeforeChangingByHelper;
++ (CGFloat)angleForTransformWithInterfaceOrientation:(UIInterfaceOrientation)orientation;
++ (CGAffineTransform)transformForCurrentInterfaceOrientation;
++ (CGAffineTransform)transformWithInterfaceOrientation:(UIInterfaceOrientation)orientation;
+@end
+
+@interface UIHelper (Log)
+- (void)printLogWithCalledFunction:(nonnull const char *)func log:(nonnull NSString *)log, ... NS_FORMAT_FUNCTION(2,3);
 @end
 
 NS_ASSUME_NONNULL_END

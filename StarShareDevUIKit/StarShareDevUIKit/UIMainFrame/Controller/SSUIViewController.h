@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 - (void)didInitialized NS_REQUIRES_SUPER;
-@property(nonatomic, assign) BOOL autorotate;
 @property(nonatomic, assign) UIInterfaceOrientationMask supportedOrientationMask;
 @property(nonatomic, strong, readonly) UINavigationTitleView *titleView;
 @property(nonatomic, strong) UIEmptyView *emptyView;

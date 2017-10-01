@@ -14,12 +14,12 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(description), @selector(qmui_description));
+    ReplaceMethod([self class], @selector(description), @selector(ss_description));
   });
 }
 
-- (NSString *)qmui_description {
-  return [NSString stringWithFormat:@"%@, contentInset = %@", [self qmui_description], NSStringFromUIEdgeInsets(self.contentInset)];
+- (NSString *)ss_description {
+  return [NSString stringWithFormat:@"%@, contentInset = %@", [self ss_description], NSStringFromUIEdgeInsets(self.contentInset)];
 }
 
 - (BOOL)alreadyAtTop {

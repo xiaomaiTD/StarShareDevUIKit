@@ -273,7 +273,7 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
   return self.shouldCountingNonASCIICharacterAsTwo ? string.lengthWhenCountingNonASCIICharacterAsTwo : string.length;
 }
 
-#pragma mark - <QMUITextViewDelegate>
+#pragma mark - <UITextViewDelegate>
 
 - (BOOL)textView:(SSUITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
   if (self.debug) NSLog(@"textView.text(%@ | %@) = %@\nmarkedTextRange = %@\nrange = %@\ntext = %@", @(textView.text.length), @(textView.text.lengthWhenCountingNonASCIICharacterAsTwo), textView.text, textView.markedTextRange, NSStringFromRange(range), text);
@@ -390,7 +390,7 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
   return result;
 }
 
-// 下面这两个方法比较特殊，无法通过 forwardInvocation: 的方式把消息发送给 self.originalDelegate，只会直接被调用，所以只能在 QMUITextView 内部实现这连个方法然后调用 originalDelegate 的对应方法
+// 下面这两个方法比较特殊，无法通过 forwardInvocation: 的方式把消息发送给 self.originalDelegate，只会直接被调用，所以只能在 SSUITextView 内部实现这连个方法然后调用 originalDelegate 的对应方法
 // 注意，测过 UITextView 默认没有实现任何 UIScrollViewDelegate 方法 from 2016-11-01 in iOS 10.1 by molice
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

@@ -9,7 +9,6 @@
 #import "UIConfiguration.h"
 #import "UICommonDefines.h"
 #import "UIConfiguration.h"
-#import "UIImage+UI.h"
 #import "UIHelper.h"
 
 @implementation UIConfiguration
@@ -49,7 +48,7 @@
   
   self.linkColor = UIColorMake(56, 116, 171);
   self.disabledColor = self.grayColor;
-  self.backgroundColor = nil;
+  self.backgroundColor = UIColorMake(255, 255, 255);
   self.maskDarkColor = UIColorMakeWithRGBA(0, 0, 0, .35f);
   self.maskLightColor = UIColorMakeWithRGBA(255, 255, 255, .5f);
   self.separatorColor = UIColorMake(222, 224, 226);
@@ -102,12 +101,11 @@
   self.navBarTitleFont = nil;
   self.navBarBackButtonTitlePositionAdjustment = UIOffsetZero;
   self.navBarBackIndicatorImage = nil;
-  self.navBarCloseButtonImage = [UIImage imageWithShape:UIImageShapeNavClose size:CGSizeMake(16, 16) tintColor:self.navBarTintColor];
+  self.navBarCloseButtonImage = nil;
   
   self.navBarLoadingMarginRight = 3;
   self.navBarAccessoryViewMarginLeft = 5;
   self.navBarActivityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-  self.navBarAccessoryViewTypeDisclosureIndicatorImage = [[UIImage imageWithShape:UIImageShapeTriangle size:CGSizeMake(8, 5) tintColor:self.navBarTitleColor] imageWithOrientation:UIImageOrientationDown];
   
 #pragma mark - TabBar
   
@@ -202,10 +200,18 @@
 
 #pragma mark setter
 
+/**
+ 设置导航栏按钮字体
+ @param navBarButtonFont font
+ */
 - (void)setNavBarButtonFont:(UIFont *)navBarButtonFont {
   _navBarButtonFont = navBarButtonFont;
 }
 
+/**
+ 设置导航栏 tintcolor
+ @param navBarTintColor color
+ */
 - (void)setNavBarTintColor:(UIColor *)navBarTintColor {
   _navBarTintColor = navBarTintColor;
   if (navBarTintColor) {
@@ -213,6 +219,10 @@
   }
 }
 
+/**
+ 设置导航栏 bartintcolor
+ @param navBarBarTintColor color
+ */
 - (void)setNavBarBarTintColor:(UIColor *)navBarBarTintColor {
   _navBarBarTintColor = navBarBarTintColor;
   if (navBarBarTintColor) {
@@ -221,6 +231,10 @@
   }
 }
 
+/**
+ 设置导航栏分割线图片
+ @param navBarShadowImage image
+ */
 - (void)setNavBarShadowImage:(UIImage *)navBarShadowImage {
   _navBarShadowImage = navBarShadowImage;
   if (navBarShadowImage) {
@@ -229,6 +243,10 @@
   }
 }
 
+/**
+ 设置导航栏背景图片
+ @param navBarBackgroundImage image
+ */
 - (void)setNavBarBackgroundImage:(UIImage *)navBarBackgroundImage {
   _navBarBackgroundImage = navBarBackgroundImage;
   if (navBarBackgroundImage) {
@@ -237,6 +255,10 @@
   }
 }
 
+/**
+ 设置导航栏 title 字体
+ @param navBarTitleFont font
+ */
 - (void)setNavBarTitleFont:(UIFont *)navBarTitleFont {
   _navBarTitleFont = navBarTitleFont;
   if (self.navBarTitleFont || self.navBarTitleColor) {
@@ -252,6 +274,10 @@
   }
 }
 
+/**
+ 设置导航栏 title 颜色
+ @param navBarTitleColor color
+ */
 - (void)setNavBarTitleColor:(UIColor *)navBarTitleColor {
   _navBarTitleColor = navBarTitleColor;
   if (self.navBarTitleFont || self.navBarTitleColor) {
@@ -267,6 +293,10 @@
   }
 }
 
+/**
+ 设置导航栏返回按钮图片
+ @param navBarBackIndicatorImage image
+ */
 - (void)setNavBarBackIndicatorImage:(UIImage *)navBarBackIndicatorImage {
   _navBarBackIndicatorImage = navBarBackIndicatorImage;
   
@@ -278,10 +308,18 @@
     CGSize customBackIndicatorImageSize = _navBarBackIndicatorImage.size;
     if (!CGSizeEqualToSize(customBackIndicatorImageSize, systemBackIndicatorImageSize)) {
       CGFloat imageExtensionVerticalFloat = CGFloatGetCenter(systemBackIndicatorImageSize.height, customBackIndicatorImageSize.height);
-      _navBarBackIndicatorImage = [_navBarBackIndicatorImage imageWithSpacingExtensionInsets:UIEdgeInsetsMake(imageExtensionVerticalFloat,
-                                                                                                              0,
-                                                                                                              imageExtensionVerticalFloat,
-                                                                                                              systemBackIndicatorImageSize.width - customBackIndicatorImageSize.width)];
+      UIEdgeInsets insets = UIEdgeInsetsMake(imageExtensionVerticalFloat,
+                                             0,
+                                             imageExtensionVerticalFloat,
+                                             systemBackIndicatorImageSize.width - customBackIndicatorImageSize.width);
+      
+      CGSize contextSize = CGSizeMake(_navBarBackIndicatorImage.size.width + UIEdgeInsetsGetHorizontalValue(insets),
+                                      _navBarBackIndicatorImage.size.height + UIEdgeInsetsGetVerticalValue(insets));
+      UIGraphicsBeginImageContextWithOptions(contextSize, NO, _navBarBackIndicatorImage.scale);
+      [_navBarBackIndicatorImage drawAtPoint:CGPointMake(insets.left, insets.top)];
+      UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+      UIGraphicsEndImageContext();
+      _navBarBackIndicatorImage = finalImage;
     }
     
     navBarAppearance.backIndicatorImage = _navBarBackIndicatorImage;
@@ -291,6 +329,10 @@
   }
 }
 
+/**
+ 设置导航栏按钮标题偏移
+ @param navBarBackButtonTitlePositionAdjustment adjust
+ */
 - (void)setNavBarBackButtonTitlePositionAdjustment:(UIOffset)navBarBackButtonTitlePositionAdjustment {
   _navBarBackButtonTitlePositionAdjustment = navBarBackButtonTitlePositionAdjustment;
   
@@ -301,6 +343,10 @@
   }
 }
 
+/**
+ 设置 ToolBar tintcolor
+ @param toolBarTintColor color
+ */
 - (void)setToolBarTintColor:(UIColor *)toolBarTintColor {
   _toolBarTintColor = toolBarTintColor;
   if (toolBarTintColor) {
@@ -308,6 +354,10 @@
   }
 }
 
+/**
+ 设置 ToolBar bartintcolor
+ @param toolBarBarTintColor color
+ */
 - (void)setToolBarBarTintColor:(UIColor *)toolBarBarTintColor {
   _toolBarBarTintColor = toolBarBarTintColor;
   if (toolBarBarTintColor) {
@@ -316,6 +366,10 @@
   }
 }
 
+/**
+ 设置 ToolBar 背景图片
+ @param toolBarBackgroundImage image
+ */
 - (void)setToolBarBackgroundImage:(UIImage *)toolBarBackgroundImage {
   _toolBarBackgroundImage = toolBarBackgroundImage;
   if (toolBarBackgroundImage) {
@@ -324,17 +378,23 @@
   }
 }
 
+/**
+ 设置 ToolBar 分割线颜色
+ @param toolBarShadowImageColor color
+ */
 - (void)setToolBarShadowImageColor:(UIColor *)toolBarShadowImageColor {
   _toolBarShadowImageColor = toolBarShadowImageColor;
   if (_toolBarShadowImageColor) {
-    UIImage *shadowImage = [UIImage imageWithColor:_toolBarShadowImageColor
-                                              size:CGSizeMake(1, 1 / [[UIScreen mainScreen] scale])
-                                      cornerRadius:0];
+    UIImage *shadowImage = __UIImageMake(CGSizeMake(1, PixelOne),_toolBarShadowImageColor);
     [[UIToolbar appearance] setShadowImage:shadowImage forToolbarPosition:UIBarPositionAny];
     [[UIHelper visibleViewController].navigationController.toolbar setShadowImage:shadowImage forToolbarPosition:UIBarPositionAny];
   }
 }
 
+/**
+ 设置 TabBar tintcolor
+ @param tabBarTintColor color
+ */
 - (void)setTabBarTintColor:(UIColor *)tabBarTintColor {
   _tabBarTintColor = tabBarTintColor;
   if (tabBarTintColor) {
@@ -342,6 +402,10 @@
   }
 }
 
+/**
+ 设置 TabBar bartintcolor
+ @param tabBarBarTintColor color
+ */
 - (void)setTabBarBarTintColor:(UIColor *)tabBarBarTintColor {
   _tabBarBarTintColor = tabBarBarTintColor;
   if (tabBarBarTintColor) {
@@ -350,6 +414,10 @@
   }
 }
 
+/**
+ 设置 TabBar 背景图片
+ @param tabBarBackgroundImage image
+ */
 - (void)setTabBarBackgroundImage:(UIImage *)tabBarBackgroundImage {
   _tabBarBackgroundImage = tabBarBackgroundImage;
   if (tabBarBackgroundImage) {
@@ -358,17 +426,23 @@
   }
 }
 
+/**
+ 设置 TabBar 分割线颜色
+ @param tabBarShadowImageColor color
+ */
 - (void)setTabBarShadowImageColor:(UIColor *)tabBarShadowImageColor {
   _tabBarShadowImageColor = tabBarShadowImageColor;
   if (_tabBarShadowImageColor) {
-    UIImage *shadowImage = [UIImage imageWithColor:_tabBarShadowImageColor
-                                              size:CGSizeMake(1, 1 / [[UIScreen mainScreen] scale])
-                                      cornerRadius:0];
+    UIImage *shadowImage = __UIImageMake(CGSizeMake(1, PixelOne),_tabBarShadowImageColor);
     [[UITabBar appearance] setShadowImage:shadowImage];
     [UIHelper visibleViewController].tabBarController.tabBar.shadowImage = shadowImage;
   }
 }
 
+/**
+ 设置 TabBar 按钮标题颜色
+ @param tabBarItemTitleColor color
+ */
 - (void)setTabBarItemTitleColor:(UIColor *)tabBarItemTitleColor {
   _tabBarItemTitleColor = tabBarItemTitleColor;
   if (_tabBarItemTitleColor) {
@@ -381,6 +455,10 @@
   }
 }
 
+/**
+ 设置 TabBar 按钮标题字体
+ @param tabBarItemTitleFont font
+ */
 - (void)setTabBarItemTitleFont:(UIFont *)tabBarItemTitleFont {
   _tabBarItemTitleFont = tabBarItemTitleFont;
   if (_tabBarItemTitleFont) {
@@ -393,6 +471,10 @@
   }
 }
 
+/**
+ 设置 TabBar 按钮标题选种颜色
+ @param tabBarItemTitleColorSelected color
+ */
 - (void)setTabBarItemTitleColorSelected:(UIColor *)tabBarItemTitleColorSelected {
   _tabBarItemTitleColorSelected = tabBarItemTitleColorSelected;
   if (_tabBarItemTitleColorSelected) {
@@ -406,4 +488,3 @@
 }
 
 @end
-

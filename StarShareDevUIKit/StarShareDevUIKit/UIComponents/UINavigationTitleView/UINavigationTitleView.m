@@ -31,7 +31,7 @@
     titleViewSize.height = ceil(titleViewSize.height);
     
     if (CGRectGetHeight(titleView.bounds) != titleViewSize.height) {
-      CGFloat titleViewMinY = flatf(CGRectGetMinY(titleView.frame) - ((titleViewSize.height - CGRectGetHeight(titleView.bounds)) / 2.0));
+      CGFloat titleViewMinY = flat(CGRectGetMinY(titleView.frame) - ((titleViewSize.height - CGRectGetHeight(titleView.bounds)) / 2.0));
       titleView.frame = CGRectMake(CGRectGetMinX(titleView.frame), titleViewMinY, fmin(titleViewMaximumWidth, titleViewSize.width), titleViewSize.height);
     }
     

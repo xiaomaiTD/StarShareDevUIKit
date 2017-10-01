@@ -14,4 +14,13 @@
 - (CGFloat)green;
 - (CGFloat)blue;
 - (CGFloat)alpha;
+- (CGFloat)hue;
+- (CGFloat)saturation;
+- (CGFloat)brightness;
+- (UIColor *)colorWithoutAlpha;
+- (BOOL)colorIsDark;
+- (UIColor *)inverseColor;
+- (BOOL)isSystemTintColor;
++ (UIColor *)systemTintColor;
++ (UIColor *)randomColor;
 @end
