@@ -206,8 +206,8 @@
 		B64E206D1F80FE5D0003817F /* StarShareDevUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				B64E20F11F81114A0003817F /* NavigationBarTransition */,
 				B64E20921F80FE5D0003817F /* StarShareDevUIKit.h */,
+				B64E20F11F81114A0003817F /* NavigationBarTransition */,
 				B64E206E1F80FE5D0003817F /* Extensions */,
 				B64E20931F80FE5D0003817F /* UIBase */,
 				B64E20A91F80FE5D0003817F /* UIComponents */,
