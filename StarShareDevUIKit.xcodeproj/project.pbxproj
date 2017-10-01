@@ -228,10 +228,10 @@
 			isa = PBXGroup;
 			children = (
 				B60B78FB1F8151E500E99604 /* Extensions */,
-				B60B792F1F8151E500E99604 /* StarShareDevUIKit.h */,
 				B60B79301F8151E500E99604 /* UIComponents */,
 				B60B794D1F8151E500E99604 /* UICore */,
 				B60B79551F8151E500E99604 /* UIMainFrame */,
+				B60B792F1F8151E500E99604 /* StarShareDevUIKit.h */,
 			);
 			path = StarShareDevUIKit;
 			sourceTree = "<group>";
@@ -240,8 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				B60B78FC1F8151E500E99604 /* Foundation */,
-				B60B79071F8151E500E99604 /* UIExtensions.h */,
 				B60B79081F8151E500E99604 /* UIKit */,
+				B60B79071F8151E500E99604 /* UIExtensions.h */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -312,18 +312,18 @@
 			isa = PBXGroup;
 			children = (
 				B60B79311F8151E500E99604 /* NavigationBarTransition */,
-				B60B79371F8151E500E99604 /* UIComponents.h */,
+				B60B793C1F8151E500E99604 /* UIEmptyView */,
+				B60B793F1F8151E500E99604 /* UIKeyboardManager */,
+				B60B79421F8151E500E99604 /* UIModalPresentationViewController */,
+				B60B79471F8151E500E99604 /* UINavigationTitleView */,
+				B60B794A1F8151E500E99604 /* UIThemeManager */,
 				B60B79381F8151E500E99604 /* UICustomButton.h */,
 				B60B79391F8151E500E99604 /* UICustomButton.m */,
 				B60B793A1F8151E500E99604 /* UICustomLable.h */,
 				B60B793B1F8151E500E99604 /* UICustomLable.m */,
-				B60B793C1F8151E500E99604 /* UIEmptyView */,
-				B60B793F1F8151E500E99604 /* UIKeyboardManager */,
-				B60B79421F8151E500E99604 /* UIModalPresentationViewController */,
 				B60B79451F8151E500E99604 /* UINavigationButton.h */,
 				B60B79461F8151E500E99604 /* UINavigationButton.m */,
-				B60B79471F8151E500E99604 /* UINavigationTitleView */,
-				B60B794A1F8151E500E99604 /* UIThemeManager */,
+				B60B79371F8151E500E99604 /* UIComponents.h */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -403,8 +403,8 @@
 			isa = PBXGroup;
 			children = (
 				B60B79561F8151E500E99604 /* Controller */,
-				B60B79611F8151E500E99604 /* UIBase.h */,
 				B60B79621F8151E500E99604 /* View */,
+				B60B79611F8151E500E99604 /* UIBase.h */,
 			);
 			path = UIMainFrame;
 			sourceTree = "<group>";
