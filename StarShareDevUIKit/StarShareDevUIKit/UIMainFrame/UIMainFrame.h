@@ -1,10 +1,5 @@
-//
-//  BaseUI.h
-//  Project
-//
-//  Created by jearoc on 2017/9/27.
-//  Copyright © 2017年 jearoc. All rights reserved.
-//
+
+///< UIMainFrame
 
 #import "SSUINavigationController.h"
 #import "SSUIViewController.h"
