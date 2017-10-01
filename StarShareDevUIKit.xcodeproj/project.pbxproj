@@ -170,7 +170,7 @@
 		B60B795E1F8151E500E99604 /* SSUITabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSUITabBarController.m; sourceTree = "<group>"; };
 		B60B795F1F8151E500E99604 /* SSUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSUIViewController.h; sourceTree = "<group>"; };
 		B60B79601F8151E500E99604 /* SSUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSUIViewController.m; sourceTree = "<group>"; };
-		B60B79611F8151E500E99604 /* UIBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBase.h; sourceTree = "<group>"; };
+		B60B79611F8151E500E99604 /* UIMainFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIMainFrame.h; sourceTree = "<group>"; };
 		B60B79631F8151E500E99604 /* SSUICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSUICollectionView.h; sourceTree = "<group>"; };
 		B60B79641F8151E500E99604 /* SSUICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSUICollectionView.m; sourceTree = "<group>"; };
 		B60B79651F8151E500E99604 /* SSUITableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSUITableCell.h; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 			children = (
 				B60B79561F8151E500E99604 /* Controller */,
 				B60B79621F8151E500E99604 /* View */,
-				B60B79611F8151E500E99604 /* UIBase.h */,
+				B60B79611F8151E500E99604 /* UIMainFrame.h */,
 			);
 			path = UIMainFrame;
 			sourceTree = "<group>";
