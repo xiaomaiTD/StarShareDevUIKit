@@ -32,7 +32,7 @@
 }
 
 - (void)didInitialized {
-  // 系统默认会在view即将被add到window上时才设置这些值，这个时机有点晚了，因为我们可能在add到window之前就进行sizeThatFits计算或对view进行截图等操作，因此这里提前到init时就去做
+  
   UIEmptyView *appearance = [UIEmptyView appearance];
   _imageViewInsets = appearance.imageViewInsets;
   _loadingViewInsets = appearance.loadingViewInsets;
@@ -51,7 +51,7 @@
   self.scrollView.showsVerticalScrollIndicator = NO;
   self.scrollView.showsHorizontalScrollIndicator = NO;
   self.scrollView.scrollsToTop = NO;
-  self.scrollView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10); // 避免 label 直接撑满到屏幕两边，不好看
+  self.scrollView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
   [self addSubview:self.scrollView];
   
   _contentView = [[UIView alloc] init];
@@ -285,11 +285,9 @@
   appearance.detailTextLabelInsets = UIEdgeInsetsMake(0, 0, 10, 0);
   appearance.actionButtonInsets = UIEdgeInsetsZero;
   appearance.verticalOffset = -30;
-  
   appearance.textLabelFont = UIFontMake(15);
   appearance.detailTextLabelFont = UIFontMake(14);
   appearance.actionButtonFont = UIFontMake(15);
-  
   appearance.textLabelTextColor = UIColorMake(93, 100, 110);
   appearance.detailTextLabelTextColor = UIColorMake(133, 140, 150);
   appearance.actionButtonTitleColor = ButtonTintColor;
