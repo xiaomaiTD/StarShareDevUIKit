@@ -15,7 +15,7 @@
 @interface UIKeyboardManager : NSObject
 - (instancetype)initWithDelegate:(id<UIKeyboardManagerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 @property(nonatomic, weak, readonly) id<UIKeyboardManagerDelegate> delegate;
-@property(nonatomic, assign) BOOL delegateEnabled;///< Default is YES, Not call the delegate if is NO.
+@property(nonatomic, assign) BOOL delegateEnabled;
 - (BOOL)addTargetResponder:(UIResponder *)targetResponder;
 - (NSArray<UIResponder *> *)allTargetResponders;
 + (CGRect)convertKeyboardRect:(CGRect)rect

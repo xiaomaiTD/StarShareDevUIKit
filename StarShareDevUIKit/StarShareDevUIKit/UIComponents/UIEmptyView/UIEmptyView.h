@@ -19,7 +19,8 @@
 @property(nonatomic, strong, readonly) UILabel *textLabel;
 @property(nonatomic, strong, readonly) UILabel *detailTextLabel;
 @property(nonatomic, strong, readonly) UIButton *actionButton;
-// 可通过调整这些insets来控制间距
+
+// 间距
 @property(nonatomic, assign) UIEdgeInsets imageViewInsets UI_APPEARANCE_SELECTOR;   // 默认为(0, 0, 36, 0)
 @property(nonatomic, assign) UIEdgeInsets loadingViewInsets UI_APPEARANCE_SELECTOR;     // 默认为(0, 0, 36, 0)
 @property(nonatomic, assign) UIEdgeInsets textLabelInsets UI_APPEARANCE_SELECTOR;   // 默认为(0, 0, 10, 0)
@@ -43,5 +44,5 @@
 - (void)setDetailTextLabelText:(NSString *)text;
 - (void)setActionButtonTitle:(NSString *)title;
 @property(nonatomic, strong, readonly) UIView *contentView;
-- (CGSize)sizeThatContentViewFits;  // 返回一个恰好容纳所有子 view 的大小
+- (CGSize)sizeThatContentViewFits;
 @end
