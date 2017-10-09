@@ -10,6 +10,7 @@
 #import "UIComponents.h"
 #import "UIExtensions.h"
 #import "UICore.h"
+#import "UIMainFrame.h"
 
 const UIEdgeInsets SSUIListViewControllerInitialContentInsetNotSet = {-1, -1, -1, -1};
 const NSInteger kSectionHeaderFooterLabelTag = 1024;

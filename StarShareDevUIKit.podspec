@@ -63,7 +63,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "9.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/StarShare/StarShareDevUIKit.gitt", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/StarShare/StarShareDevUIKit.git", :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -92,20 +92,7 @@ Pod::Spec.new do |s|
   s.source_files  = "StarShareDevUIKit/StarShareDevUIKit/StarShareDevUIKit.h"
 
   s.subspec "UICore" do |ss|
-    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UICore/*.{h,m}"
-  end
-
-  s.subspec "Extensions" do |ss|
-    ss.dependency "StarShareDevUIKit/UICore"
-    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/Extensions/UIExtensions.h"
-    ss.subspec "Foundation" do |sss|
-      sss.dependency "StarShareDevUIKit/UICore"
-      sss.source_files = "StarShareDevUIKit/StarShareDevUIKit/Extensions/Foundation/*.{h,m}"
-    end
-    ss.subspec "UIKit" do |sss|
-      sss.dependency "StarShareDevUIKit/UICore"
-      sss.source_files = "StarShareDevUIKit/StarShareDevUIKit/Extensions/UIKit/*.{h,m}"
-    end
+    ss.source_files = "StarShareDevUIKit/StarShareDevUIKit/UICore","StarShareDevUIKit/StarShareDevUIKit/Extensions/UIExtensions.h","StarShareDevUIKit/StarShareDevUIKit/Extensions/Foundation","StarShareDevUIKit/StarShareDevUIKit/Extensions/UIKit"
   end
 
   # s.subspec "UIComponents" do |ss|

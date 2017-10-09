@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SSUIViewController.h"
+#import "UINavigationController+UI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
