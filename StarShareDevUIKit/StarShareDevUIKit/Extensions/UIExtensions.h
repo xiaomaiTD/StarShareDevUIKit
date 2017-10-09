@@ -1,10 +1,6 @@
-//
-//  UIExtensions.h
-//  Project
-//
-//  Created by jearoc on 2017/9/26.
-//  Copyright © 2017年 jearoc. All rights reserved.
-//
+
+///< UIExtensions
+
 #import "NSObject+UI.h"
 #import "NSString+UI.h"
 #import "NSDate+UI.h"
@@ -23,3 +19,10 @@
 #import "CALayer+UI.h"
 #import "UITextField+UI.h"
 #import "UITextView+UI.h"
+#import "NSAttributedString+UI.h"
+#import "UIBezierPath+UI.h"
+#import "UIButton+UI.h"
+#import "UITabBarItem+UI.h"
+#import "UITabBar+UI.h"
+#import "UIWindow+UI.h"
+#import "UILabel+UI.h"

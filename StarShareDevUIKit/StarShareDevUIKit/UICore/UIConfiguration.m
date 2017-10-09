@@ -202,7 +202,6 @@
 
 /**
  设置导航栏按钮字体
-
  @param navBarButtonFont font
  */
 - (void)setNavBarButtonFont:(UIFont *)navBarButtonFont {
@@ -211,7 +210,6 @@
 
 /**
  设置导航栏 tintcolor
-
  @param navBarTintColor color
  */
 - (void)setNavBarTintColor:(UIColor *)navBarTintColor {
@@ -223,7 +221,6 @@
 
 /**
  设置导航栏 bartintcolor
-
  @param navBarBarTintColor color
  */
 - (void)setNavBarBarTintColor:(UIColor *)navBarBarTintColor {
@@ -236,7 +233,6 @@
 
 /**
  设置导航栏分割线图片
-
  @param navBarShadowImage image
  */
 - (void)setNavBarShadowImage:(UIImage *)navBarShadowImage {
@@ -249,7 +245,6 @@
 
 /**
  设置导航栏背景图片
-
  @param navBarBackgroundImage image
  */
 - (void)setNavBarBackgroundImage:(UIImage *)navBarBackgroundImage {
@@ -262,7 +257,6 @@
 
 /**
  设置导航栏 title 字体
-
  @param navBarTitleFont font
  */
 - (void)setNavBarTitleFont:(UIFont *)navBarTitleFont {
@@ -282,7 +276,6 @@
 
 /**
  设置导航栏 title 颜色
-
  @param navBarTitleColor color
  */
 - (void)setNavBarTitleColor:(UIColor *)navBarTitleColor {
@@ -302,7 +295,6 @@
 
 /**
  设置导航栏返回按钮图片
-
  @param navBarBackIndicatorImage image
  */
 - (void)setNavBarBackIndicatorImage:(UIImage *)navBarBackIndicatorImage {
@@ -339,7 +331,6 @@
 
 /**
  设置导航栏按钮标题偏移
-
  @param navBarBackButtonTitlePositionAdjustment adjust
  */
 - (void)setNavBarBackButtonTitlePositionAdjustment:(UIOffset)navBarBackButtonTitlePositionAdjustment {
@@ -354,7 +345,6 @@
 
 /**
  设置 ToolBar tintcolor
-
  @param toolBarTintColor color
  */
 - (void)setToolBarTintColor:(UIColor *)toolBarTintColor {
@@ -366,7 +356,6 @@
 
 /**
  设置 ToolBar bartintcolor
-
  @param toolBarBarTintColor color
  */
 - (void)setToolBarBarTintColor:(UIColor *)toolBarBarTintColor {
@@ -379,7 +368,6 @@
 
 /**
  设置 ToolBar 背景图片
-
  @param toolBarBackgroundImage image
  */
 - (void)setToolBarBackgroundImage:(UIImage *)toolBarBackgroundImage {
@@ -392,7 +380,6 @@
 
 /**
  设置 ToolBar 分割线颜色
-
  @param toolBarShadowImageColor color
  */
 - (void)setToolBarShadowImageColor:(UIColor *)toolBarShadowImageColor {
@@ -406,7 +393,6 @@
 
 /**
  设置 TabBar tintcolor
-
  @param tabBarTintColor color
  */
 - (void)setTabBarTintColor:(UIColor *)tabBarTintColor {
@@ -418,7 +404,6 @@
 
 /**
  设置 TabBar bartintcolor
-
  @param tabBarBarTintColor color
  */
 - (void)setTabBarBarTintColor:(UIColor *)tabBarBarTintColor {
@@ -431,7 +416,6 @@
 
 /**
  设置 TabBar 背景图片
-
  @param tabBarBackgroundImage image
  */
 - (void)setTabBarBackgroundImage:(UIImage *)tabBarBackgroundImage {
@@ -444,7 +428,6 @@
 
 /**
  设置 TabBar 分割线颜色
-
  @param tabBarShadowImageColor color
  */
 - (void)setTabBarShadowImageColor:(UIColor *)tabBarShadowImageColor {
@@ -458,7 +441,6 @@
 
 /**
  设置 TabBar 按钮标题颜色
-
  @param tabBarItemTitleColor color
  */
 - (void)setTabBarItemTitleColor:(UIColor *)tabBarItemTitleColor {
@@ -475,7 +457,6 @@
 
 /**
  设置 TabBar 按钮标题字体
-
  @param tabBarItemTitleFont font
  */
 - (void)setTabBarItemTitleFont:(UIFont *)tabBarItemTitleFont {
@@ -492,7 +473,6 @@
 
 /**
  设置 TabBar 按钮标题选种颜色
-
  @param tabBarItemTitleColorSelected color
  */
 - (void)setTabBarItemTitleColorSelected:(UIColor *)tabBarItemTitleColorSelected {
@@ -508,4 +488,3 @@
 }
 
 @end
-

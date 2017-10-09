@@ -89,6 +89,7 @@
 #define NavBarAccessoryViewMarginLeft                   [UICMI navBarAccessoryViewMarginLeft]
 #define NavBarActivityIndicatorViewStyle                [UICMI navBarActivityIndicatorViewStyle]
 
+
 #pragma mark - TabBar
 
 #define TabBarBackgroundImage                           [UICMI tabBarBackgroundImage]
