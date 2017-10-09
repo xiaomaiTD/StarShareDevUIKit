@@ -3,7 +3,6 @@
 
 #import "NSObject+UI.h"
 #import "NSString+UI.h"
-#import "NSDate+UI.h"
 #import "NSMutableParagraphStyle+UI.h"
 #import "UITableView+UI.h"
 #import "UINavigationController+UI.h"

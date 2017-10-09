@@ -58,7 +58,7 @@
   [self setTitle:originalText forState:state];
   
   // 一个系统的不好的特性（bug?）：如果你给 UIControlStateHighlighted（或者 normal 之外的任何 state）设置了包含 NSFont/NSKern/NSUnderlineAttributeName 之类的 attributedString ，但又仅用 setTitle:forState: 给 UIControlStateNormal 设置了普通的 string ，则按钮从 highlighted 切换回 normal 状态时，font 之类的属性依然会停留在 highlighted 时的状态
-  // 为了解决这个问题，我们要确保一旦有 normal 之外的 state 通过设置 qmui_titleAttributes 属性而导致使用了 attributedString，则 normal 也必须使用 attributedString
+  // 为了解决这个问题，我们要确保一旦有 normal 之外的 state 通过设置 titleAttributes 属性而导致使用了 attributedString，则 normal 也必须使用 attributedString
   if (self.titleAttributes.count && !self.titleAttributes[@(UIControlStateNormal)]) {
     [self setTitleAttributes:@{} forState:UIControlStateNormal];
   }

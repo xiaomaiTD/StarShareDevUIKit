@@ -11,7 +11,6 @@
 #import "NSObject+UI.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
-#import "UICore.h"
 
 @interface UIViewController ()
 @property(nonatomic, assign) BOOL ss_isViewDidAppear;
@@ -348,5 +347,13 @@ static char kAssociatedObjectKey_dataLoaded;
 
 - (BOOL)isDataLoaded {
   return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_dataLoaded)) boolValue];
+}
+@end
+
+@implementation UIHelper (ViewController)
++ (nullable UIViewController *)visibleViewController {
+  UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+  UIViewController *visibleViewController = [rootViewController visibleViewControllerIfExist];
+  return visibleViewController;
 }
 @end

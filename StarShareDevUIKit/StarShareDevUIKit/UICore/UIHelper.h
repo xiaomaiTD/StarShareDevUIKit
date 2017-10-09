@@ -25,30 +25,80 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color;
 @end
 
-@interface UIHelper (ViewController)
-+ (nullable UIViewController *)visibleViewController;
-@end
-
 @interface UIHelper (UIApplication)
+
+/**
+ *  更改状态栏内容颜色为深色
+ *
+ *  @warning 需在项目的 Info.plist 文件内设置字段 “View controller-based status bar appearance” 的值为 NO 才能生效，如果不设置，或者值为 YES，则请通过系统的 - UIViewController preferredStatusBarStyle 方法来修改
+ */
 + (void)renderStatusBarStyleDark;
+
+/**
+ *  更改状态栏内容颜色为浅色
+ *
+ *  @warning 需在项目的 Info.plist 文件内设置字段 “View controller-based status bar appearance” 的值为 NO 才能生效，如果不设置，或者值为 YES，则请通过系统的 - UIViewController preferredStatusBarStyle 方法来修改
+ */
 + (void)renderStatusBarStyleLight;
+
+/**
+ * 把App的主要window置灰，用于浮层弹出时，请注意要在适当时机调用`resetDimmedApplicationWindow`恢复到正常状态
+ */
 + (void)dimmedApplicationWindow;
+
+/**
+ * 恢复对App的主要window的置灰操作，与`dimmedApplicationWindow`成对调用
+ */
 + (void)resetDimmedApplicationWindow;
+
 @end
 
 @interface UIHelper (Keyboard)
+
+/**
+ * 判断当前App里的键盘是否升起，默认为NO
+ */
 + (BOOL)isKeyboardVisible;
+
+/**
+ * 记录上一次键盘显示时的高度（基于整个 App 所在的 window 的坐标系），注意使用前用 `isKeyboardVisible` 判断键盘是否显示，因为即便是键盘被隐藏的情况下，调用 `lastKeyboardHeightInApplicationWindowWhenVisible` 也会得到高度值。
+ */
 + (CGFloat)lastKeyboardHeightInApplicationWindowWhenVisible;
+
+/**
+ * 获取当前键盘frame相关
+ * @warning 注意iOS8以下的系统在横屏时得到的rect，宽度和高度相反了，所以不建议直接通过这个方法获取高度，而是使用<code>keyboardHeightWithNotification:inView:</code>，因为在后者的实现里会将键盘的rect转换坐标系，转换过程就会处理横竖屏旋转问题。
+ */
 + (CGRect)keyboardRectWithNotification:(nullable NSNotification *)notification;
+
+/// 获取当前键盘的高度，注意高度可能为0（例如第三方键盘会发出两次notification，其中第一次的高度就为0）
 + (CGFloat)keyboardHeightWithNotification:(nullable NSNotification *)notification;
+
+/**
+ * 获取当前键盘在屏幕上的可见高度，注意外接键盘（iPad那种）时，[UIHelper keyboardRectWithNotification]得到的键盘rect里有一部分是超出屏幕，不可见的，如果直接拿rect的高度来计算就会与意图相悖。
+ * @param notification 接收到的键盘事件的UINotification对象
+ * @param view 要得到的键盘高度是相对于哪个View的键盘高度，若为nil，则等同于调用[UIHelper keyboardHeightWithNotification:]
+ * @warning 如果view.window为空（当前View尚不可见），则会使用App默认的UIWindow来做坐标转换，可能会导致一些计算错误
+ * @return 键盘在view里的可视高度
+ */
 + (CGFloat)keyboardHeightWithNotification:(nullable NSNotification *)notification inView:(nullable UIView *)view;
+
+/// 获取键盘显示/隐藏的动画时长，注意返回值可能为0
 + (NSTimeInterval)keyboardAnimationDurationWithNotification:(nullable NSNotification *)notification;
+
+/// 获取键盘显示/隐藏的动画时间函数
 + (UIViewAnimationCurve)keyboardAnimationCurveWithNotification:(nullable NSNotification *)notification;
+
+/// 获取键盘显示/隐藏的动画时间函数
 + (UIViewAnimationOptions)keyboardAnimationOptionsWithNotification:(nullable NSNotification *)notification;
+
 @end
 
 @interface UIHelper (UITabBarItem)
-+ (UITabBarItem *)tabBarItemWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage tag:(NSInteger)tag;
++ (UITabBarItem *)tabBarItemWithTitle:(NSString *)title
+                                image:(UIImage *)image
+                        selectedImage:(UIImage *)selectedImage
+                                  tag:(NSInteger)tag;
 @end
 
 @interface UIHelper (Device)
@@ -72,15 +122,36 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UIHelper (UIGraphic)
+
+/// 获取一像素的大小
 + (CGFloat)pixelOne;
+
+/// 判断size是否超出范围
 + (void)inspectContextSize:(CGSize)size;
+
+/// context是否合法
 + (void)inspectContextIfInvalidatedInDebugMode:(CGContextRef _Nonnull)context;
 + (BOOL)inspectContextIfInvalidatedInReleaseMode:(CGContextRef _Nonnull)context;
+
 @end
 
 @interface UIHelper (AudioSession)
+
+/**
+ *  听筒和扬声器的切换
+ *
+ *  @param speaker   是否转为扬声器，NO则听筒
+ *  @param temporary 决定使用kAudioSessionProperty_OverrideAudioRoute还是kAudioSessionProperty_OverrideCategoryDefaultToSpeaker，两者的区别请查看本组的博客文章:http://km.oa.com/group/gyui/articles/show/235957
+ */
 + (void)redirectAudioRouteWithSpeaker:(BOOL)speaker temporary:(BOOL)temporary;
+
+/**
+ *  设置category
+ *
+ *  @param category 使用iOS7的category，iOS6的会自动适配
+ */
 + (void)setAudioSessionCategory:(nullable NSString *)category;
+
 @end
 
 extern NSString * __nonnull const UISpringAnimationKey;
@@ -89,11 +160,29 @@ extern NSString * __nonnull const UISpringAnimationKey;
 @end
 
 @interface UIHelper (Orientation)
+
+/**
+ *  旋转当前设备的方向到指定方向，一般用于 [UIViewController supportedInterfaceOrientations] 发生变化时主动触发界面方向的刷新
+ *  @return 是否真正旋转了方向，YES 表示参数的方向和目前设备方向不一致，NO 表示一致也即不会旋转
+ *  @see [UIConfiguration automaticallyRotateDeviceOrientation]
+ */
 + (BOOL)rotateToDeviceOrientation:(UIDeviceOrientation)orientation;
+
+/**
+ *  记录手动旋转方向前的设备方向，当值不为 UIDeviceOrientationUnknown 时表示设备方向有经过了手动调整。默认值为 UIDeviceOrientationUnknown。
+ *  @see [UIHelper rotateToDeviceOrientation]
+ */
 @property(nonatomic, assign) UIDeviceOrientation orientationBeforeChangingByHelper;
+
+/// 根据指定的旋转方向计算出对应的旋转角度
 + (CGFloat)angleForTransformWithInterfaceOrientation:(UIInterfaceOrientation)orientation;
+
+/// 根据当前设备的旋转方向计算出对应的CGAffineTransform
 + (CGAffineTransform)transformForCurrentInterfaceOrientation;
+
+/// 根据指定的旋转方向计算出对应的CGAffineTransform
 + (CGAffineTransform)transformWithInterfaceOrientation:(UIInterfaceOrientation)orientation;
+
 @end
 
 @interface UIHelper (Log)

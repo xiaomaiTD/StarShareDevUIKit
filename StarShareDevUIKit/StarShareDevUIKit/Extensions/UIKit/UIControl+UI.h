@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIControl (UI)
+
 /**
  *  是否接管 UIControl 的 touch 事件。
  *
@@ -19,5 +20,10 @@
  *  @warning 使用了这个属性则不需要设置 UIScrollView.delaysContentTouches。
  */
 @property(nonatomic, assign) BOOL automaticallyAdjustTouchHighlightedInScrollView;
+
+/*
+ * 响应区域需要改变的大小，负值表示往外扩大，正值表示往内缩小
+ */
 @property(nonatomic,assign) UIEdgeInsets outsideEdge;
+
 @end

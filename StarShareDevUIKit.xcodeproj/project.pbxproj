@@ -16,7 +16,6 @@
 		E51900B81F7DE25200F280A0 /* StarShareDevUIKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E51900B71F7DE25200F280A0 /* StarShareDevUIKitTests.m */; };
 		E51900C31F7DE25200F280A0 /* StarShareDevUIKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E51900C21F7DE25200F280A0 /* StarShareDevUIKitUITests.m */; };
 		E597685D1F8B33C4007232E2 /* NSAttributedString+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = E59767ED1F8B33C4007232E2 /* NSAttributedString+UI.m */; };
-		E597685E1F8B33C4007232E2 /* NSDate+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = E59767EF1F8B33C4007232E2 /* NSDate+UI.m */; };
 		E597685F1F8B33C4007232E2 /* NSMutableParagraphStyle+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = E59767F11F8B33C4007232E2 /* NSMutableParagraphStyle+UI.m */; };
 		E59768601F8B33C4007232E2 /* NSObject+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = E59767F31F8B33C4007232E2 /* NSObject+UI.m */; };
 		E59768611F8B33C4007232E2 /* NSString+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = E59767F51F8B33C4007232E2 /* NSString+UI.m */; };
@@ -102,8 +101,6 @@
 		E51900C41F7DE25200F280A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E59767EC1F8B33C4007232E2 /* NSAttributedString+UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+UI.h"; sourceTree = "<group>"; };
 		E59767ED1F8B33C4007232E2 /* NSAttributedString+UI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+UI.m"; sourceTree = "<group>"; };
-		E59767EE1F8B33C4007232E2 /* NSDate+UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+UI.h"; sourceTree = "<group>"; };
-		E59767EF1F8B33C4007232E2 /* NSDate+UI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+UI.m"; sourceTree = "<group>"; };
 		E59767F01F8B33C4007232E2 /* NSMutableParagraphStyle+UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableParagraphStyle+UI.h"; sourceTree = "<group>"; };
 		E59767F11F8B33C4007232E2 /* NSMutableParagraphStyle+UI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableParagraphStyle+UI.m"; sourceTree = "<group>"; };
 		E59767F21F8B33C4007232E2 /* NSObject+UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+UI.h"; sourceTree = "<group>"; };
@@ -304,8 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				E59767EB1F8B33C4007232E2 /* Foundation */,
-				E59767F61F8B33C4007232E2 /* UIExtensions.h */,
 				E59767F71F8B33C4007232E2 /* UIKit */,
+				E59767F61F8B33C4007232E2 /* UIExtensions.h */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -315,8 +312,6 @@
 			children = (
 				E59767EC1F8B33C4007232E2 /* NSAttributedString+UI.h */,
 				E59767ED1F8B33C4007232E2 /* NSAttributedString+UI.m */,
-				E59767EE1F8B33C4007232E2 /* NSDate+UI.h */,
-				E59767EF1F8B33C4007232E2 /* NSDate+UI.m */,
 				E59767F01F8B33C4007232E2 /* NSMutableParagraphStyle+UI.h */,
 				E59767F11F8B33C4007232E2 /* NSMutableParagraphStyle+UI.m */,
 				E59767F21F8B33C4007232E2 /* NSObject+UI.h */,
@@ -655,7 +650,6 @@
 				E597685D1F8B33C4007232E2 /* NSAttributedString+UI.m in Sources */,
 				E59768761F8B33C5007232E2 /* UIBubbleView.m in Sources */,
 				E597686F1F8B33C5007232E2 /* UITabBarItem+UI.m in Sources */,
-				E597685E1F8B33C4007232E2 /* NSDate+UI.m in Sources */,
 				E597686B1F8B33C5007232E2 /* UILabel+UI.m in Sources */,
 				E59768661F8B33C5007232E2 /* UIColor+UI.m in Sources */,
 			);

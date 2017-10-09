@@ -113,8 +113,8 @@
         return;
       }
       [self setImage:backIndicatorImage forState:UIControlStateNormal];
-      [self setImage:[backIndicatorImage imageByApplyingAlpha:NavBarHighlightedAlpha] forState:UIControlStateHighlighted];
-      [self setImage:[backIndicatorImage imageByApplyingAlpha:NavBarDisabledAlpha] forState:UIControlStateDisabled];
+      [self setImage:[backIndicatorImage imageWithAlpha:NavBarHighlightedAlpha] forState:UIControlStateHighlighted];
+      [self setImage:[backIndicatorImage imageWithAlpha:NavBarDisabledAlpha] forState:UIControlStateDisabled];
     }
       break;
       

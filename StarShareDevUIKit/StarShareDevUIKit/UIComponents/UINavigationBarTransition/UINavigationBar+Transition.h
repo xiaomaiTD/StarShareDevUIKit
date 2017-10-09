@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface UINavigationBar (Transition)
+
+/// 用来模仿真的navBar，配合 UINavigationController+NavigationBarTransition 在转场过程中存在的一条假navBar
 @property (nonatomic, strong) UINavigationBar *transitionNavigationBar;
+
 @end

@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UILabel (UI)
+
 - (instancetype)initWithFont:(UIFont *)font textColor:(UIColor *)textColor;
+
 @end

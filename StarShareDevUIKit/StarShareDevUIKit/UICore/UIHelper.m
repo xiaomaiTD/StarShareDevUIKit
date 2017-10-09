@@ -34,14 +34,6 @@
 
 @end
 
-@implementation UIHelper (ViewController)
-+ (nullable UIViewController *)visibleViewController {
-  UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-  UIViewController *visibleViewController = [rootViewController visibleViewControllerIfExist];
-  return visibleViewController;
-}
-@end
-
 @implementation UIHelper (Keyboard)
 
 - (void)handleKeyboardWillShow:(NSNotification *)notification {

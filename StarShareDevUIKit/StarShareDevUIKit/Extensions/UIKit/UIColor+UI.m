@@ -7,9 +7,88 @@
 //
 
 #import "UIColor+UI.h"
+#import "NSString+UI.h"
 #import "UICore.h"
 
 @implementation UIColor (UI)
+
++ (void)load {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    // 使用 [UIColor colorWithRed:green:blue:alpha:] 或 [UIColor colorWithHue:saturation:brightness:alpha:] 方法创建的颜色是 UIDeviceRGBColor 类型的而不是 UIColor 类型的
+    ReplaceMethod([UIColor colorWithRed:1 green:1 blue:1 alpha:1].class, @selector(description),
+                  @selector(ss_description));
+  });
+}
+
+- (NSString *)ss_description {
+  NSInteger red = self.red * 255;
+  NSInteger green = self.green * 255;
+  NSInteger blue = self.blue * 255;
+  CGFloat alpha = self.alpha;
+  NSString *description = [NSString stringWithFormat:@"%@, RGBA(%@, %@, %@, %.2f), %@", [self ss_description], @(red), @(green), @(blue), alpha, [self hexString]];
+  return description;
+}
+
++ (UIColor *)colorWithHexString: (NSString *) hexString {
+  NSString *colorString = [[hexString stringByReplacingOccurrencesOfString: @"#" withString: @""] uppercaseString];
+  CGFloat alpha, red, blue, green;
+  switch ([colorString length]) {
+    case 3: // #RGB
+      alpha = 1.0f;
+      red   = [self colorComponentFrom: colorString start: 0 length: 1];
+      green = [self colorComponentFrom: colorString start: 1 length: 1];
+      blue  = [self colorComponentFrom: colorString start: 2 length: 1];
+      break;
+    case 4: // #ARGB
+      alpha = [self colorComponentFrom: colorString start: 0 length: 1];
+      red   = [self colorComponentFrom: colorString start: 1 length: 1];
+      green = [self colorComponentFrom: colorString start: 2 length: 1];
+      blue  = [self colorComponentFrom: colorString start: 3 length: 1];
+      break;
+    case 6: // #RRGGBB
+      alpha = 1.0f;
+      red   = [self colorComponentFrom: colorString start: 0 length: 2];
+      green = [self colorComponentFrom: colorString start: 2 length: 2];
+      blue  = [self colorComponentFrom: colorString start: 4 length: 2];
+      break;
+    case 8: // #AARRGGBB
+      alpha = [self colorComponentFrom: colorString start: 0 length: 2];
+      red   = [self colorComponentFrom: colorString start: 2 length: 2];
+      green = [self colorComponentFrom: colorString start: 4 length: 2];
+      blue  = [self colorComponentFrom: colorString start: 6 length: 2];
+      break;
+    default:
+      [NSException raise:@"Invalid color value" format: @"Color value %@ is invalid.  It should be a hex value of the form #RBG, #ARGB, #RRGGBB, or #AARRGGBB", hexString];
+      break;
+  }
+  return [UIColor colorWithRed: red green: green blue: blue alpha: alpha];
+}
+
+- (NSString *)hexString {
+  NSInteger alpha = self.alpha * 255;
+  NSInteger red = self.red * 255;
+  NSInteger green = self.green * 255;
+  NSInteger blue = self.blue * 255;
+  return [[NSString stringWithFormat:@"#%@%@%@%@",
+           [self alignColorHexStringLength:[NSString hexStringWithInteger:alpha]],
+           [self alignColorHexStringLength:[NSString hexStringWithInteger:red]],
+           [self alignColorHexStringLength:[NSString hexStringWithInteger:green]],
+           [self alignColorHexStringLength:[NSString hexStringWithInteger:blue]]] lowercaseString];
+}
+
+// 对于色值只有单位数的，在前面补一个0，例如“F”会补齐为“0F”
+- (NSString *)alignColorHexStringLength:(NSString *)hexString {
+  return hexString.length < 2 ? [@"0" stringByAppendingString:hexString] : hexString;
+}
+
++ (CGFloat)colorComponentFrom:(NSString *)string start:(NSUInteger)start length:(NSUInteger)length {
+  NSString *substring = [string substringWithRange: NSMakeRange(start, length)];
+  NSString *fullHex = length == 2 ? substring : [NSString stringWithFormat: @"%@%@", substring, substring];
+  unsigned hexComponent;
+  [[NSScanner scannerWithString: fullHex] scanHexInt: &hexComponent];
+  return hexComponent / 255.0;
+}
 
 - (UIColor *)colorWithAlpha:(CGFloat)alpha backgroundColor:(UIColor *)backgroundColor {
   return [UIColor colorWithBackendColor:backgroundColor frontColor:[self colorWithAlphaComponent:alpha]];
@@ -135,6 +214,30 @@
     systemTintColor = view.tintColor;
   }
   return systemTintColor;
+}
+
++ (UIColor *)colorFromColor:(UIColor *)fromColor toColor:(UIColor *)toColor progress:(CGFloat)progress {
+  progress = MIN(progress, 1.0f);
+  CGFloat fromRed = fromColor.red;
+  CGFloat fromGreen = fromColor.green;
+  CGFloat fromBlue = fromColor.blue;
+  CGFloat fromAlpha = fromColor.alpha;
+  
+  CGFloat toRed = toColor.red;
+  CGFloat toGreen = toColor.green;
+  CGFloat toBlue = toColor.blue;
+  CGFloat toAlpha = toColor.alpha;
+  
+  CGFloat finalRed = fromRed + (toRed - fromRed) * progress;
+  CGFloat finalGreen = fromGreen + (toGreen - fromGreen) * progress;
+  CGFloat finalBlue = fromBlue + (toBlue - fromBlue) * progress;
+  CGFloat finalAlpha = fromAlpha + (toAlpha - fromAlpha) * progress;
+  
+  return [UIColor colorWithRed:finalRed green:finalGreen blue:finalBlue alpha:finalAlpha];
+}
+
+- (UIColor *)transitionToColor:(UIColor *)toColor progress:(CGFloat)progress {
+  return [UIColor colorFromColor:self toColor:toColor progress:progress];
 }
 
 + (UIColor *)randomColor {

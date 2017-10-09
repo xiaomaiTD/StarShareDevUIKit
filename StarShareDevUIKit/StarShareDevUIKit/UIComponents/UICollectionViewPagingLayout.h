@@ -47,7 +47,7 @@ extern const CGFloat UICollectionViewPagingLayoutRotationRadiusAutomatic;
  *  旋转卡片相关
  *  左右两个卡片最终旋转的角度有 rotationRadius * 90 计算出来
  *  rotationRadius表示旋转的半径
- *  @warning 仅当 style 为 QMUICollectionViewPagingLayoutStyleRotation 时才生效
+ *  @warning 仅当 style 为 UICollectionViewPagingLayoutStyleRotation 时才生效
  */
 @property(nonatomic, assign) CGFloat rotationRatio;
 @property(nonatomic, assign) CGFloat rotationRadius;
