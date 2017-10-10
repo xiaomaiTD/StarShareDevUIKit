@@ -10,3 +10,5 @@
 #import "UIEmptyView.h"
 #import "UICollectionViewPagingLayout.h"
 #import "UIBubbleView.h"
+#import "UIToastView.h"
+#import "UITips.h"

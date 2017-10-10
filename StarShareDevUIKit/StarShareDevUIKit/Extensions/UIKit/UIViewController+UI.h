@@ -90,14 +90,4 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIViewController (Handler)<UINavigationControllerBackButtonHandlerProtocol>
 @end
 
-@interface UIHelper (ViewController)
-
-/**
- * 获取当前应用里最顶层的可见viewController
- * @warning 注意返回值可能为nil，要做好保护
- */
-+ (nullable UIViewController *)visibleViewController;
-
-@end
-
 NS_ASSUME_NONNULL_END

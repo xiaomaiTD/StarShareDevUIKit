@@ -349,11 +349,3 @@ static char kAssociatedObjectKey_dataLoaded;
   return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_dataLoaded)) boolValue];
 }
 @end
-
-@implementation UIHelper (ViewController)
-+ (nullable UIViewController *)visibleViewController {
-  UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-  UIViewController *visibleViewController = [rootViewController visibleViewControllerIfExist];
-  return visibleViewController;
-}
-@end

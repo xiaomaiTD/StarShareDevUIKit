@@ -21,8 +21,29 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nullable, nonatomic, weak) id<UIHelperDelegate> helperDelegate;
 @end
 
+extern NSString *const _Nonnull UIResourcesMainBundleName;
+
+@interface UIHelper (Bundle)
+
++ (nullable NSBundle *)resourcesBundle;
++ (nullable UIImage *)imageWithName:(nullable NSString *)name;
+
++ (nullable NSBundle *)resourcesBundleWithName:(nullable NSString *)bundleName;
++ (nullable UIImage *)imageInBundle:(nullable NSBundle *)bundle withName:(nullable NSString *)name;
+@end
+
 @interface UIHelper (Theme)
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color;
+@end
+
+@interface UIHelper (ViewController)
+
+/**
+ * 获取当前应用里最顶层的可见viewController
+ * @warning 注意返回值可能为nil，要做好保护
+ */
++ (nullable UIViewController *)visibleViewController;
+
 @end
 
 @interface UIHelper (UIApplication)
