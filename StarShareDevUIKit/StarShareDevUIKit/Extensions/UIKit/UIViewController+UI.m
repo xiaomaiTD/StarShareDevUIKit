@@ -14,6 +14,7 @@
 
 @interface UIViewController ()
 @property(nonatomic, assign) BOOL ss_isViewDidAppear;
+@property(nonatomic, assign) BOOL ss_isViewDisappear;
 @end
 
 @implementation UIViewController (UI)
@@ -39,6 +40,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
     
     // 实现 AutomaticallyRotateDeviceOrientation 开关的功能
     ReplaceMethod([UIViewController class], @selector(viewWillAppear:), @selector(ss_viewWillAppear:));
+    ReplaceMethod([UIViewController class], @selector(viewWillDisappear:), @selector(ss_viewWillDisappear:));
   });
 }
 
@@ -73,6 +75,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
 
 - (void)ss_viewWillAppear:(BOOL)animated {
   [self ss_viewWillAppear:animated];
+  self.ss_isViewDisappear = NO;
   if (!AutomaticallyRotateDeviceOrientation) {
     return;
   }
@@ -109,6 +112,12 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   [self deviceOrientationWithInterfaceOrientationMask:self.supportedInterfaceOrientations];
   
   [UIHelper rotateToDeviceOrientation:deviceOrientationToRotate];
+}
+
+- (void)ss_viewWillDisappear:(BOOL)animated
+{
+  [self ss_viewWillDisappear:animated];
+  self.ss_isViewDisappear = YES;
 }
 
 - (UIDeviceOrientation)deviceOrientationWithInterfaceOrientationMask:(UIInterfaceOrientationMask)mask {
@@ -224,6 +233,11 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   return self.isViewLoaded && self.view.window;
 }
 
+- (BOOL)isViewDisappear
+{
+  return self.ss_isViewDisappear;
+}
+
 - (CGFloat)navigationBarMaxYInViewCoordinator {
   if (!self.isViewLoaded) {
     return 0;
@@ -325,6 +339,15 @@ static char kAssociatedObjectKey_isViewDidAppear;
 
 - (BOOL)ss_isViewDidAppear {
   return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_isViewDidAppear)) boolValue];
+}
+
+static char kAssociatedObjectKey_isViewDisappear;
+- (void)setSs_isViewDisappear:(BOOL)ss_isViewDisappear {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_isViewDisappear, @(ss_isViewDisappear), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)ss_isViewDisappear {
+  return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_isViewDisappear)) boolValue];
 }
 
 static char kAssociatedObjectKey_didAppearAndLoadDataBlock;

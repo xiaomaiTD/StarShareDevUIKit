@@ -43,6 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isViewLoadedAndVisible;
 
 /**
+ *  是否应该响应一些操作，有些操作是在push以后都不再进行和响应的
+ */
+- (BOOL)isViewDisappear;
+
+/**
  *   UINavigationBar 在 self.view 坐标系里的 maxY，一般用于 self.view.subviews 布局时参考用
  *  @warning 如果不存在 UINavigationBar，则为 0
  */
