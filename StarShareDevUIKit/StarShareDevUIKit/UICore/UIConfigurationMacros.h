@@ -145,6 +145,7 @@
 #define TableViewCellDisclosureIndicatorImage      [UICMI tableViewCellDisclosureIndicatorImage]
 #define TableViewCellCheckmarkImage                [UICMI tableViewCellCheckmarkImage]
 #define TableViewCellDetailButtonImage             [UICMI tableViewCellDetailButtonImage]
+#define TableViewCellDoneButtonImage               [UICMI tableViewCellDoneButtonImage]
 #define TableViewCellSpacingBetweenDetailButtonAndDisclosureIndicator [UICMI tableViewCellSpacingBetweenDetailButtonAndDisclosureIndicator]
 
 #define TableViewSectionHeaderBackgroundColor      [UICMI tableViewSectionHeaderBackgroundColor]

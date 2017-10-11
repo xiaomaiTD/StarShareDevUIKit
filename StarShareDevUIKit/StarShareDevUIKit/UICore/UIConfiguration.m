@@ -161,6 +161,7 @@
   self.tableViewCellDisclosureIndicatorImage = nil;
   self.tableViewCellCheckmarkImage = nil;
   self.tableViewCellDetailButtonImage = nil;
+  self.tableViewCellDoneButtonImage = nil;
   self.tableViewCellSpacingBetweenDetailButtonAndDisclosureIndicator = 12;
   
   self.tableViewSectionHeaderBackgroundColor = UIColorMake(244, 244, 244);

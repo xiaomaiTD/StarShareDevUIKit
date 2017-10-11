@@ -13,3 +13,4 @@
 #import "SSUITextView.h"
 #import "SSUIButton.h"
 #import "SSUILable.h"
+#import "SSUISlider.h"

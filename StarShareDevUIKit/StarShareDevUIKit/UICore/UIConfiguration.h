@@ -140,6 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) UIImage  *tableViewCellDisclosureIndicatorImage;
 @property(nonatomic, strong, nullable) UIImage  *tableViewCellCheckmarkImage;
 @property(nonatomic, strong, nullable) UIImage  *tableViewCellDetailButtonImage;
+@property(nonatomic, strong, nullable) UIImage  *tableViewCellDoneButtonImage;
 @property(nonatomic, assign) CGFloat tableViewCellSpacingBetweenDetailButtonAndDisclosureIndicator;
 
 @property(nonatomic, strong, nullable) UIColor  *tableViewSectionHeaderBackgroundColor;

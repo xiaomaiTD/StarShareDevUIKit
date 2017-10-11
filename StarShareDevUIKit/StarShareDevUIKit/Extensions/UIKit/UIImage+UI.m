@@ -394,19 +394,23 @@ CGSizeFlatSpecificScale(CGSize size, float scale) {
   CGFloat lineWidth = 0;
   switch (shape) {
     case UIImageShapeNavBack:
-      lineWidth = 3;
+      lineWidth = 2.0f;
       break;
     case UIImageShapeDisclosureIndicator:
-      lineWidth = 3;
+      lineWidth = 1.5f;
       break;
     case UIImageShapeCheckmark:
-      lineWidth = 3;
+      lineWidth = 1.5;
+      break;
+    case UIImageShapeDoneButtonImage:
+    case UIImageShapeDetailButtonImage:
+      lineWidth = 1.0f;
       break;
     case UIImageShapeNavClose:
-      lineWidth = 3;
+      lineWidth = 1.2f;
       break;
     case UIImageShapeNavAdd:
-      lineWidth = 3;
+      lineWidth = 1.2f;
       break;
     default:
       break;
@@ -474,6 +478,13 @@ CGSizeFlatSpecificScale(CGSize size, float scale) {
       [path closePath];
     }
       break;
+    case UIImageShapeDoneButtonImage:
+    case UIImageShapeDetailButtonImage: {
+      drawByStroke = YES;
+      path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(CGRectMakeWithSize(size), drawOffset, drawOffset)];
+      path.lineWidth = lineWidth;
+    }
+      break;
     case UIImageShapeNavClose: {
       drawByStroke = YES;
       path = [UIBezierPath bezierPath];
@@ -510,6 +521,22 @@ CGSizeFlatSpecificScale(CGSize size, float scale) {
   } else {
     CGContextSetFillColorWithColor(context, tintColor.CGColor);
     [path fill];
+  }
+  
+  if (shape == UIImageShapeDetailButtonImage) {
+    CGFloat fontPointSize = flat(size.height * 0.8);
+    UIFont *font = [UIFont fontWithName:@"Georgia" size:fontPointSize];
+    NSAttributedString *string = [[NSAttributedString alloc] initWithString:@"i" attributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: tintColor}];
+    CGSize stringSize = [string boundingRectWithSize:size options:NSStringDrawingUsesFontLeading context:nil].size;
+    [string drawAtPoint:CGPointMake(CGFloatGetCenter(size.width, stringSize.width), CGFloatGetCenter(size.height, stringSize.height))];
+  }
+  
+  if (shape == UIImageShapeDoneButtonImage) {
+    CGSize doneSize = CGSizeMake(flat(size.height * 0.5), flat(size.height * 0.5));
+    UIImage *doneImage = [UIImage imageWithShape:UIImageShapeCheckmark size:doneSize
+                                       lineWidth:lineWidth+0.5
+                                       tintColor:tintColor];
+    [doneImage drawAtPoint:CGPointMake(CGFloatGetCenter(size.width, doneSize.width), CGFloatGetCenter(size.height, doneSize.height))];
   }
   
   resultImage = UIGraphicsGetImageFromCurrentImageContext();

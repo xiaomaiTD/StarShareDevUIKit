@@ -114,6 +114,8 @@
 
 #define StringFromBOOL(_flag) (_flag ? @"YES" : @"NO")
 
+#define SSUILog(...) [[UIHelper sharedInstance] printLogWithCalledFunction:__FUNCTION__ log:__VA_ARGS__]
+
 #pragma mark - 方法-C对象、结构操作
 
 CG_INLINE void

@@ -13,6 +13,8 @@ typedef NS_ENUM(NSInteger, UIImageShape) {
   UIImageShapeTriangle,             // 三角形
   UIImageShapeDisclosureIndicator,  // 列表cell右边的箭头
   UIImageShapeCheckmark,            // 列表cell右边的checkmark
+  UIImageShapeDetailButtonImage,    // 列表 cell 右边的 i 按钮图片
+  UIImageShapeDoneButtonImage,      // 列表 cell 右边的 ✅ 按钮图片
   UIImageShapeNavBack,              // 返回按钮的箭头
   UIImageShapeNavClose,             // 导航栏的关闭icon
   UIImageShapeNavAdd                // 导航栏的加号icon

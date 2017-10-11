@@ -12,3 +12,6 @@
 #import "UIBubbleView.h"
 #import "UIToastView.h"
 #import "UITips.h"
+#import "UIStaticTableView.h"
+#import "UIGridView.h"
+#import "UIMarqueeLabel.h"
