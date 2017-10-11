@@ -60,6 +60,32 @@
 
 - (void)NavigationBarTransition_viewDidAppear:(BOOL)animated {
   if (self.transitionNavigationBar) {
+    
+    /**
+     * 补充一下：发现当前一个页面导航栏背景有透明度的话这里 self.transitionNavigationBar 也会出现透明度
+     */
+    UIViewController<UINavigationCustomTransitionDelegate> *vc = (UIViewController<UINavigationCustomTransitionDelegate> *)self;
+    
+    // 导航栏的背景
+    if ([vc respondsToSelector:@selector(navigationBarBackgroundImage)]) {
+      UIImage *backgroundImage = [vc navigationBarBackgroundImage];
+      [self.transitionNavigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
+    } else {
+      [self.transitionNavigationBar setBackgroundImage:NavBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    // 导航栏底部的分隔线
+    if ([vc respondsToSelector:@selector(navigationBarShadowImage)]) {
+      UIImage *shadowImage = [vc navigationBarShadowImage];
+      [self.transitionNavigationBar setShadowImage:shadowImage];
+    } else {
+      [self.transitionNavigationBar setShadowImage:NavBarShadowImage];
+    }
+    
+    /**
+     * 补充完毕：具体原因还不知道，先这样解决一下
+     */
+    
     [UIViewController replaceStyleForNavigationBar:self.transitionNavigationBar withNavigationBar:self.navigationController.navigationBar];
     [self removeTransitionNavigationBar];
     self.lockTransitionNavigationBar = YES;
