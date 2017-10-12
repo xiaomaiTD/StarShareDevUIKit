@@ -233,9 +233,9 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   return self.isViewLoaded && self.view.window;
 }
 
-- (BOOL)isViewDisappear
+- (BOOL)isActive
 {
-  return self.ss_isViewDisappear;
+  return !self.ss_isViewDisappear;
 }
 
 - (CGFloat)navigationBarMaxYInViewCoordinator {

@@ -43,9 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isViewLoadedAndVisible;
 
 /**
- *  是否应该响应一些操作，有些操作是在push以后都不再进行和响应的
+ *  是否应该响应，有些操作是在push以后都不再进行和响应的pop回来的时候再继续响应,和上面方法不同的是：这个值会在willAppear的时候返回 YES，disAppear饿时候返回 NO。
  */
-- (BOOL)isViewDisappear;
+- (BOOL)isActive;
 
 /**
  *   UINavigationBar 在 self.view 坐标系里的 maxY，一般用于 self.view.subviews 布局时参考用
