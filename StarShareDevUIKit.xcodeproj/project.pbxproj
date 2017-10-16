@@ -75,6 +75,7 @@
 		E54CE24E1F8DEE4000430EC9 /* UIGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E54CE24D1F8DEE4000430EC9 /* UIGridView.m */; };
 		E54CE2511F8DF09B00430EC9 /* SSUISlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E54CE2501F8DF09B00430EC9 /* SSUISlider.m */; };
 		E54CE2571F8DF62C00430EC9 /* UIMarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E54CE2561F8DF62C00430EC9 /* UIMarqueeLabel.m */; };
+		E568163E1F94990E00D01212 /* SSUIVisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E568163D1F94990E00D01212 /* SSUIVisualEffectView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +240,8 @@
 		E54CE2501F8DF09B00430EC9 /* SSUISlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUISlider.m; sourceTree = "<group>"; };
 		E54CE2551F8DF62C00430EC9 /* UIMarqueeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIMarqueeLabel.h; sourceTree = "<group>"; };
 		E54CE2561F8DF62C00430EC9 /* UIMarqueeLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIMarqueeLabel.m; sourceTree = "<group>"; };
+		E568163C1F94990E00D01212 /* SSUIVisualEffectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIVisualEffectView.h; sourceTree = "<group>"; };
+		E568163D1F94990E00D01212 /* SSUIVisualEffectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIVisualEffectView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -548,6 +551,8 @@
 				E54CE2121F8DEDA700430EC9 /* SSUITextView.m */,
 				E54CE24F1F8DF09B00430EC9 /* SSUISlider.h */,
 				E54CE2501F8DF09B00430EC9 /* SSUISlider.m */,
+				E568163C1F94990E00D01212 /* SSUIVisualEffectView.h */,
+				E568163D1F94990E00D01212 /* SSUIVisualEffectView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -701,6 +706,7 @@
 				E54CE2301F8DEDA800430EC9 /* UIModalPresentationViewController.m in Sources */,
 				E54CE2231F8DEDA800430EC9 /* UITabBar+UI.m in Sources */,
 				E54CE2171F8DEDA800430EC9 /* CALayer+UI.m in Sources */,
+				E568163E1F94990E00D01212 /* SSUIVisualEffectView.m in Sources */,
 				E54CE2361F8DEDA800430EC9 /* UIStaticTableViewCellDataSource.m in Sources */,
 				E54CE22E1F8DEDA800430EC9 /* UIEmptyView.m in Sources */,
 				E54CE2151F8DEDA800430EC9 /* NSObject+UI.m in Sources */,
