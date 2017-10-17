@@ -47,6 +47,8 @@
   _detailTextLabelTextColor = appearance.detailTextLabelTextColor;
   _actionButtonTitleColor = appearance.actionButtonTitleColor;
   
+  self.backgroundColor = UIColorWhite;
+  
   self.scrollView = [[UIScrollView alloc] init];
   self.scrollView.showsVerticalScrollIndicator = NO;
   self.scrollView.showsHorizontalScrollIndicator = NO;
