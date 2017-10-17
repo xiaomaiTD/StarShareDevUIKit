@@ -84,7 +84,7 @@
 
 + (void)setDefaultAppearance {
   UIToastBackgroundView *appearance = [UIToastBackgroundView appearance];
-  appearance.styleColor = UIColorMakeWithRGBA(0, 0, 0, 0.8);
+  appearance.styleColor = TostBackgroundViewColor;
   appearance.cornerRadius = 10.0;
 }
 

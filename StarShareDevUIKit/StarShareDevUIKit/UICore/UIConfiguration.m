@@ -183,11 +183,21 @@
   self.tableViewGroupedSectionFooterContentInset = UIEdgeInsetsMake(8, 15, 2, 15);
   
 #pragma mark - CollectionView
+  
   self.collectionViewBackgroundColor = nil;
   
 #pragma mark - UIWindowLevel
+  
   self.windowLevelUIAlertView = UIWindowLevelAlert - 4.0;
   self.windowLevelUIImagePreviewView = UIWindowLevelStatusBar + 1;
+  
+#pragma mark - UITips
+  
+  self.tostShouldBlurBackgroundView = NO;
+  self.tostBackgroundViewColor = UIColorMakeWithRGBA(0, 0, 0, 0.8);
+  self.tostTextLableFont = UIFontBoldMake(16);
+  self.tostDetailTextLabelFont = UIFontBoldMake(12);
+  self.tostLabelColor = self.whiteColor;
   
 #pragma mark - Others
   

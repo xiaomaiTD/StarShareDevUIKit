@@ -170,6 +170,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) CGFloat            windowLevelUIAlertView;
 @property(nonatomic, assign) CGFloat            windowLevelUIImagePreviewView;
 
+#pragma mark - UITips
+
+@property(nonatomic, assign) BOOL               tostShouldBlurBackgroundView;
+@property(nonatomic, strong) UIColor            *tostBackgroundViewColor;
+@property(nonatomic, strong) UIFont             *tostTextLableFont;
+@property(nonatomic, strong) UIFont             *tostDetailTextLabelFont;
+@property(nonatomic, strong) UIColor            *tostLabelColor;
+
 #pragma mark - Others
 
 @property(nonatomic, assign) UIInterfaceOrientationMask supportedOrientationMask;

@@ -170,11 +170,21 @@
 #define TableViewCellDetailLabelColor              [UICMI tableViewCellDetailLabelColor]
 
 #pragma mark - CollectionView
+
 #define CollectionViewBackgroundColor              [UICMI collectionViewBackgroundColor]
 
 #pragma mark - UIWindowLevel
-#define UIWindowLevelUIAlertView                  [UICMI windowLevelUIAlertView]
-#define UIWindowLevelUIImagePreviewView           [UICMI windowLevelUIImagePreviewView]
+
+#define UIWindowLevelUIAlertView                   [UICMI windowLevelUIAlertView]
+#define UIWindowLevelUIImagePreviewView            [UICMI windowLevelUIImagePreviewView]
+
+#pragma mark - UITips
+
+#define TostShouldBlurBackgroundView               [UICMI tostShouldBlurBackgroundView]
+#define TostBackgroundViewColor                    [UICMI tostBackgroundViewColor]
+#define TostTextLableFont                          [UICMI tostTextLableFont]
+#define TostDetailTextLabelFont                    [UICMI tostDetailTextLabelFont]
+#define TostLabelColor                             [UICMI tostLabelColor]
 
 #pragma mark - Others
 
