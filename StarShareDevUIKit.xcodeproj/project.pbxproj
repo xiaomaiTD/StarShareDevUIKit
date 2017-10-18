@@ -75,6 +75,7 @@
 		E54CE24E1F8DEE4000430EC9 /* UIGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E54CE24D1F8DEE4000430EC9 /* UIGridView.m */; };
 		E54CE2511F8DF09B00430EC9 /* SSUISlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E54CE2501F8DF09B00430EC9 /* SSUISlider.m */; };
 		E54CE2571F8DF62C00430EC9 /* UIMarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E54CE2561F8DF62C00430EC9 /* UIMarqueeLabel.m */; };
+		E54F76D41F972984008136B3 /* UIImageView+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = E54F76D31F972984008136B3 /* UIImageView+UI.m */; };
 		E568163E1F94990E00D01212 /* SSUIVisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E568163D1F94990E00D01212 /* SSUIVisualEffectView.m */; };
 /* End PBXBuildFile section */
 
@@ -240,6 +241,8 @@
 		E54CE2501F8DF09B00430EC9 /* SSUISlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUISlider.m; sourceTree = "<group>"; };
 		E54CE2551F8DF62C00430EC9 /* UIMarqueeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIMarqueeLabel.h; sourceTree = "<group>"; };
 		E54CE2561F8DF62C00430EC9 /* UIMarqueeLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIMarqueeLabel.m; sourceTree = "<group>"; };
+		E54F76D21F972984008136B3 /* UIImageView+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UI.h"; sourceTree = "<group>"; };
+		E54F76D31F972984008136B3 /* UIImageView+UI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UI.m"; sourceTree = "<group>"; };
 		E568163C1F94990E00D01212 /* SSUIVisualEffectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIVisualEffectView.h; sourceTree = "<group>"; };
 		E568163D1F94990E00D01212 /* SSUIVisualEffectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIVisualEffectView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -405,6 +408,8 @@
 				E54CE1BE1F8DEDA700430EC9 /* UIViewController+UI.m */,
 				E54CE1BF1F8DEDA700430EC9 /* UIWindow+UI.h */,
 				E54CE1C01F8DEDA700430EC9 /* UIWindow+UI.m */,
+				E54F76D21F972984008136B3 /* UIImageView+UI.h */,
+				E54F76D31F972984008136B3 /* UIImageView+UI.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -707,6 +712,7 @@
 				E54CE2231F8DEDA800430EC9 /* UITabBar+UI.m in Sources */,
 				E54CE2171F8DEDA800430EC9 /* CALayer+UI.m in Sources */,
 				E568163E1F94990E00D01212 /* SSUIVisualEffectView.m in Sources */,
+				E54F76D41F972984008136B3 /* UIImageView+UI.m in Sources */,
 				E54CE2361F8DEDA800430EC9 /* UIStaticTableViewCellDataSource.m in Sources */,
 				E54CE22E1F8DEDA800430EC9 /* UIEmptyView.m in Sources */,
 				E54CE2151F8DEDA800430EC9 /* NSObject+UI.m in Sources */,
@@ -917,7 +923,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5D844S57RU;
+				DEVELOPMENT_TEAM = 7524R5UJ2G;
 				INFOPLIST_FILE = StarShareDevUIKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -932,7 +938,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5D844S57RU;
+				DEVELOPMENT_TEAM = 7524R5UJ2G;
 				INFOPLIST_FILE = StarShareDevUIKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

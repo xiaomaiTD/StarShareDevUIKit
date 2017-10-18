@@ -10,8 +10,11 @@
 #import "UICore.h"
 #import "UIExtensions.h"
 
+typedef void(^EmptyContentTapBlock)(UIEmptyView *target);
+
 @interface UIEmptyView ()
 @property(nonatomic, strong) UIScrollView *scrollView;  // 保证内容超出屏幕时也不至于直接被clip（比如横屏时）
+@property(nonatomic, strong) EmptyContentTapBlock contentTapBlock;
 @end
 
 @implementation UIEmptyView
@@ -64,8 +67,12 @@
   [self.contentView addSubview:self.loadingView];
   
   _imageView = [[UIImageView alloc] init];
+  _imageView.userInteractionEnabled = YES;
   self.imageView.contentMode = UIViewContentModeCenter;
   [self.contentView addSubview:self.imageView];
+  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(imageViewTapEvent)];
+  [_imageView addGestureRecognizer:tap];
   
   _textLabel = [[UILabel alloc] init];
   self.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -168,6 +175,13 @@
   [self setNeedsLayout];
 }
 
+- (void)imageViewTapEvent
+{
+  if (self.contentTapBlock) {
+    self.contentTapBlock(self);
+  }
+}
+
 - (void)setLoadingView:(UIView<UIEmptyViewLoadingViewProtocol> *)loadingView {
   if (self.loadingView != loadingView) {
     [self.loadingView removeFromSuperview];
@@ -262,6 +276,11 @@
 - (void)setActionButtonTitleColor:(UIColor *)actionButtonTitleColor {
   _actionButtonTitleColor = actionButtonTitleColor;
   [self.actionButton setTitleColor:actionButtonTitleColor forState:UIControlStateNormal];
+}
+
+- (void)setContentViewTapBlock:(void (^)(UIEmptyView *target))tapBlock
+{
+  _contentTapBlock = tapBlock;
 }
 
 @end

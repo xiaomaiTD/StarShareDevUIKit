@@ -43,6 +43,7 @@
 - (void)setTextLabelText:(NSString *)text;
 - (void)setDetailTextLabelText:(NSString *)text;
 - (void)setActionButtonTitle:(NSString *)title;
+- (void)setContentViewTapBlock:(void (^)(UIEmptyView *target))tapBlock;
 @property(nonatomic, strong, readonly) UIView *contentView;
 - (CGSize)sizeThatContentViewFits;
 @end

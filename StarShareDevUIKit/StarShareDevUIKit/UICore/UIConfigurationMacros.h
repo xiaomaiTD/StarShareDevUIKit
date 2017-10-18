@@ -178,6 +178,11 @@
 #define UIWindowLevelUIAlertView                   [UICMI windowLevelUIAlertView]
 #define UIWindowLevelUIImagePreviewView            [UICMI windowLevelUIImagePreviewView]
 
+#pragma mark - UIImageView
+
+#define ImageViewPlaceholderColor                  [UICMI imageViewPlaceholderColor]
+#define ImageViewPlaceholderImage                  [UICMI imageViewPlaceholderImage]
+
 #pragma mark - UITips
 
 #define TostShouldBlurBackgroundView               [UICMI tostShouldBlurBackgroundView]
