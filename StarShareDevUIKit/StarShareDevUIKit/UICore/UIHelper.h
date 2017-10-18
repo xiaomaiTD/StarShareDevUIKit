@@ -36,6 +36,11 @@ extern NSString *const _Nonnull UIResourcesMainBundleName;
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color;
 @end
 
+@interface UIHelper (Color)
++ (UIImage *)imageWithColor:(UIColor *)color;
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius;
+@end
+
 @interface UIHelper (ViewController)
 
 /**

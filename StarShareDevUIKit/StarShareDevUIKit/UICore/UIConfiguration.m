@@ -191,6 +191,11 @@
   self.windowLevelUIAlertView = UIWindowLevelAlert - 4.0;
   self.windowLevelUIImagePreviewView = UIWindowLevelStatusBar + 1;
   
+#pragma mark - UIImageView
+  
+  self.imageViewPlaceholderColor = UIColorMake(0xEF, 0xEF, 0xEF);
+  self.imageViewPlaceholderImage = [UIHelper imageWithColor:self.imageViewPlaceholderColor];
+  
 #pragma mark - UITips
   
   self.tostShouldBlurBackgroundView = NO;

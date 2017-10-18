@@ -82,6 +82,19 @@ NSString *const UIResourcesMainBundleName = @"StarShareUIResources.bundle";
 
 @end
 
+@implementation UIHelper (Color)
+
++ (UIImage *)imageWithColor:(UIColor *)color {
+  return [self imageWithColor:color size:CGSizeMake(4, 4) cornerRadius:0];
+}
+
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius
+{
+  return [UIImage imageWithColor:color size:size cornerRadius:cornerRadius];
+}
+
+@end
+
 @implementation UIHelper (ViewController)
 + (nullable UIViewController *)visibleViewController {
   UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;

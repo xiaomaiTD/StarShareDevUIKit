@@ -170,6 +170,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) CGFloat            windowLevelUIAlertView;
 @property(nonatomic, assign) CGFloat            windowLevelUIImagePreviewView;
 
+#pragma mark - UIImageView
+
+@property(nonatomic, strong) UIColor            *imageViewPlaceholderColor;
+@property(nonatomic, strong) UIImage            *imageViewPlaceholderImage;
+
 #pragma mark - UITips
 
 @property(nonatomic, assign) BOOL               tostShouldBlurBackgroundView;
