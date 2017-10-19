@@ -86,9 +86,9 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
   _collectionViewInitialContentInset = collectionViewInitialContentInset;
   
   if (UIEdgeInsetsEqualToEdgeInsets(collectionViewInitialContentInset, SSUICollectionViewControllerInitialContentInsetNotSet)) {
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    //self.automaticallyAdjustsScrollViewInsets = YES;
   } else {
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    //self.automaticallyAdjustsScrollViewInsets = NO;
   }
   
 }

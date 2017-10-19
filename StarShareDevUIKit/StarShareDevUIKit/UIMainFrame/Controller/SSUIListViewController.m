@@ -169,9 +169,9 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
   _tableViewInitialContentInset = tableViewInitialContentInset;
   
   if (UIEdgeInsetsEqualToEdgeInsets(tableViewInitialContentInset, SSUIListViewControllerInitialContentInsetNotSet)) {
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    //self.automaticallyAdjustsScrollViewInsets = YES;
   } else {
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    //self.automaticallyAdjustsScrollViewInsets = NO;
   }
 }
 
