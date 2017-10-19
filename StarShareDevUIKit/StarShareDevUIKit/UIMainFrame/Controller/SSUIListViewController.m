@@ -204,26 +204,18 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
     return NO;
   }
   
-  UIEdgeInsets insets = self.tableView.contentInset;
-  if (@available(ios 11, *)) {
-    if (self.tableView.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
-      insets = self.tableView.adjustedContentInset;
+  BOOL viewDidLoad = self.emptyView.superview || [self isViewLoaded];
+  if (viewDidLoad) {
+    CGSize newEmptyViewSize = self.emptyView.superview.bounds.size;
+    CGSize oldEmptyViewSize = self.emptyView.frame.size;
+    if (!CGSizeEqualToSize(newEmptyViewSize, oldEmptyViewSize)) {
+      self.emptyView.frame = CGRectMake(CGRectGetMinX(self.emptyView.frame), CGRectGetMinY(self.emptyView.frame), newEmptyViewSize.width, newEmptyViewSize.height);
     }
+    [self.tableView bringSubviewToFront:self.emptyView];
+    return YES;
   }
   
-  // 当存在 tableHeaderView 时，emptyView 的高度为 tableView 的高度减去 headerView 的高度
-  if (self.tableView.tableHeaderView) {
-    self.emptyView.frame = CGRectMake(0,
-                                      CGRectGetMaxY(self.tableView.tableHeaderView.frame),
-                                      CGRectGetWidth(self.tableView.bounds) - UIEdgeInsetsGetHorizontalValue(insets),
-                                      CGRectGetHeight(self.tableView.bounds) - UIEdgeInsetsGetVerticalValue(insets) - CGRectGetMaxY(self.tableView.tableHeaderView.frame));
-  } else {
-    self.emptyView.frame = CGRectMake(0,
-                                      0,
-                                      CGRectGetWidth(self.tableView.bounds) - UIEdgeInsetsGetHorizontalValue(insets),
-                                      CGRectGetHeight(self.tableView.bounds) - UIEdgeInsetsGetVerticalValue(insets));
-  }
-  return YES;
+  return NO;
 }
 
 - (void)didReceiveMemoryWarning {

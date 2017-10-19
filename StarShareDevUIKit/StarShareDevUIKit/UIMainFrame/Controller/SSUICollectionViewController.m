@@ -103,6 +103,40 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
   return shouldAdjust;
 }
 
+
+#pragma mark - 空列表视图
+
+- (void)showEmptyView {
+  if (!self.emptyView) {
+    self.emptyView = [[UIEmptyView alloc] init];
+  }
+  [self.collectionView addSubview:self.emptyView];
+  [self layoutEmptyView];
+}
+
+- (void)hideEmptyView {
+  [self.emptyView removeFromSuperview];
+}
+
+- (BOOL)layoutEmptyView {
+  if (!self.emptyView || !self.emptyView.superview) {
+    return NO;
+  }
+  
+  BOOL viewDidLoad = self.emptyView.superview || [self isViewLoaded];
+  if (viewDidLoad) {
+    CGSize newEmptyViewSize = self.emptyView.superview.bounds.size;
+    CGSize oldEmptyViewSize = self.emptyView.frame.size;
+    if (!CGSizeEqualToSize(newEmptyViewSize, oldEmptyViewSize)) {
+      self.emptyView.frame = CGRectMake(CGRectGetMinX(self.emptyView.frame), CGRectGetMinY(self.emptyView.frame), newEmptyViewSize.width, newEmptyViewSize.height);
+    }
+    [self.collectionView bringSubviewToFront:self.emptyView];
+    return YES;
+  }
+  
+  return NO;
+}
+
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
 }

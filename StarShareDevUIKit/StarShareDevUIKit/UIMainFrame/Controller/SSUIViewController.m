@@ -179,6 +179,7 @@
       if (!CGSizeEqualToSize(newEmptyViewSize, oldEmptyViewSize)) {
         self.emptyView.frame = CGRectMake(CGRectGetMinX(self.emptyView.frame), CGRectGetMinY(self.emptyView.frame), newEmptyViewSize.width, newEmptyViewSize.height);
       }
+      [self.view bringSubviewToFront:self.emptyView];
       return YES;
     }
   }
