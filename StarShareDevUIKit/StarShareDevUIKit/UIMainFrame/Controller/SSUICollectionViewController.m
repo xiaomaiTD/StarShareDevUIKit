@@ -61,7 +61,7 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
       // 默认和tableView.contentInset一致
       self.collectionView.scrollIndicatorInsets = self.collectionView.contentInset;
     }
-    [self.collectionView scrollToTopAnimated:NO];
+    [self.collectionView scrollToTopForce:NO animated:NO];
     self.hasSetInitialContentInset = YES;
   }
   
@@ -85,12 +85,11 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
 - (void)setCollectionViewInitialContentInset:(UIEdgeInsets)collectionViewInitialContentInset {
   _collectionViewInitialContentInset = collectionViewInitialContentInset;
   
-  
-//   if (UIEdgeInsetsEqualToEdgeInsets(collectionViewInitialContentInset, SSUICollectionViewControllerInitialContentInsetNotSet)) {
-//   self.automaticallyAdjustsScrollViewInsets = YES;
-//   } else {
-//   self.automaticallyAdjustsScrollViewInsets = NO;
-//   }
+  if (UIEdgeInsetsEqualToEdgeInsets(collectionViewInitialContentInset, SSUICollectionViewControllerInitialContentInsetNotSet)) {
+    self.automaticallyAdjustsScrollViewInsets = YES;
+  } else {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+  }
   
 }
 
@@ -102,39 +101,6 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
 - (BOOL)shouldAdjustCollectionViewScrollIndicatorInsetsInitially {
   BOOL shouldAdjust = !UIEdgeInsetsEqualToEdgeInsets(self.collectionViewInitialScrollIndicatorInsets, SSUICollectionViewControllerInitialContentInsetNotSet);
   return shouldAdjust;
-}
-
-#pragma mark - 空列表视图
-
-- (void)showEmptyView {
-  if (!self.emptyView) {
-    self.emptyView = [[UIEmptyView alloc] init];
-  }
-  [self.collectionView addSubview:self.emptyView];
-  [self layoutEmptyView];
-}
-
-- (void)hideEmptyView {
-  [self.emptyView removeFromSuperview];
-}
-
-- (BOOL)layoutEmptyView {
-  if (!self.emptyView || !self.emptyView.superview) {
-    return NO;
-  }
-  
-  UIEdgeInsets insets = self.collectionView.contentInset;
-  if (@available(ios 11, *)) {
-    if (self.collectionView.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
-      insets = self.collectionView.adjustedContentInset;
-    }
-  }
-  
-  self.emptyView.frame = CGRectMake(0,
-                                    0,
-                                    CGRectGetWidth(self.collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(insets),
-                                    CGRectGetHeight(self.collectionView.bounds) - UIEdgeInsetsGetVerticalValue(insets));
-  return YES;
 }
 
 - (void)didReceiveMemoryWarning {
