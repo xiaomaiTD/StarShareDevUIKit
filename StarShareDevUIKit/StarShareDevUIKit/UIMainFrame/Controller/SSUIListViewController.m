@@ -129,7 +129,7 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
       // 默认和tableView.contentInset一致
       self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     }
-    [self.tableView scrollToTopAnimated:NO];
+    [self.tableView scrollToTopForce:NO animated:NO];
     self.hasSetInitialContentInset = YES;
   }
   
@@ -168,13 +168,11 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
 - (void)setTableViewInitialContentInset:(UIEdgeInsets)tableViewInitialContentInset {
   _tableViewInitialContentInset = tableViewInitialContentInset;
   
-  /**
-  if (UIEdgeInsetsEqualToEdgeInsets(tableViewInitialContentInset, UIListSceneInitialContentInsetNotSet)) {
+  if (UIEdgeInsetsEqualToEdgeInsets(tableViewInitialContentInset, SSUIListViewControllerInitialContentInsetNotSet)) {
     self.automaticallyAdjustsScrollViewInsets = YES;
   } else {
     self.automaticallyAdjustsScrollViewInsets = NO;
   }
-   */
 }
 
 - (BOOL)shouldAdjustTableViewContentInsetsInitially {
