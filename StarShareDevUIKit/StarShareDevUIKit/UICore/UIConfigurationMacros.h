@@ -82,6 +82,7 @@
 #define NavBarTitleColor                                [UICMI navBarTitleColor]
 #define NavBarTitleFont                                 [UICMI navBarTitleFont]
 #define NavBarBarBackButtonTitlePositionAdjustment      [UICMI navBarBackButtonTitlePositionAdjustment]
+#define NavBarBackIndicatorFixLeft                      [UICMI navBarBackIndicatorFixLeft]
 #define NavBarBackIndicatorImage                        [UICMI navBarBackIndicatorImage]
 #define NavBarCloseButtonImage                          [UICMI navBarCloseButtonImage]
 

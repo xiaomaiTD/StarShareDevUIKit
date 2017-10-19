@@ -100,6 +100,7 @@
   self.navBarTitleColor = self.blackColor;
   self.navBarTitleFont = nil;
   self.navBarBackButtonTitlePositionAdjustment = UIOffsetZero;
+  self.navBarBackIndicatorFixLeft = 0.0;
   self.navBarBackIndicatorImage = nil;
   self.navBarCloseButtonImage = nil;
   
@@ -325,7 +326,7 @@
     if (!CGSizeEqualToSize(customBackIndicatorImageSize, systemBackIndicatorImageSize)) {
       CGFloat imageExtensionVerticalFloat = CGFloatGetCenter(systemBackIndicatorImageSize.height, customBackIndicatorImageSize.height);
       UIEdgeInsets insets = UIEdgeInsetsMake(imageExtensionVerticalFloat,
-                                             0,
+                                             _navBarBackIndicatorFixLeft * 2.0,
                                              imageExtensionVerticalFloat,
                                              systemBackIndicatorImageSize.width - customBackIndicatorImageSize.width);
       
