@@ -141,6 +141,7 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self.tableView clearsSelection];
+  [self needLayoutSubviews];
 }
 
 #pragma mark - 工具方法
@@ -173,13 +174,6 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
   } else {
     //self.automaticallyAdjustsScrollViewInsets = NO;
   }
-  [self needLayoutSubviews];
-}
-
-- (void)setTableViewInitialScrollIndicatorInsets:(UIEdgeInsets)tableViewInitialScrollIndicatorInsets
-{
-  _tableViewInitialScrollIndicatorInsets = tableViewInitialScrollIndicatorInsets;
-  [self needLayoutSubviews];
 }
 
 - (BOOL)shouldAdjustTableViewContentInsetsInitially {

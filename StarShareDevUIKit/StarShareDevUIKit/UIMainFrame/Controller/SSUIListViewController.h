@@ -27,6 +27,6 @@
 @end
 
 @interface SSUIListViewController (Hooks)
-- (void)initTableView;
+- (void)initTableView NS_REQUIRES_SUPER;
 - (BOOL)shouldHideTableHeaderViewInitial;
 @end

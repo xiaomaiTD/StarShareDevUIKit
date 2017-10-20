@@ -20,5 +20,5 @@
 @end
 
 @interface SSUICollectionViewController (Hooks)
-- (void)initCollectionView;
+- (void)initCollectionView NS_REQUIRES_SUPER;
 @end
