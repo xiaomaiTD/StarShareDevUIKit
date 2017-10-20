@@ -208,8 +208,16 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
   if (viewDidLoad) {
     CGSize newEmptyViewSize = self.emptyView.superview.bounds.size;
     CGSize oldEmptyViewSize = self.emptyView.frame.size;
-    if (!CGSizeEqualToSize(newEmptyViewSize, oldEmptyViewSize)) {
-      self.emptyView.frame = CGRectMake(CGRectGetMinX(self.emptyView.frame), CGRectGetMinY(self.emptyView.frame), newEmptyViewSize.width, newEmptyViewSize.height);
+    
+    UIEdgeInsets offset = UIEdgeInsetsZero;
+    if (@available(iOS 11,*)) {
+      offset = self.tableView.adjustedContentInset;
+    }else{
+      offset = self.tableView.contentInset;
+    }
+    
+    if (!CGSizeEqualToSize(newEmptyViewSize, oldEmptyViewSize) || self.emptyView.origin.y != -offset.top) {
+      self.emptyView.frame = CGRectMake(CGRectGetMinX(self.emptyView.frame), -offset.top, newEmptyViewSize.width, newEmptyViewSize.height);
     }
     [self.tableView bringSubviewToFront:self.emptyView];
     return YES;
