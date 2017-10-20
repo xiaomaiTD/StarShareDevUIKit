@@ -93,6 +93,12 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
   [self needLayoutSubviews];
 }
 
+- (void)setCollectionViewInitialScrollIndicatorInsets:(UIEdgeInsets)collectionViewInitialScrollIndicatorInsets
+{
+  _collectionViewInitialScrollIndicatorInsets = collectionViewInitialScrollIndicatorInsets;
+  [self needLayoutSubviews];
+}
+
 - (BOOL)shouldAdjustCollectionViewContentInsetsInitially {
   BOOL shouldAdjust = !UIEdgeInsetsEqualToEdgeInsets(self.collectionViewInitialContentInset, SSUICollectionViewControllerInitialContentInsetNotSet);
   return shouldAdjust;

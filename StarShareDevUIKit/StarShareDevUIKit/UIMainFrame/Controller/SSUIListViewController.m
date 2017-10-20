@@ -176,6 +176,12 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
   [self needLayoutSubviews];
 }
 
+- (void)setTableViewInitialScrollIndicatorInsets:(UIEdgeInsets)tableViewInitialScrollIndicatorInsets
+{
+  _tableViewInitialScrollIndicatorInsets = tableViewInitialScrollIndicatorInsets;
+  [self needLayoutSubviews];
+}
+
 - (BOOL)shouldAdjustTableViewContentInsetsInitially {
   BOOL shouldAdjust = !UIEdgeInsetsEqualToEdgeInsets(self.tableViewInitialContentInset, SSUIListViewControllerInitialContentInsetNotSet);
   return shouldAdjust;
