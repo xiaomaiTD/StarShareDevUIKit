@@ -44,7 +44,6 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self.collectionView clearsSelection];
-  [self needLayoutSubviews];
 }
 
 - (void)needLayoutSubviews

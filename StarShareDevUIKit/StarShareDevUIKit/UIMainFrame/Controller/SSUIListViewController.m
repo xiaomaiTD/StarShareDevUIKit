@@ -141,7 +141,6 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self.tableView clearsSelection];
-  [self needLayoutSubviews];
 }
 
 #pragma mark - 工具方法
