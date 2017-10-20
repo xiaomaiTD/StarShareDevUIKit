@@ -186,11 +186,11 @@
 
 #pragma mark - UITips
 
-#define TostShouldBlurBackgroundView               [UICMI tostShouldBlurBackgroundView]
-#define TostBackgroundViewColor                    [UICMI tostBackgroundViewColor]
-#define TostTextLableFont                          [UICMI tostTextLableFont]
-#define TostDetailTextLabelFont                    [UICMI tostDetailTextLabelFont]
-#define TostLabelColor                             [UICMI tostLabelColor]
+#define TipsShouldBlurBackgroundView               [UICMI tipsShouldBlurBackgroundView]
+#define TipsBackgroundViewColor                    [UICMI tipsBackgroundViewColor]
+#define TipsTextLableFont                          [UICMI tipsTextLableFont]
+#define TipsDetailTextLabelFont                    [UICMI tipsDetailTextLabelFont]
+#define TipsLabelColor                             [UICMI tipsLabelColor]
 
 #pragma mark - Others
 

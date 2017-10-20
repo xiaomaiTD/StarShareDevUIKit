@@ -73,7 +73,7 @@
 
 - (UIView *)defaultBackgrondView {
   UIToastBackgroundView *backgroundView = [[UIToastBackgroundView alloc] init];
-  backgroundView.shouldBlurBackgroundView = TostShouldBlurBackgroundView;
+  backgroundView.shouldBlurBackgroundView = NO;
   return backgroundView;
 }
 

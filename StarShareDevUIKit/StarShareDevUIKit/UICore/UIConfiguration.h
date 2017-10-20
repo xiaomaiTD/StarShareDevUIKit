@@ -178,11 +178,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITips
 
-@property(nonatomic, assign) BOOL               tostShouldBlurBackgroundView;
-@property(nonatomic, strong) UIColor            *tostBackgroundViewColor;
-@property(nonatomic, strong) UIFont             *tostTextLableFont;
-@property(nonatomic, strong) UIFont             *tostDetailTextLabelFont;
-@property(nonatomic, strong) UIColor            *tostLabelColor;
+@property(nonatomic, assign) BOOL               tipsShouldBlurBackgroundView;
+@property(nonatomic, strong) UIColor            *tipsBackgroundViewColor;
+@property(nonatomic, strong) UIFont             *tipsTextLableFont;
+@property(nonatomic, strong) UIFont             *tipsDetailTextLabelFont;
+@property(nonatomic, strong) UIColor            *tipsLabelColor;
 
 #pragma mark - Others
 

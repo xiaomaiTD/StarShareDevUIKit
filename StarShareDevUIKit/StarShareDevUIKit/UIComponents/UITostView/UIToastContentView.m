@@ -10,6 +10,10 @@
 #import "UICore.h"
 #import "UIExtensions.h"
 
+#define DefaultTextLabelFont UIFontBoldMake(16)
+#define DefaultDetailTextLabelFont UIFontBoldMake(12)
+#define DefaultLabelColor UIColorWhite
+
 @implementation UIToastContentView
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -28,16 +32,16 @@
   _textLabel = [[UILabel alloc] init];
   self.textLabel.numberOfLines = 0;
   self.textLabel.textAlignment = NSTextAlignmentCenter;
-  self.textLabel.textColor = TostLabelColor;
-  self.textLabel.font = TostTextLableFont;
+  self.textLabel.textColor = DefaultLabelColor;
+  self.textLabel.font = DefaultTextLabelFont;
   self.textLabel.opaque = NO;
   [self addSubview:self.textLabel];
   
   _detailTextLabel = [[UILabel alloc] init];
   self.detailTextLabel.numberOfLines = 0;
   self.detailTextLabel.textAlignment = NSTextAlignmentCenter;
-  self.detailTextLabel.textColor = TostLabelColor;
-  self.detailTextLabel.font = TostDetailTextLabelFont;
+  self.detailTextLabel.textColor = DefaultLabelColor;
+  self.detailTextLabel.font = DefaultDetailTextLabelFont;
   self.detailTextLabel.opaque = NO;
   [self addSubview:self.detailTextLabel];
 }
@@ -249,8 +253,8 @@
   appearance.customViewMarginBottom = 8;
   appearance.textLabelMarginBottom = 4;
   appearance.detailTextLabelMarginBottom = 0;
-  appearance.textLabelAttributes = @{NSFontAttributeName: TostTextLableFont, NSForegroundColorAttributeName: TostLabelColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight: 22]};
-  appearance.detailTextLabelAttributes = @{NSFontAttributeName: TostDetailTextLabelFont, NSForegroundColorAttributeName: TostLabelColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight: 18]};
+  appearance.textLabelAttributes = @{NSFontAttributeName: DefaultTextLabelFont, NSForegroundColorAttributeName: DefaultLabelColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight: 22]};
+  appearance.detailTextLabelAttributes = @{NSFontAttributeName: DefaultDetailTextLabelFont, NSForegroundColorAttributeName: DefaultLabelColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight: 18]};
 }
 
 @end

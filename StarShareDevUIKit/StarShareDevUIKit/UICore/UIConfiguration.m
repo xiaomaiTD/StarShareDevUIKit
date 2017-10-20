@@ -199,11 +199,11 @@
   
 #pragma mark - UITips
   
-  self.tostShouldBlurBackgroundView = NO;
-  self.tostBackgroundViewColor = UIColorMakeWithRGBA(0, 0, 0, 0.8);
-  self.tostTextLableFont = UIFontBoldMake(16);
-  self.tostDetailTextLabelFont = UIFontBoldMake(12);
-  self.tostLabelColor = self.whiteColor;
+  self.tipsShouldBlurBackgroundView = NO;
+  self.tipsBackgroundViewColor = UIColorMakeWithRGBA(0, 0, 0, 0.8);
+  self.tipsTextLableFont = UIFontBoldMake(16);
+  self.tipsDetailTextLabelFont = UIFontBoldMake(12);
+  self.tipsLabelColor = self.whiteColor;
   
 #pragma mark - Others
   

@@ -17,6 +17,20 @@
 
 @implementation UITips
 
+- (instancetype)initWithView:(UIView *)view
+{
+  if (self = [super initWithView:view]) {
+    UIToastBackgroundView *backgroundView = (UIToastBackgroundView *)self.backgroundView;
+    backgroundView.shouldBlurBackgroundView = TipsShouldBlurBackgroundView;
+    backgroundView.styleColor = TipsBackgroundViewColor;
+    UIToastContentView *contentView = (UIToastContentView *)self.contentView;
+    contentView.textLabel.font = TipsTextLableFont;
+    contentView.detailTextLabel.font = TipsDetailTextLabelFont;
+    self.tintColor = TipsLabelColor;
+  }
+  return self;
+}
+
 - (void)showWithText:(NSString *)text {
   [self showWithText:text detailText:nil hideAfterDelay:0];
 }
