@@ -173,6 +173,7 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
   } else {
     //self.automaticallyAdjustsScrollViewInsets = NO;
   }
+  [self needLayoutSubviews];
 }
 
 - (BOOL)shouldAdjustTableViewContentInsetsInitially {

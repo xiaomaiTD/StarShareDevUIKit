@@ -90,7 +90,7 @@ const UIEdgeInsets SSUICollectionViewControllerInitialContentInsetNotSet = {-1, 
   } else {
     //self.automaticallyAdjustsScrollViewInsets = NO;
   }
-  
+  [self needLayoutSubviews];
 }
 
 - (BOOL)shouldAdjustCollectionViewContentInsetsInitially {
