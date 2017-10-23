@@ -240,16 +240,19 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
 }
 
 - (CGFloat)navigationBarMaxYInViewCoordinator {
-  CGFloat result = 0;
+  if (!self.isViewLoaded) {
+    return 0;
+  }
+  if (!self.navigationController.navigationBar || self.navigationController.navigationBarHidden) {
+    return 0;
+  }
+  CGFloat result = 44.0;
   if (![UIApplication sharedApplication].statusBarHidden) {
     if ([UIHelper is58InchScreen]) {
       result += 44.0;
     }else{
       result += 20.0;
     }
-  }
-  if (self.navigationController.navigationBar || !self.navigationController.navigationBarHidden) {
-    result += 44.0;
   }
   return result;
 }
