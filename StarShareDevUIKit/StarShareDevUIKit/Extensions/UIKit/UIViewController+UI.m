@@ -239,14 +239,17 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
 }
 
 - (CGFloat)navigationBarMaxYInViewCoordinator {
-  if (!self.isViewLoaded) {
-    return 0;
+  CGFloat result = 0;
+  if (![UIApplication sharedApplication].statusBarHidden) {
+    if (@available(iOS 11,*)) {
+      result += 44.0;
+    }else{
+      result += 20.0;
+    }
   }
-  if (!self.navigationController.navigationBar || self.navigationController.navigationBarHidden) {
-    return 0;
+  if (self.navigationController.navigationBar || !self.navigationController.navigationBarHidden) {
+    result += 44.0;
   }
-  CGRect navigationBarFrame = CGRectIntersection(self.view.bounds, [self.view convertRect:self.navigationController.navigationBar.frame fromView:self.navigationController.navigationBar.superview]);
-  CGFloat result = CGRectGetMaxY(navigationBarFrame);
   return result;
 }
 
