@@ -9,6 +9,7 @@
 #import "UIViewController+UI.h"
 #import "UINavigationController+UI.h"
 #import "NSObject+UI.h"
+#import "UICore.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -241,7 +242,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
 - (CGFloat)navigationBarMaxYInViewCoordinator {
   CGFloat result = 0;
   if (![UIApplication sharedApplication].statusBarHidden) {
-    if (@available(iOS 11,*)) {
+    if ([UIHelper is58InchScreen]) {
       result += 44.0;
     }else{
       result += 20.0;
