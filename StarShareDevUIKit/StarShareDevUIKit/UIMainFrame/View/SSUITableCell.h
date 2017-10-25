@@ -10,13 +10,18 @@
 #import "UIComponents.h"
 #import "UIExtensions.h"
 
+@interface UISeparatorView : UIView
+@end
+
 @interface SSUITableCell : UITableViewCell
 @property(nonatomic, assign, readonly) UITableViewCellStyle style;
+@property(nonatomic, strong, readonly) UISeparatorView *separatorView;
 @property(nonatomic, assign) UIEdgeInsets imageEdgeInsets;
 @property(nonatomic, assign) UIEdgeInsets textLabelEdgeInsets;
 @property(nonatomic, assign) UIEdgeInsets detailTextLabelEdgeInsets;
 @property(nonatomic, assign) UIEdgeInsets accessoryEdgeInsets;
 @property(nonatomic, assign) UIEdgeInsets accessoryHitTestEdgeInsets;
+@property(nonatomic, assign) UIEdgeInsets separatorViewEdgeInsets;
 @property(nonatomic, assign, getter = isEnabled) BOOL enabled;
 @property(nonatomic, weak) UITableView *parentTableView;
 @property(nonatomic, assign, readonly) UITableCellScenePosition cellPosition;

@@ -27,6 +27,7 @@
   ///< 设置一个空的 backgroundView，去掉系统的，以使 backgroundColor 生效
   self.separatorColor = TableViewSeparatorColor;
   self.backgroundView = [[UIView alloc] init];
+  self.separatorStyle = UITableViewCellSeparatorStyleNone;
   
   self.sectionIndexColor = TableSectionIndexColor;
   self.sectionIndexTrackingBackgroundColor = TableSectionIndexTrackingBackgroundColor;

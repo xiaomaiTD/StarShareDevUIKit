@@ -9,12 +9,16 @@
 #import "SSUITableCell.h"
 #import "UICore.h"
 
+@implementation UISeparatorView
+@end
+
 @interface SSUITableCell() <UIScrollViewDelegate>
 @property(nonatomic, assign, readwrite) UITableCellScenePosition cellPosition;
 @property(nonatomic, assign, readwrite) UITableViewCellStyle style;
 @property(nonatomic, strong) UIImageView *defaultAccessoryImageView;
 @property(nonatomic, strong) UIButton *defaultAccessoryButton;
 @property(nonatomic, strong) UIView *defaultDetailDisclosureView;
+@property(nonatomic, strong, readwrite) UISeparatorView *separatorView;
 @end
 
 @implementation SSUITableCell
@@ -51,6 +55,9 @@
   _style = style;
   _enabled = YES;
   _accessoryHitTestEdgeInsets = UIEdgeInsetsMake(-12, -12, -12, -12);
+  
+  [self initDefaultSeparatorViewIfNeeded];
+  [self.contentView addSubview:self.separatorView];
   
   self.textLabel.font = UIFontMake(16);
   self.textLabel.backgroundColor = UIColorClear;
@@ -157,6 +164,28 @@
       self.detailTextLabel.frame = CGRectSetWidth(self.detailTextLabel.frame, CGRectGetWidth(self.contentView.bounds) - CGRectGetMinX(self.detailTextLabel.frame));
     }
   }
+  
+  CGRect separatorViewFrame;
+  BOOL hasCustomSeparatorViewEdgeInset = !UIEdgeInsetsEqualToEdgeInsets(self.separatorViewEdgeInsets, UIEdgeInsetsZero);
+  if (hasCustomSeparatorViewEdgeInset) {
+    separatorViewFrame.origin.x = self.separatorViewEdgeInsets.left;
+    separatorViewFrame.origin.y = self.contentView.bounds.size.height - PixelOne;
+    separatorViewFrame.size.width = self.bounds.size.width - self.separatorViewEdgeInsets.left - self.separatorViewEdgeInsets.right;
+    separatorViewFrame.size.height = PixelOne;
+  }else{
+    separatorViewFrame.origin.x = self.textLabel.frame.origin.x;
+    separatorViewFrame.origin.y = self.contentView.bounds.size.height - PixelOne;
+    separatorViewFrame.size.width = self.bounds.size.width - self.textLabel.frame.origin.x;
+    separatorViewFrame.size.height = PixelOne;
+  }
+  
+  self.separatorView.frame = separatorViewFrame;
+  
+  if (self.parentTableView && self.parentTableView.separatorStyle != UITableViewCellSeparatorStyleNone) {
+    self.separatorView.hidden = YES;
+  }else{
+    self.separatorView.hidden = NO;
+  }
 }
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
@@ -207,6 +236,14 @@
 - (void)initDefaultDetailDisclosureViewIfNeeded {
   if (!self.defaultDetailDisclosureView) {
     self.defaultDetailDisclosureView = [[UIView alloc] init];
+  }
+}
+
+- (void)initDefaultSeparatorViewIfNeeded
+{
+  if (!self.separatorView) {
+    self.separatorView = [[UISeparatorView alloc] init];
+    self.separatorView.backgroundColor = TableViewSeparatorColor;
   }
 }
 
@@ -355,3 +392,4 @@
 }
 
 @end
+
