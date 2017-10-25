@@ -11,6 +11,9 @@
 
 @implementation SSUICollectionView
 
+@dynamic delegate;
+@dynamic dataSource;
+
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout
 {
   if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
