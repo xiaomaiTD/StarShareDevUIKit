@@ -15,3 +15,4 @@
 #import "SSUILable.h"
 #import "SSUISlider.h"
 #import "SSUIVisualEffectView.h"
+#import "SSUISwitch.h"

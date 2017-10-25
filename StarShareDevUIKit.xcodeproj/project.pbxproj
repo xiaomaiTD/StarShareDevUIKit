@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 31311E661FA0D04800E54DD0 /* SSUISwitch.m */; };
 		E51900A01F7DE25200F280A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E519009F1F7DE25200F280A0 /* AppDelegate.m */; };
 		E51900A31F7DE25200F280A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E51900A21F7DE25200F280A0 /* ViewController.m */; };
 		E51900A61F7DE25200F280A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E51900A41F7DE25200F280A0 /* Main.storyboard */; };
@@ -97,6 +98,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		31311E651FA0D04800E54DD0 /* SSUISwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUISwitch.h; sourceTree = "<group>"; };
+		31311E661FA0D04800E54DD0 /* SSUISwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUISwitch.m; sourceTree = "<group>"; };
 		E519009B1F7DE25100F280A0 /* StarShareDevUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarShareDevUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E519009E1F7DE25200F280A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E519009F1F7DE25200F280A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -558,6 +561,8 @@
 				E54CE2501F8DF09B00430EC9 /* SSUISlider.m */,
 				E568163C1F94990E00D01212 /* SSUIVisualEffectView.h */,
 				E568163D1F94990E00D01212 /* SSUIVisualEffectView.m */,
+				31311E651FA0D04800E54DD0 /* SSUISwitch.h */,
+				31311E661FA0D04800E54DD0 /* SSUISwitch.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -713,6 +718,7 @@
 				E54CE2171F8DEDA800430EC9 /* CALayer+UI.m in Sources */,
 				E568163E1F94990E00D01212 /* SSUIVisualEffectView.m in Sources */,
 				E54F76D41F972984008136B3 /* UIImageView+UI.m in Sources */,
+				31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */,
 				E54CE2361F8DEDA800430EC9 /* UIStaticTableViewCellDataSource.m in Sources */,
 				E54CE22E1F8DEDA800430EC9 /* UIEmptyView.m in Sources */,
 				E54CE2151F8DEDA800430EC9 /* NSObject+UI.m in Sources */,

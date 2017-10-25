@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SSUISwitch.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
+  SSUISwitch *s = [[SSUISwitch alloc] initWithFrame:CGRectMake(100, 100, 41, 23)];
+  [self.view addSubview:s];
 }
 
 

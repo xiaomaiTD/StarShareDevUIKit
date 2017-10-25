@@ -12,6 +12,7 @@
 #import "SSUITableCell.h"
 #import "UITableView+UIStaticCell.h"
 #import "UIExtensions.h"
+#import "SSUISwitch.h"
 #import <objc/runtime.h>
 
 @interface UIStaticTableViewCellDataSource ()
@@ -96,12 +97,12 @@
   
   // 为某些控件类型的accessory添加控件及相应的事件绑定
   if (data.accessoryType == UIStaticTableViewCellAccessoryTypeSwitch) {
-    UISwitch *switcher;
+    SSUISwitch *switcher;
     BOOL switcherOn = NO;
-    if ([cell.accessoryView isKindOfClass:[UISwitch class]]) {
-      switcher = (UISwitch *)cell.accessoryView;
+    if ([cell.accessoryView isKindOfClass:[SSUISwitch class]]) {
+      switcher = (SSUISwitch *)cell.accessoryView;
     } else {
-      switcher = [[UISwitch alloc] init];
+      switcher = [[SSUISwitch alloc] initWithFrame:CGRectMake(0, 0, 41, 23)];
     }
     if ([data.accessoryValueObject isKindOfClass:[NSNumber class]]) {
       switcherOn = [((NSNumber *)data.accessoryValueObject) boolValue];
