@@ -58,7 +58,6 @@
   _accessoryHitTestEdgeInsets = UIEdgeInsetsMake(-12, -12, -12, -12);
   
   [self initDefaultSeparatorViewIfNeeded];
-  [self.contentView addSubview:self.separatorView];
   
   self.textLabel.font = UIFontMake(16);
   self.textLabel.backgroundColor = UIColorClear;
@@ -183,9 +182,7 @@
   self.separatorView.frame = separatorViewFrame;
   
   SSUITableView *tableView = (SSUITableView *)self.superview;
-  if (tableView.cellSeparatorStyle == SSUITableViewCellSeparatorStyleLine) {
-    self.separatorView.hidden = NO;
-  }else{
+  if (tableView.cellSeparatorStyle == SSUITableViewCellSeparatorStyleNone) {
     self.separatorView.hidden = YES;
   }
   
@@ -247,6 +244,7 @@
   if (!self.separatorView) {
     self.separatorView = [[UISeparatorView alloc] init];
     self.separatorView.backgroundColor = TableViewSeparatorColor;
+    [self addSubview:self.separatorView];
   }
 }
 
