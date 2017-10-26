@@ -181,8 +181,16 @@
   
   self.separatorView.frame = separatorViewFrame;
   
-  SSUITableView *tableView = (SSUITableView *)self.superview;
-  if (tableView.cellSeparatorStyle == SSUITableViewCellSeparatorStyleNone) {
+  UIView *superview = self.superview;
+  while (![superview isKindOfClass:[SSUITableView class]]) {
+    superview = superview.superview;
+  }
+  if ([superview isKindOfClass:[SSUITableView class]]) {
+    SSUITableView *tableView = (SSUITableView *)superview;
+    if (tableView.cellSeparatorStyle == SSUITableViewCellSeparatorStyleNone) {
+      self.separatorView.hidden = YES;
+    }
+  }else{
     self.separatorView.hidden = YES;
   }
   
