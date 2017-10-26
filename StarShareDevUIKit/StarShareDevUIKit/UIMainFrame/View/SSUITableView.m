@@ -81,19 +81,6 @@
 
 @implementation SSUITableView (Style)
 
-+ (void)load {
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    Class cls = [self class];
-    ReplaceMethod(cls, @selector(setSeparatorStyle:), @selector(ss_setSeparatorStyle:));
-  });
-}
-
-- (void)ss_setSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle
-{
-  [self ss_setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-}
-
 static char SSUITableViewCellSeparatorStyleKey;
 
 - (SSUITableViewCellSeparatorStyle)cellSeparatorStyle{
