@@ -10,6 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger,SSUITableViewCellSeparatorStyle) {
+  SSUITableViewCellSeparatorStyleNone,
+  SSUITableViewCellSeparatorStyleLine
+};
+
 @class SSUITableView;
 
 @protocol SSUITableViewDelegate <UITableViewDelegate>
@@ -25,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SSUITableView : UITableView
 @property(nonatomic, weak) id<SSUITableViewDelegate> delegate;
 @property(nonatomic, weak) id<SSUITableViewDataSource> dataSource;
+@end
+
+@interface SSUITableView (Style)
+@property(nonatomic, assign) SSUITableViewCellSeparatorStyle cellSeparatorStyle;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -78,3 +78,30 @@
 #endif
 
 @end
+
+@implementation SSUITableView (Style)
+
++ (void)load {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    Class cls = [self class];
+    ReplaceMethod(cls, @selector(setSeparatorStyle:), @selector(ss_setSeparatorStyle:));
+  });
+}
+
+- (void)ss_setSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle
+{
+  [self ss_setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+static char SSUITableViewCellSeparatorStyleKey;
+
+- (SSUITableViewCellSeparatorStyle)cellSeparatorStyle{
+  id obj = objc_getAssociatedObject(self, &SSUITableViewCellSeparatorStyleKey);
+  return obj ? [obj integerValue] : SSUITableViewCellSeparatorStyleNone;
+}
+
+- (void)setCellSeparatorStyle:(SSUITableViewCellSeparatorStyle)cellSeparatorStyle {
+  objc_setAssociatedObject(self, &SSUITableViewCellSeparatorStyleKey, @(cellSeparatorStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+@end

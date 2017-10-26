@@ -7,6 +7,7 @@
 //
 
 #import "SSUITableCell.h"
+#import "SSUITableView.h"
 #import "UICore.h"
 
 @implementation UISeparatorView
@@ -181,11 +182,13 @@
   
   self.separatorView.frame = separatorViewFrame;
   
-  if (self.parentTableView && self.parentTableView.separatorStyle != UITableViewCellSeparatorStyleNone) {
-    self.separatorView.hidden = YES;
-  }else{
+  SSUITableView *tableView = (SSUITableView *)self.superview;
+  if (tableView.cellSeparatorStyle == SSUITableViewCellSeparatorStyleLine) {
     self.separatorView.hidden = NO;
+  }else{
+    self.separatorView.hidden = YES;
   }
+  
 }
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
