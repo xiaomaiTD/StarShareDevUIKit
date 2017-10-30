@@ -225,7 +225,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   if ([self isViewLoadedAndVisible]) {
     return self;
   } else {
-    NSLog(@"visibleViewControllerIfExist:，找不到可见的viewController。self = %@, window = %@", self,self.view.window);
+    NSLog(@"visibleViewControllerIfExist:，找不到可见的viewController。self = %@", self);
     return nil;
   }
 }
