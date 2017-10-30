@@ -11,7 +11,7 @@
 #import "SSUITableView.h"
 #import "UIComponents.h"
 
-@interface SSUIListViewController : SSUIViewController<SSUITableViewDelegate, SSUITableViewDataSource, UIChangingThemeDelegate>
+@interface SSUIListViewController : SSUIViewController<SSUITableViewDelegate, SSUITableViewDataSource>
 - (instancetype)initWithStyle:(UITableViewStyle)style NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 - (void)didInitializedWithStyle:(UITableViewStyle)style NS_REQUIRES_SUPER;

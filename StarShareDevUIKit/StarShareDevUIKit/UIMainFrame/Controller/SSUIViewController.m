@@ -60,7 +60,22 @@
                                            selector:@selector(significantTimeChange:)
                                                name:UIApplicationSignificantTimeChangeNotification
                                              object:nil];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(handleThemeChangedNotification:)
+                                               name:UIThemeChangedNotification
+                                             object:nil];
   self.supportedOrientationMask = SupportedOrientationMask;
+}
+
+- (void)handleThemeChangedNotification:(NSNotification *)notification {
+  NSObject<UIThemeProtocol> *themeBeforeChanged = notification.userInfo[UIThemeBeforeChangedName];
+  themeBeforeChanged = [themeBeforeChanged isKindOfClass:[NSNull class]] ? nil : themeBeforeChanged;
+  
+  NSObject<UIThemeProtocol> *themeAfterChanged = notification.userInfo[UIThemeAfterChangedName];
+  themeAfterChanged = [themeAfterChanged isKindOfClass:[NSNull class]] ? nil : themeAfterChanged;
+  
+  [self themeBeforeChanged:themeBeforeChanged afterChanged:themeAfterChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,6 +115,11 @@
   _hideKeyboardManager = [[UIKeyboardManager alloc] initWithDelegate:_hideKeyboadDelegateObject];
   
   [self initSubviews];
+}
+
+#pragma mark - <UIChangingThemeDelegate>
+
+- (void)themeBeforeChanged:(NSObject<UIThemeProtocol> *)themeBeforeChanged afterChanged:(NSObject<UIThemeProtocol> *)themeAfterChanged {
 }
 
 #pragma mark - 空列表视图 UIEmptyView

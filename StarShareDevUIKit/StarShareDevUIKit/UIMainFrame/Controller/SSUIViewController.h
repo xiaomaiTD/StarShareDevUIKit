@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SSUIViewController : UIViewController<UINavigationCustomTransitionDelegate>
+@interface SSUIViewController : UIViewController<UINavigationCustomTransitionDelegate,UIChangingThemeDelegate>
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 

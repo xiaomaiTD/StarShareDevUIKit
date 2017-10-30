@@ -70,7 +70,7 @@ NSString *const UIResourcesMainBundleName = @"StarShareUIResources.bundle";
   
   UIGraphicsBeginImageContextWithOptions(size, YES, 0);
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGGradientRef gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), (CFArrayRef)@[(id)color.CGColor, (id)[color colorWithAlphaAddedToWhite:.86].CGColor], NULL);
+  CGGradientRef gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), (CFArrayRef)@[(id)color.CGColor, (id)color.CGColor], NULL);
   CGContextDrawLinearGradient(context, gradient, CGPointZero, CGPointMake(0, size.height), kCGGradientDrawsBeforeStartLocation);
   
   resultImage = UIGraphicsGetImageFromCurrentImageContext();

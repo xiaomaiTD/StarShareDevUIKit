@@ -52,20 +52,6 @@ const NSInteger kSectionHeaderFooterLabelTag = 1024;
   self.hasHideTableHeaderViewInitial = NO;
   self.tableViewInitialContentInset = SSUIListViewControllerInitialContentInsetNotSet;
   self.tableViewInitialScrollIndicatorInsets = SSUIListViewControllerInitialContentInsetNotSet;
-  
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(handleThemeChangedNotification:)
-                                               name:UIThemeChangedNotification object:nil];
-}
-
-- (void)handleThemeChangedNotification:(NSNotification *)notification {
-  NSObject<UIThemeProtocol> *themeBeforeChanged = notification.userInfo[UIThemeBeforeChangedName];
-  themeBeforeChanged = [themeBeforeChanged isKindOfClass:[NSNull class]] ? nil : themeBeforeChanged;
-  
-  NSObject<UIThemeProtocol> *themeAfterChanged = notification.userInfo[UIThemeAfterChangedName];
-  themeAfterChanged = [themeAfterChanged isKindOfClass:[NSNull class]] ? nil : themeAfterChanged;
-  
-  [self themeBeforeChanged:themeBeforeChanged afterChanged:themeAfterChanged];
 }
 
 - (void)dealloc {
