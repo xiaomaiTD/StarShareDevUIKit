@@ -45,6 +45,13 @@ typedef NS_ENUM(NSUInteger, SSUIFillButtonColor) {
 @property(nonatomic, assign) IBInspectable CGFloat spacingBetweenImageAndTitle;
 @end
 
+@interface SSUILinkButton : SSUIButton
+@property(nonatomic, assign) IBInspectable BOOL underlineHidden;
+@property(nonatomic, assign) IBInspectable CGFloat underlineWidth;
+@property(nonatomic, strong, nullable) IBInspectable UIColor *underlineColor;
+@property(nonatomic, assign) UIEdgeInsets underlineInsets;
+@end
+
 extern const CGFloat SSUIGhostButtonCornerRadiusAdjustsBounds;
 @interface SSUIGhostButton : SSUIButton
 @property(nonatomic, strong, nullable) IBInspectable UIColor *ghostColor;
