@@ -52,9 +52,8 @@ typedef NS_ENUM(NSUInteger, SSUIFillButtonColor) {
 @property(nonatomic, assign) UIEdgeInsets underlineInsets;
 @end
 
-@class SSUITimerButton;
-typedef NSString *_Nonnull(^SSUITimerButtonBeginBlock)(SSUITimerButton *button,NSTimeInterval currentTime);
-typedef NSString *_Nonnull(^SSUITimerButtonCompleteBlock)(SSUITimerButton *button);
+typedef NSString *_Nonnull(^SSUITimerButtonBeginBlock)(NSTimeInterval currentTime);
+typedef NSString *_Nonnull(^SSUITimerButtonCompleteBlock)(void);
 @interface SSUITimerButton : SSUIButton
 - (void)startTimerWithDuaration:(NSTimeInterval)duration;
 @property(nonatomic, copy) SSUITimerButtonBeginBlock excutingBlock;

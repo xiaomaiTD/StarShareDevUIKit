@@ -640,15 +640,20 @@
       dispatch_source_cancel(timer);
       dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.enabled = YES;
-        if (self.completedBlock) {
-          self.completedBlock(self);
+        if (weakSelf.completedBlock) {
+          NSString *title = weakSelf.completedBlock();
+          [weakSelf setTitle:title forState:UIControlStateNormal];
         }
       });
     } else {
-      if (self.excutingBlock) {
-        self.excutingBlock(self, remainTime);
-      }
       remainTime--;
+      if (weakSelf.excutingBlock) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+          weakSelf.enabled = NO;
+          NSString *title = weakSelf.excutingBlock(remainTime);
+          [weakSelf setTitle:title forState:UIControlStateNormal];
+        });
+      }
     }
   });
   dispatch_resume(timer);
