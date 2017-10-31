@@ -555,7 +555,6 @@
 @end
 
 @interface SSUILinkButton ()
-
 @property(nonatomic, strong) CALayer *underlineLayer;
 @end
 
