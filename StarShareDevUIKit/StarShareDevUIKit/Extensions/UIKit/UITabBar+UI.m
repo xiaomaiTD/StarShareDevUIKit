@@ -79,6 +79,11 @@ NSInteger const kLastTouchedTabBarItemIndexNone = -1;
       item.doubleTapBlock(item, selectedIndex);
     }
     [self revertTabBarItemTouch];
+  }else if(self.tabBarItemViewTouchCount == 1){
+    UITabBarItem *item = self.items[selectedIndex];
+    if (item.onceTapBlotck) {
+      item.onceTapBlotck(item, selectedIndex);
+    }
   }
 }
 

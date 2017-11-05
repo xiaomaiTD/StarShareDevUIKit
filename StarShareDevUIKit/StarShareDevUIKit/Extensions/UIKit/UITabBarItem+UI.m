@@ -38,7 +38,16 @@
   return nil;
 }
 
+static char kAssociatedObjectKey_onceTapBlock;
 static char kAssociatedObjectKey_doubleTapBlock;
+- (void)setOnceTapBlock:(void (^)(UITabBarItem *, NSInteger))onceTapBlock {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_onceTapBlock, onceTapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (void (^)(UITabBarItem *, NSInteger))onceTapBlock {
+  return (void (^)(UITabBarItem *, NSInteger))objc_getAssociatedObject(self, &kAssociatedObjectKey_onceTapBlock);
+}
+
 - (void)setDoubleTapBlock:(void (^)(UITabBarItem *, NSInteger))doubleTapBlock {
   objc_setAssociatedObject(self, &kAssociatedObjectKey_doubleTapBlock, doubleTapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
