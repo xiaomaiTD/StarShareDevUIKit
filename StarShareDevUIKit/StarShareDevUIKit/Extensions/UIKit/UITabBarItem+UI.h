@@ -15,7 +15,7 @@
  *  @arg tabBarItem 被单击的 UITabBarItem
  *  @arg index      被单击的 UITabBarItem 的序号
  */
-@property(nonatomic, copy) void (^onceTapBlotck)(UITabBarItem *tabBarItem, NSInteger index);
+@property(nonatomic, copy) void (^onceTapBlock)(UITabBarItem *tabBarItem, NSInteger index);
 
 /**
  *  双击 tabBarItem 时的回调，默认为 nil。
