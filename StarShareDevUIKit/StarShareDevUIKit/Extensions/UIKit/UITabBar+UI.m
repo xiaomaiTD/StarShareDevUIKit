@@ -67,6 +67,10 @@ NSInteger const kLastTouchedTabBarItemIndexNone = -1;
   } else if (self.lastTouchedTabBarItemViewIndex != selectedIndex) {
     // 后续的点击如果与第一次点击的 index 不一致，则认为是重新开始一次新的点击
     [self revertTabBarItemTouch];
+    UITabBarItem *item = self.items[selectedIndex];
+    if (item.onceTapBlock) {
+      item.onceTapBlock(item, selectedIndex, self.lastTouchedTabBarItemViewIndex);
+    }
     self.lastTouchedTabBarItemViewIndex = selectedIndex;
     return;
   }
@@ -82,7 +86,7 @@ NSInteger const kLastTouchedTabBarItemIndexNone = -1;
   }else if(self.tabBarItemViewTouchCount == 1){
     UITabBarItem *item = self.items[selectedIndex];
     if (item.onceTapBlock) {
-      item.onceTapBlock(item, selectedIndex);
+      item.onceTapBlock(item, selectedIndex, selectedIndex);
     }
   }
 }
