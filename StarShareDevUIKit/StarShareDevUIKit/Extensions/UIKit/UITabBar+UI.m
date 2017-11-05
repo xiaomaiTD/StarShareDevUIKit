@@ -50,7 +50,7 @@ NSInteger const kLastTouchedTabBarItemIndexNone = -1;
     return;
   }
   
-  if (!self.selectedItem.doubleTapBlock) {
+  if (!self.selectedItem.doubleTapBlock && !self.selectedItem.onceTapBlock) {
     return;
   }
   
