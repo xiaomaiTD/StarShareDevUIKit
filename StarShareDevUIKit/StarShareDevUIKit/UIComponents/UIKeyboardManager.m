@@ -318,8 +318,8 @@ static UIResponder *kCurrentResponder = nil;
 - (void)keyboardWillShowNotification:(NSNotification *)notification {
   
   if (self.debug) {
-    NSLog(@"keyboardWillShowNotification - %@", self);
-    NSLog(@"\n");
+    SSUIKitLog(@"keyboardWillShowNotification - %@", self);
+    SSUIKitLog(@"\n");
   }
   
   if (![self shouldReceiveShowNotification]) {
@@ -343,8 +343,8 @@ static UIResponder *kCurrentResponder = nil;
 - (void)keyboardDidShowNotification:(NSNotification *)notification {
   
   if (self.debug) {
-    NSLog(@"keyboardDidShowNotification - %@", self);
-    NSLog(@"\n");
+    SSUIKitLog(@"keyboardDidShowNotification - %@", self);
+    SSUIKitLog(@"\n");
   }
   
   UIKeyboardUserInfo *userInfo = [self newUserInfoWithNotification:notification];
@@ -370,8 +370,8 @@ static UIResponder *kCurrentResponder = nil;
 - (void)keyboardWillHideNotification:(NSNotification *)notification {
   
   if (self.debug) {
-    NSLog(@"keyboardWillHideNotification - %@", self);
-    NSLog(@"\n");
+    SSUIKitLog(@"keyboardWillHideNotification - %@", self);
+    SSUIKitLog(@"\n");
   }
   
   if (![self shouldReceiveHideNotification]) {
@@ -395,8 +395,8 @@ static UIResponder *kCurrentResponder = nil;
 - (void)keyboardDidHideNotification:(NSNotification *)notification {
   
   if (self.debug) {
-    NSLog(@"keyboardDidHideNotification - %@", self);
-    NSLog(@"\n");
+    SSUIKitLog(@"keyboardDidHideNotification - %@", self);
+    SSUIKitLog(@"\n");
   }
   
   UIKeyboardUserInfo *userInfo = [self newUserInfoWithNotification:notification];
@@ -426,8 +426,8 @@ static UIResponder *kCurrentResponder = nil;
 - (void)keyboardWillChangeFrameNotification:(NSNotification *)notification {
   
   if (self.debug) {
-    NSLog(@"keyboardWillChangeFrameNotification - %@", self);
-    NSLog(@"\n");
+    SSUIKitLog(@"keyboardWillChangeFrameNotification - %@", self);
+    SSUIKitLog(@"\n");
   }
   
   UIKeyboardUserInfo *userInfo = [self newUserInfoWithNotification:notification];
@@ -454,8 +454,8 @@ static UIResponder *kCurrentResponder = nil;
 - (void)keyboardDidChangeFrameNotification:(NSNotification *)notification {
   
   if (self.debug) {
-    NSLog(@"keyboardDidChangeFrameNotification - %@", self);
-    NSLog(@"\n");
+    SSUIKitLog(@"keyboardDidChangeFrameNotification - %@", self);
+    SSUIKitLog(@"\n");
   }
   
   UIKeyboardUserInfo *userInfo = [self newUserInfoWithNotification:notification];
@@ -566,8 +566,8 @@ static UIResponder *kCurrentResponder = nil;
     keyboardMoveUserInfo.endFrame = endFrame;
     
     if (self.debug) {
-      NSLog(@"keyboardDidMoveNotification - %@", self);
-      NSLog(@"\n");
+      SSUIKitLog(@"keyboardDidMoveNotification - %@", self);
+      SSUIKitLog(@"\n");
     }
     
     [self.delegate keyboardWillChangeFrameWithUserInfo:keyboardMoveUserInfo];

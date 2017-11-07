@@ -57,13 +57,13 @@
 
 - (UIStaticTableViewCellData *)cellDataAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.section >= self.cellDataSections.count) {
-    NSLog(@"cellDataWithIndexPath:%@, data not exist in section!", indexPath);
+    SSUIKitLog(@"cellDataWithIndexPath:%@, data not exist in section!", indexPath);
     return nil;
   }
   
   NSArray<UIStaticTableViewCellData *> *rowDatas = [self.cellDataSections objectAtIndex:indexPath.section];
   if (indexPath.row >= rowDatas.count) {
-    NSLog(@"cellDataWithIndexPath:%@, data not exist in row!", indexPath);
+    SSUIKitLog(@"cellDataWithIndexPath:%@, data not exist in row!", indexPath);
     return nil;
   }
   

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+static const int StarShareDevUIKitDebugEnable = 1;
 @interface AppDelegate ()
 
 @end

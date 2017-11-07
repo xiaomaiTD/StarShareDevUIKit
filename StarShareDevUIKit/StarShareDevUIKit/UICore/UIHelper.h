@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+void SSUIKitDebug(BOOL enable,const char *fileName, int lineNumber, NSString *format, ...);
+
 @protocol UIHelperDelegate <NSObject>
 @required
 - (void)UIHelperPrintLog:(nonnull NSString *)log;

@@ -46,9 +46,6 @@
   }
   [self titleView_navigationBarLayoutSubviews];
   
-  if (titleView) {
-    //NSLog(@"【%@】系统布局后\ntitleView = %@", NSStringFromClass(titleView.class), titleView);
-  }
 }
 
 @end
@@ -170,7 +167,7 @@
 - (void)layoutSubviews {
   
   if (CGSizeIsEmpty(self.bounds.size)) {
-    NSLog(@"%@, layoutSubviews, size = %@", NSStringFromClass([self class]), NSStringFromCGSize(self.bounds.size));
+    SSUIKitLog(@"%@, layoutSubviews, size = %@", NSStringFromClass([self class]), NSStringFromCGSize(self.bounds.size));
     return;
   }
   

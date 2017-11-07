@@ -10,6 +10,12 @@
 #import <objc/runtime.h>
 #import "UIHelper.h"
 
+#ifdef SSUK_DEBUG_ENABLE
+#define SSUIKitLog(format, ...) SSUIKitDebug(SSUK_DEBUG_ENABLE,__FILE__, __LINE__, format)
+#else
+#define SSUIKitLog(format, ...) SSUIKitDebug(0,__FILE__, __LINE__, format)
+#endif
+
 #pragma mark - 变量-编译相关
 
 // 判断当前是否debug编译模式

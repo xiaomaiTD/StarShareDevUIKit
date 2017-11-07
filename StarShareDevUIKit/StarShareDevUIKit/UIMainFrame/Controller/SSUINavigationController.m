@@ -214,7 +214,7 @@
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
   if (self.isViewControllerTransiting || !viewController) {
-    NSLog(@"%@, 上一次界面切换的动画尚未结束就试图进行新的 push 操作，为了避免产生 bug，拦截了这次 push。\n%s, isViewControllerTransiting = %@, viewController = %@, self.viewControllers = %@", NSStringFromClass(self.class),  __func__, @(self.isViewControllerTransiting), viewController, self.viewControllers);
+    SSUIKitLog(@"%@, 上一次界面切换的动画尚未结束就试图进行新的 push 操作，为了避免产生 bug，拦截了这次 push。\n%s, isViewControllerTransiting = %@, viewController = %@, self.viewControllers = %@", NSStringFromClass(self.class),  __func__, @(self.isViewControllerTransiting), viewController, self.viewControllers);
     return;
   }
   
@@ -263,9 +263,9 @@
     [self.viewControllerPopping addObserver:self forKeyPath:@"isViewWillAppear" options:NSKeyValueObservingOptionNew context:nil];
   } else if (state == UIGestureRecognizerStateEnded) {
     if (CGRectGetMinX(self.topViewController.view.superview.frame) < 0) {
-      NSLog(@"手势返回放弃了");
+      SSUIKitLog(@"手势返回放弃了");
     } else {
-      NSLog(@"执行手势返回");
+      SSUIKitLog(@"执行手势返回");
     }
   }
 }

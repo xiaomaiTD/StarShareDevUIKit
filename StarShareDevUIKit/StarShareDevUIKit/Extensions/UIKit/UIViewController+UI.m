@@ -22,7 +22,7 @@
 
 void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   // 主动调用 self.view，从而触发 loadView，以模拟 iOS 9.0 以下的系统 loadViewIfNeeded 行为
-  NSLog(@"%@", ((UIViewController *)current_self).view);
+  SSUIKitLog(@"%@", ((UIViewController *)current_self).view);
 }
 
 + (void)load {
@@ -36,7 +36,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
     if (![[UIViewController class] instancesRespondToSelector:@selector(loadViewIfNeeded)]) {
       Class metaclass = [self class];
       BOOL success = class_addMethod(metaclass, @selector(loadViewIfNeeded), (IMP)ss_loadViewIfNeeded, "v@:");
-      NSLog(@"%@ %s, success = %@", NSStringFromClass([self class]), __func__, StringFromBOOL(success));
+      SSUIKitLog(@"%@ %s, success = %@", NSStringFromClass([self class]), __func__, StringFromBOOL(success));
     }
     
     // 实现 AutomaticallyRotateDeviceOrientation 开关的功能
@@ -225,7 +225,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   if ([self isViewLoadedAndVisible]) {
     return self;
   } else {
-    NSLog(@"visibleViewControllerIfExist:，找不到可见的viewController。self = %@", self);
+    SSUIKitLog(@"visibleViewControllerIfExist:，找不到可见的viewController。self = %@", self);
     return nil;
   }
 }

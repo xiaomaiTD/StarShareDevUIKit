@@ -221,7 +221,7 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
       
       CGFloat resultHeight = [textView sizeThatFits:CGSizeMake(CGRectGetWidth(self.bounds), CGFLOAT_MAX)].height;
       
-      if (self.debug) NSLog(@"handleTextDidChange, text = %@, resultHeight = %f", textView.text, resultHeight);
+      if (self.debug) SSUIKitLog(@"handleTextDidChange, text = %@, resultHeight = %f", textView.text, resultHeight);
       
       
       // 通知delegate去更新textView的高度
@@ -276,7 +276,7 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
 #pragma mark - <UITextViewDelegate>
 
 - (BOOL)textView:(SSUITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-  if (self.debug) NSLog(@"textView.text(%@ | %@) = %@\nmarkedTextRange = %@\nrange = %@\ntext = %@", @(textView.text.length), @(textView.text.lengthWhenCountingNonASCIICharacterAsTwo), textView.text, textView.markedTextRange, NSStringFromRange(range), text);
+  if (self.debug) SSUIKitLog(@"textView.text(%@ | %@) = %@\nmarkedTextRange = %@\nrange = %@\ntext = %@", @(textView.text.length), @(textView.text.lengthWhenCountingNonASCIICharacterAsTwo), textView.text, textView.markedTextRange, NSStringFromRange(range), text);
   
   if ([text isEqualToString:@"\n"]) {
     if ([self.delegate respondsToSelector:@selector(textViewShouldReturn:)]) {
@@ -402,18 +402,18 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated {
   if (!self.shouldRejectSystemScroll) {
     [super setContentOffset:contentOffset animated:animated];
-    if (self.debug) NSLog(@"%@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
+    if (self.debug) SSUIKitLog(@"%@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
   } else {
-    if (self.debug) NSLog(@"被屏蔽的 %@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
+    if (self.debug) SSUIKitLog(@"被屏蔽的 %@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
   }
 }
 
 - (void)setContentOffset:(CGPoint)contentOffset {
   if (!self.shouldRejectSystemScroll) {
     [super setContentOffset:contentOffset];
-    if (self.debug) NSLog(@"%@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
+    if (self.debug) SSUIKitLog(@"%@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
   } else {
-    if (self.debug) NSLog(@"被屏蔽的 %@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
+    if (self.debug) SSUIKitLog(@"被屏蔽的 %@, contentOffset.y = %.2f", NSStringFromSelector(_cmd), contentOffset.y);
   }
 }
 

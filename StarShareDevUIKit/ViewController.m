@@ -10,7 +10,6 @@
 #import "SSUISwitch.h"
 #import "SSUIButton.h"
 
-
 @interface ViewController ()
 @property (nonatomic, strong) SSUILoadingButton *b;
 @end

@@ -109,7 +109,7 @@
       self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
       UIImage *backIndicatorImage = NavBarBackIndicatorImage;
       if (!backIndicatorImage) {
-        NSLog(@"NavBarBackIndicatorImage 为 nil，无法创建正确的 UINavigationButtonTypeBack 按钮");
+        SSUIKitLog(@"NavBarBackIndicatorImage 为 nil，无法创建正确的 UINavigationButtonTypeBack 按钮");
         return;
       }
       [self setImage:backIndicatorImage forState:UIControlStateNormal];
