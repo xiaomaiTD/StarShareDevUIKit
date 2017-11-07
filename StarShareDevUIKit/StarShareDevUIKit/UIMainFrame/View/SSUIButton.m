@@ -929,6 +929,129 @@ const CGFloat SSUIFillButtonCornerRadiusAdjustsBounds = -1;
 
 @end
 
+@interface SSUILoadingButton ()
+@property (nonatomic, strong) NSString *title;
+@end
+
+@implementation SSUILoadingButton
+
+- (instancetype)initWithFrame:(CGRect)frame {
+  if (self = [super initWithFrame:frame]) {
+    [self didInitialized];
+  }
+  return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+  if (self = [super initWithCoder:aDecoder]) {
+    [self didInitialized];
+  }
+  return self;
+}
+
+- (void)didInitialized {
+  [super didInitialized];
+  
+  _loading = NO;
+  _spacingWithImageOrTitle = 10;
+  _activityIndicatorAlignment = SSUILoadingButtonAlignmentLeft;
+  _shouldProhibitUserInteractionWhenLoading = YES;
+  
+  _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+  [_activityIndicator setHidesWhenStopped:YES];
+  [_activityIndicator stopAnimating];
+  _activityIndicator.userInteractionEnabled = NO;
+  [self addSubview:_activityIndicator];
+}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  if (_loading) {
+    self.imageView.hidden = _activityIndicatorAlignment == SSUILoadingButtonAlignmentCenter;
+    self.titleLabel.hidden = _activityIndicatorAlignment == SSUILoadingButtonAlignmentCenter;
+    [_activityIndicator startAnimating];
+  }else{
+    self.imageView.hidden = NO;
+    self.titleLabel.hidden = NO;
+    [_activityIndicator stopAnimating];
+  }
+  
+  if (_activityIndicatorAlignment == SSUILoadingButtonAlignmentCenter) {
+    _activityIndicator.center = CGPointMake(self.width/2.0, self.height/2.0);
+  }else if (_activityIndicatorAlignment == SSUILoadingButtonAlignmentLeft){
+    _activityIndicator.centerY = self.height/2.0;
+    
+    // 有没有图片
+    if (self.imageView && !CGSizeEqualToSize(self.imageView.size, CGSizeZero)) {
+      if (self.imagePosition != SSUILoadingButtonAlignmentLeft) {
+        if (self.titleLabel && !CGSizeEqualToSize(self.titleLabel.size, CGSizeZero)){
+          _activityIndicator.right = self.titleLabel.left - _spacingWithImageOrTitle;
+        }else{
+          _activityIndicator.right = self.imageView.left - _spacingWithImageOrTitle;
+        }
+      }else{
+        _activityIndicator.right = self.imageView.left - _spacingWithImageOrTitle;
+      }
+    }else if (self.titleLabel && !CGSizeEqualToSize(self.titleLabel.size, CGSizeZero)){
+      _activityIndicator.right = self.titleLabel.left - _spacingWithImageOrTitle;
+    }else{
+      _activityIndicator.center = CGPointMake(self.width/2.0, self.height/2.0);
+    }
+  }else if (_activityIndicatorAlignment == SSUILoadingButtonAlignmentRight){
+    _activityIndicator.centerY = self.height/2.0;
+    
+    // 有没有图片
+    if (self.imageView && !CGSizeEqualToSize(self.imageView.size, CGSizeZero)) {
+      if (self.imagePosition != SSUILoadingButtonAlignmentRight) {
+        if (self.titleLabel && !CGSizeEqualToSize(self.titleLabel.size, CGSizeZero)){
+          _activityIndicator.left = self.titleLabel.right + _spacingWithImageOrTitle;
+        }else{
+          _activityIndicator.left = self.imageView.right + _spacingWithImageOrTitle;
+        }
+      }else{
+        _activityIndicator.left = self.imageView.right + _spacingWithImageOrTitle;
+      }
+    }else if (self.titleLabel && !CGSizeEqualToSize(self.titleLabel.size, CGSizeZero)){
+      _activityIndicator.left = self.titleLabel.right + _spacingWithImageOrTitle;
+    }else{
+      _activityIndicator.center = CGPointMake(self.width/2.0, self.height/2.0);
+    }
+  }
+}
+
+- (void)setActivityIndicatorAlignment:(SSUILoadingButtonAlignment)activityIndicatorAlignment
+{
+  _activityIndicatorAlignment = activityIndicatorAlignment;
+  [self setNeedsLayout];
+}
+
+- (void)setSpacingWithImageOrTitle:(CGFloat)spacingWithImageOrTitle
+{
+  _spacingWithImageOrTitle = spacingWithImageOrTitle;
+  [self setNeedsLayout];
+}
+
+- (void)setLoading:(BOOL)loading
+{
+  _loading = loading;
+  if(_shouldProhibitUserInteractionWhenLoading)self.enabled = !loading;
+  [self setNeedsLayout];
+}
+
+- (void)setShouldProhibitUserInteractionWhenLoading:(BOOL)shouldProhibitUserInteractionWhenLoading
+{
+  _shouldProhibitUserInteractionWhenLoading = shouldProhibitUserInteractionWhenLoading;
+  if (shouldProhibitUserInteractionWhenLoading) {
+    self.enabled = !_loading;
+  }else{
+    self.enabled = YES;
+  }
+}
+
+@end
+
 @interface SSUIFillButton (UIAppearance)
 
 @end

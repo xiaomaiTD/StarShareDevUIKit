@@ -82,4 +82,17 @@ extern const CGFloat SSUIFillButtonCornerRadiusAdjustsBounds;
 - (instancetype)initWithFillColor:(nullable UIColor *)fillColor titleTextColor:(nullable UIColor *)textColor frame:(CGRect)frame;
 @end
 
+typedef enum {
+  SSUILoadingButtonAlignmentLeft      = 0,
+  SSUILoadingButtonAlignmentCenter    = 1,
+  SSUILoadingButtonAlignmentRight     = 2,
+} SSUILoadingButtonAlignment;
+@interface SSUILoadingButton : SSUIButton
+@property(nonatomic, assign) BOOL loading;
+@property(nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicator; // default UIActivityIndicatorViewStyleWhite
+@property(nonatomic, assign) CGFloat spacingWithImageOrTitle; // default is 10 , effective for SSUILoadingButtonAlignmentLeft && SSUILoadingButtonAlignmentRight.
+@property(nonatomic, assign) SSUILoadingButtonAlignment activityIndicatorAlignment; // Default SSUILoadingButtonAlignmentLeft,when SSUILoadingButtonAlignmentCenter title and image will be hiden.
+@property(nonatomic, assign) BOOL shouldProhibitUserInteractionWhenLoading; // default is YES
+@end
+
 NS_ASSUME_NONNULL_END
