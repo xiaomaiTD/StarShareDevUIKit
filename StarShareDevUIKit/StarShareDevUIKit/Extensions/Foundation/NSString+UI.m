@@ -132,8 +132,9 @@ result[12], result[13], result[14], result[15]]                         \
 
 - (NSUInteger)lengthWhenCountingNonASCIICharacterAsTwo {
   NSUInteger characterLength = 0;
-  char *p = (char *)[self cStringUsingEncoding:NSUnicodeStringEncoding];
-  for (NSInteger i = 0, l = [self lengthOfBytesUsingEncoding:NSUnicodeStringEncoding]; i < l; i++) {
+  NSStringEncoding encod = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+  char *p = (char *)[self cStringUsingEncoding:encod];
+  for (NSInteger i = 0, l = [self lengthOfBytesUsingEncoding:encod]; i < l; i++) {
     if (*p) {
       characterLength++;
     }
