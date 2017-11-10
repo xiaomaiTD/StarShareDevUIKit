@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SSUISwitch.h"
 #import "SSUIButton.h"
+#import "SSUIAlertController.h"
 
 @interface ViewController ()
 @property (nonatomic, strong) SSUILoadingButton *b;
@@ -41,6 +42,19 @@
   //self.b.spacingWithImageOrTitle = 20;
   //self.b.activityIndicatorAlignment = SSUILoadingButtonAlignmentRight;
   self.b.loading = sender.isOn;
+  
+  SSUIAlertAction *action1 = [SSUIAlertAction actionWithTitle:@"取消" style:SSUIAlertActionStyleCancel handler:^(SSUIAlertAction *action) {
+  }];
+  SSUIAlertAction *action2 = [SSUIAlertAction actionWithTitle:@"删除" style:SSUIAlertActionStyleDestructive handler:^(SSUIAlertAction *action) {
+  }];
+  SSUIAlertAction *action3 = [SSUIAlertAction actionWithTitle:@"置灰按钮" style:SSUIAlertActionStyleDefault handler:^(SSUIAlertAction *action) {
+  }];
+  action3.enabled = NO;
+  SSUIAlertController *alertController = [SSUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:SSUIAlertControllerStyleActionSheet];
+  [alertController addAction:action1];
+  [alertController addAction:action2];
+  [alertController addAction:action3];
+  [alertController showWithAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

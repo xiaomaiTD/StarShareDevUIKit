@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3126F4931FB546A4003FFB58 /* SSUIAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4921FB546A4003FFB58 /* SSUIAlertController.m */; };
 		31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 31311E661FA0D04800E54DD0 /* SSUISwitch.m */; };
 		E51900A01F7DE25200F280A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E519009F1F7DE25200F280A0 /* AppDelegate.m */; };
 		E51900A31F7DE25200F280A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E51900A21F7DE25200F280A0 /* ViewController.m */; };
@@ -98,6 +99,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3126F4911FB546A4003FFB58 /* SSUIAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAlertController.h; sourceTree = "<group>"; };
+		3126F4921FB546A4003FFB58 /* SSUIAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAlertController.m; sourceTree = "<group>"; };
 		31311E651FA0D04800E54DD0 /* SSUISwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUISwitch.h; sourceTree = "<group>"; };
 		31311E661FA0D04800E54DD0 /* SSUISwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUISwitch.m; sourceTree = "<group>"; };
 		E519009B1F7DE25100F280A0 /* StarShareDevUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarShareDevUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,6 +278,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3126F48E1FB54678003FFB58 /* SSUIAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				3126F4911FB546A4003FFB58 /* SSUIAlertController.h */,
+				3126F4921FB546A4003FFB58 /* SSUIAlertController.m */,
+			);
+			path = SSUIAlertController;
+			sourceTree = "<group>";
+		};
 		E51900921F7DE25100F280A0 = {
 			isa = PBXGroup;
 			children = (
@@ -526,6 +538,7 @@
 		E54CE1F81F8DEDA700430EC9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3126F48E1FB54678003FFB58 /* SSUIAlertController */,
 				E54CE1F91F8DEDA700430EC9 /* SSUICollectionViewController.h */,
 				E54CE1FA1F8DEDA700430EC9 /* SSUICollectionViewController.m */,
 				E54CE1FB1F8DEDA700430EC9 /* SSUIListViewController.h */,
@@ -634,6 +647,7 @@
 				TargetAttributes = {
 					E519009A1F7DE25100F280A0 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 					E51900B21F7DE25200F280A0 = {
@@ -739,6 +753,7 @@
 				E54CE2181F8DEDA800430EC9 /* UIBezierPath+UI.m in Sources */,
 				E51900A01F7DE25200F280A0 /* AppDelegate.m in Sources */,
 				E54CE2331F8DEDA800430EC9 /* UINavigationButton.m in Sources */,
+				3126F4931FB546A4003FFB58 /* SSUIAlertController.m in Sources */,
 				E54CE2191F8DEDA800430EC9 /* UIButton+UI.m in Sources */,
 				E54CE21A1F8DEDA800430EC9 /* UICollectionView+UI.m in Sources */,
 				E54CE2421F8DEDA800430EC9 /* SSUINavigationController.m in Sources */,
@@ -928,6 +943,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7524R5UJ2G;
 				INFOPLIST_FILE = StarShareDevUIKit/Info.plist;
@@ -935,6 +951,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = code.com.rui.StarShareDevUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -943,6 +961,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7524R5UJ2G;
 				INFOPLIST_FILE = StarShareDevUIKit/Info.plist;
@@ -950,6 +969,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = code.com.rui.StarShareDevUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
