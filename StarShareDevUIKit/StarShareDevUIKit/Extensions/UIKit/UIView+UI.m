@@ -9,9 +9,11 @@
 #import "UIView+UI.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <QuartzCore/QuartzCore.h>
 #import "UICore.h"
 #import "NSObject+UI.h"
 #import "UIImage+UI.h"
+#import "CALayer+UI.h"
 
 @implementation UIView (UI)
 
@@ -162,6 +164,154 @@
   return NO;
 }
 
+@end
+
+@implementation UIView (Border)
+
++ (void)load {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    ReplaceMethod([self class], @selector(initWithFrame:), @selector(pr_initWithFrame:));
+    ReplaceMethod([self class], @selector(initWithCoder:), @selector(pr_initWithCoder:));
+    ReplaceMethod([self class], @selector(layoutSublayersOfLayer:), @selector(pr_layoutSublayersOfLayer:));
+  });
+}
+
+- (instancetype)pr_initWithFrame:(CGRect)frame {
+  [self pr_initWithFrame:frame];
+  [self setDefaultStyle];
+  return self;
+}
+
+- (instancetype)pr_initWithCoder:(NSCoder *)aDecoder {
+  [self pr_initWithCoder:aDecoder];
+  [self setDefaultStyle];
+  return self;
+}
+
+- (void)pr_layoutSublayersOfLayer:(CALayer *)layer {
+  
+  [self pr_layoutSublayersOfLayer:layer];
+  
+  if ((!self.borderLayer && self.borderPosition == SSUIBorderViewPositionNone) || (!self.borderLayer && self.borderWidth == 0)) {
+    return;
+  }
+  
+  if (self.borderLayer && self.borderPosition == SSUIBorderViewPositionNone && !self.borderLayer.path) {
+    return;
+  }
+  
+  if (self.borderLayer && self.borderWidth == 0 && self.borderLayer.lineWidth == 0) {
+    return;
+  }
+  
+  if (!self.borderLayer) {
+    self.borderLayer = [CAShapeLayer layer];
+    [self.borderLayer removeDefaultAnimations];
+    [self.layer addSublayer:self.borderLayer];
+  }
+  self.borderLayer.frame = self.bounds;
+  
+  CGFloat borderWidth = self.borderWidth;
+  self.borderLayer.lineWidth = borderWidth;
+  self.borderLayer.strokeColor = self.borderColor.CGColor;
+  self.borderLayer.lineDashPhase = self.dashPhase;
+  if (self.dashPattern) {
+    self.borderLayer.lineDashPattern = self.dashPattern;
+  }
+  
+  UIBezierPath *path = nil;
+  
+  if (self.borderPosition != SSUIBorderViewPositionNone) {
+    path = [UIBezierPath bezierPath];
+  }
+  
+  if (self.borderPosition & SSUIBorderViewPositionTop) {
+    [path moveToPoint:CGPointMake(0, borderWidth / 2)];
+    [path addLineToPoint:CGPointMake(CGRectGetWidth(self.bounds), borderWidth / 2)];
+  }
+  
+  if (self.borderPosition & SSUIBorderViewPositionLeft) {
+    [path moveToPoint:CGPointMake(borderWidth / 2, 0)];
+    [path addLineToPoint:CGPointMake(borderWidth / 2, CGRectGetHeight(self.bounds) - 0)];
+  }
+  
+  if (self.borderPosition & SSUIBorderViewPositionBottom) {
+    [path moveToPoint:CGPointMake(0, CGRectGetHeight(self.bounds) - borderWidth / 2)];
+    [path addLineToPoint:CGPointMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - borderWidth / 2)];
+  }
+  
+  if (self.borderPosition & SSUIBorderViewPositionRight) {
+    [path moveToPoint:CGPointMake(CGRectGetWidth(self.bounds) - borderWidth / 2, 0)];
+    [path addLineToPoint:CGPointMake(CGRectGetWidth(self.bounds) - borderWidth / 2, CGRectGetHeight(self.bounds))];
+  }
+  
+  self.borderLayer.path = path.CGPath;
+}
+
+- (void)setDefaultStyle {
+  self.borderWidth = PixelOne;
+  self.borderColor = UIColorSeparator;
+}
+
+static char kAssociatedObjectKey_borderPosition;
+- (void) setBorderPosition:(SSUIBorderViewPosition)borderPosition {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_borderPosition, @(borderPosition), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  [self setNeedsLayout];
+}
+
+- (SSUIBorderViewPosition)borderPosition {
+  return (SSUIBorderViewPosition)[objc_getAssociatedObject(self, &kAssociatedObjectKey_borderPosition) unsignedIntegerValue];
+}
+
+static char kAssociatedObjectKey_borderWidth;
+- (void)setBorderWidth:(CGFloat)borderWidth {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_borderWidth, @(borderWidth), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  [self setNeedsLayout];
+}
+
+- (CGFloat)borderWidth {
+  return (CGFloat)[objc_getAssociatedObject(self, &kAssociatedObjectKey_borderWidth) floatValue];
+}
+
+static char kAssociatedObjectKey_borderColor;
+- (void)setBorderColor:(UIColor *)borderColor {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_borderColor, borderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  [self setNeedsLayout];
+}
+
+- (UIColor *)borderColor {
+  return (UIColor *)objc_getAssociatedObject(self, &kAssociatedObjectKey_borderColor);
+}
+
+static char kAssociatedObjectKey_dashPhase;
+- (void)setDashPhase:(CGFloat)dashPhase {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_dashPhase, @(dashPhase), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  [self setNeedsLayout];
+}
+
+- (CGFloat)dashPhase {
+  return (CGFloat)[objc_getAssociatedObject(self, &kAssociatedObjectKey_dashPhase) floatValue];
+}
+
+static char kAssociatedObjectKey_dashPattern;
+- (void)setDashPattern:(NSArray<NSNumber *> *)dashPattern {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_dashPattern, dashPattern, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  [self setNeedsLayout];
+}
+
+- (NSArray *)dashPattern {
+  return (NSArray<NSNumber *> *)objc_getAssociatedObject(self, &kAssociatedObjectKey_dashPattern);
+}
+
+static char kAssociatedObjectKey_borderLayer;
+- (void)setBorderLayer:(CAShapeLayer *)borderLayer {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_borderLayer, borderLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CAShapeLayer *)borderLayer {
+  return (CAShapeLayer *)objc_getAssociatedObject(self, &kAssociatedObjectKey_borderLayer);
+}
 @end
 
 @implementation UIView (Layout)

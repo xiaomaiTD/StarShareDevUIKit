@@ -97,6 +97,10 @@
 
 #define IS_RETINASCREEN ([[UIScreen mainScreen] scale] >= 2.0)
 
+#define PreferredVarForDevices(varFor55Inch, varFor47or58Inch, varFor40Inch, varFor35Inch) PreferredVarForUniversalDevices(varFor55Inch, varFor55Inch, varFor47or58Inch, varFor40Inch, varFor35Inch)
+
+#define PreferredVarForUniversalDevices(varForPad, varFor55Inch, varFor47or58Inch, varFor40Inch, varFor35Inch) (IS_IPAD ? varForPad : (IS_35INCH_SCREEN ? varFor35Inch : (IS_40INCH_SCREEN ? varFor40Inch : (IS_47INCH_SCREEN || IS_58INCH_SCREEN ? varFor47or58Inch : varFor55Inch))))
+
 #define ScreenScale ([[UIScreen mainScreen] scale])
 #define PixelOne [UIHelper pixelOne]
 

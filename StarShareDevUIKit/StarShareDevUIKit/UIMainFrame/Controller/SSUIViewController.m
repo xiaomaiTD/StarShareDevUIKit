@@ -148,9 +148,9 @@
   [self.emptyView setActionButtonTitle:nil];
 }
 
-- (void)showEmptyViewWithText:(NSString * _Nullable)text
-                   detailText:(NSString * _Nullable)detailText
-                  buttonTitle:(NSString * _Nullable)buttonTitle
+- (void)showEmptyViewWithText:(NSString *)text
+                   detailText:(NSString *)detailText
+                  buttonTitle:(NSString *)buttonTitle
                  buttonAction:(SEL)action {
   [self showEmptyViewWithLoading:NO
                            image:nil
@@ -160,10 +160,10 @@
                     buttonAction:action];
 }
 
-- (void)showEmptyViewWithImage:(UIImage * _Nullable)image
-                          text:(NSString * _Nullable)text
-                    detailText:(NSString * _Nullable)detailText
-                   buttonTitle:(NSString * _Nullable)buttonTitle
+- (void)showEmptyViewWithImage:(UIImage *)image
+                          text:(NSString *)text
+                    detailText:(NSString *)detailText
+                   buttonTitle:(NSString *)buttonTitle
                   buttonAction:(SEL)action {
   [self showEmptyViewWithLoading:NO
                            image:image
@@ -174,10 +174,10 @@
 }
 
 - (void)showEmptyViewWithLoading:(BOOL)showLoading
-                           image:(UIImage * _Nullable)image
-                            text:(NSString * _Nullable)text
-                      detailText:(NSString * _Nullable)detailText
-                     buttonTitle:(NSString * _Nullable)buttonTitle
+                           image:(UIImage *)image
+                            text:(NSString *)text
+                      detailText:(NSString *)detailText
+                     buttonTitle:(NSString *)buttonTitle
                     buttonAction:(SEL)action {
   [self showEmptyView];
   [self.emptyView setLoadingViewHidden:!showLoading];

@@ -70,6 +70,20 @@ extern NSString *const _Nonnull UIResourcesMainBundleName;
 + (void)renderStatusBarStyleLight;
 
 /**
+ *  隐藏状态栏
+ *
+ *  @warning 需在项目的 Info.plist 文件内设置字段 “View controller-based status bar appearance” 的值为 NO 才能生效，如果不设置，或者值为 YES，则请通过系统的 - UIViewController preferredStatusBarStyle 方法来修改
+ */
++ (void)renderStatusBarHidenAnimation:(BOOL)animation;
+
+/**
+ *  显示状态栏
+ *
+ *  @warning 需在项目的 Info.plist 文件内设置字段 “View controller-based status bar appearance” 的值为 NO 才能生效，如果不设置，或者值为 YES，则请通过系统的 - UIViewController preferredStatusBarStyle 方法来修改
+ */
++ (void)renderStatusBarShowAnimation:(BOOL)animation;
+
+/**
  * 把App的主要window置灰，用于浮层弹出时，请注意要在适当时机调用`resetDimmedApplicationWindow`恢复到正常状态
  */
 + (void)dimmedApplicationWindow;

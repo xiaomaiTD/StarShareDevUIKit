@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "SSUINavigationController.h"
-#import "UIComponents.h"
 #import "UIExtensions.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "UIKeyboardManager.h"
+#import "UINavigationTitleView.h"
+#import "UIEmptyView.h"
+#import "UIThemeManager.h"
 
 @interface SSUIViewController : UIViewController<UINavigationCustomTransitionDelegate,UIChangingThemeDelegate>
-- (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 /**
@@ -59,28 +60,28 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  显示带text、detailText、button的emptyView
  */
-- (void)showEmptyViewWithText:(NSString * _Nullable )text
-                   detailText:(NSString * _Nullable)detailText
-                  buttonTitle:(NSString * _Nullable)buttonTitle
+- (void)showEmptyViewWithText:(NSString *)text
+                   detailText:(NSString *)detailText
+                  buttonTitle:(NSString *)buttonTitle
                  buttonAction:(SEL)action;
 
 /**
  *  显示带image、text、detailText、button的emptyView
  */
-- (void)showEmptyViewWithImage:(UIImage * _Nullable)image
-                          text:(NSString * _Nullable)text
-                    detailText:(NSString * _Nullable)detailText
-                   buttonTitle:(NSString * _Nullable)buttonTitle
+- (void)showEmptyViewWithImage:(UIImage *)image
+                          text:(NSString *)text
+                    detailText:(NSString *)detailText
+                   buttonTitle:(NSString *)buttonTitle
                   buttonAction:(SEL)action;
 
 /**
  *  显示带loading、image、text、detailText、button的emptyView
  */
 - (void)showEmptyViewWithLoading:(BOOL)showLoading
-                           image:(UIImage * _Nullable)image
-                            text:(NSString * _Nullable)text
-                      detailText:(NSString * _Nullable)detailText
-                     buttonTitle:(NSString * _Nullable)buttonTitle
+                           image:(UIImage *)image
+                            text:(NSString *)text
+                      detailText:(NSString *)detailText
+                     buttonTitle:(NSString *)buttonTitle
                     buttonAction:(SEL)action;
 
 /**
@@ -159,5 +160,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)significantTimeChange:(NSNotification *)notification;
 
 @end
-
-NS_ASSUME_NONNULL_END

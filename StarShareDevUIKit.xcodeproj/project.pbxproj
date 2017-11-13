@@ -8,7 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		3126F4931FB546A4003FFB58 /* SSUIAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4921FB546A4003FFB58 /* SSUIAlertController.m */; };
+		3126F49C1FB59975003FFB58 /* SSUIAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F49B1FB59975003FFB58 /* SSUIAsset.m */; };
+		3126F49F1FB59FD0003FFB58 /* SSUIAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F49E1FB59FD0003FFB58 /* SSUIAssetsManager.m */; };
+		3126F4A21FB5A5F7003FFB58 /* SSUIAssetsGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4A11FB5A5F7003FFB58 /* SSUIAssetsGroup.m */; };
+		3126F4A61FB5AE0C003FFB58 /* SSUIAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4A51FB5AE0C003FFB58 /* SSUIAlbumViewController.m */; };
+		3126F4A91FB5AE60003FFB58 /* SSUIImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4A81FB5AE60003FFB58 /* SSUIImagePickerViewController.m */; };
+		3126F4AC1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4AB1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.m */; };
+		3126F4AF1FB5C8EE003FFB58 /* SSUIZoomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4AE1FB5C8EE003FFB58 /* SSUIZoomImageView.m */; };
+		3126F4B21FB5CB6C003FFB58 /* SSUIImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4B11FB5CB6C003FFB58 /* SSUIImagePreviewView.m */; };
+		3126F4B51FB5CD6C003FFB58 /* SSUIImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4B41FB5CD6C003FFB58 /* SSUIImagePreviewViewController.m */; };
+		3126F4B81FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4B71FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.m */; };
+		3126F4BB1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4BA1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m */; };
 		31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 31311E661FA0D04800E54DD0 /* SSUISwitch.m */; };
+		318EC2451FB736FD00387E1C /* SSUIPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 318EC2441FB736FD00387E1C /* SSUIPieProgressView.m */; };
 		E51900A01F7DE25200F280A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E519009F1F7DE25200F280A0 /* AppDelegate.m */; };
 		E51900A31F7DE25200F280A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E51900A21F7DE25200F280A0 /* ViewController.m */; };
 		E51900A61F7DE25200F280A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E51900A41F7DE25200F280A0 /* Main.storyboard */; };
@@ -101,8 +113,32 @@
 /* Begin PBXFileReference section */
 		3126F4911FB546A4003FFB58 /* SSUIAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAlertController.h; sourceTree = "<group>"; };
 		3126F4921FB546A4003FFB58 /* SSUIAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAlertController.m; sourceTree = "<group>"; };
+		3126F49A1FB59975003FFB58 /* SSUIAsset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAsset.h; sourceTree = "<group>"; };
+		3126F49B1FB59975003FFB58 /* SSUIAsset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAsset.m; sourceTree = "<group>"; };
+		3126F49D1FB59FD0003FFB58 /* SSUIAssetsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAssetsManager.h; sourceTree = "<group>"; };
+		3126F49E1FB59FD0003FFB58 /* SSUIAssetsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAssetsManager.m; sourceTree = "<group>"; };
+		3126F4A01FB5A5F7003FFB58 /* SSUIAssetsGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAssetsGroup.h; sourceTree = "<group>"; };
+		3126F4A11FB5A5F7003FFB58 /* SSUIAssetsGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAssetsGroup.m; sourceTree = "<group>"; };
+		3126F4A41FB5AE0C003FFB58 /* SSUIAlbumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAlbumViewController.h; sourceTree = "<group>"; };
+		3126F4A51FB5AE0C003FFB58 /* SSUIAlbumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAlbumViewController.m; sourceTree = "<group>"; };
+		3126F4A71FB5AE60003FFB58 /* SSUIImagePickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIImagePickerViewController.h; sourceTree = "<group>"; };
+		3126F4A81FB5AE60003FFB58 /* SSUIImagePickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIImagePickerViewController.m; sourceTree = "<group>"; };
+		3126F4AA1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIImagePickerCollectionViewCell.h; sourceTree = "<group>"; };
+		3126F4AB1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIImagePickerCollectionViewCell.m; sourceTree = "<group>"; };
+		3126F4AD1FB5C8EE003FFB58 /* SSUIZoomImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIZoomImageView.h; sourceTree = "<group>"; };
+		3126F4AE1FB5C8EE003FFB58 /* SSUIZoomImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIZoomImageView.m; sourceTree = "<group>"; };
+		3126F4B01FB5CB6C003FFB58 /* SSUIImagePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIImagePreviewView.h; sourceTree = "<group>"; };
+		3126F4B11FB5CB6C003FFB58 /* SSUIImagePreviewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIImagePreviewView.m; sourceTree = "<group>"; };
+		3126F4B31FB5CD6C003FFB58 /* SSUIImagePreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIImagePreviewViewController.h; sourceTree = "<group>"; };
+		3126F4B41FB5CD6C003FFB58 /* SSUIImagePreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIImagePreviewViewController.m; sourceTree = "<group>"; };
+		3126F4B61FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIImagePickerPreviewViewController.h; sourceTree = "<group>"; };
+		3126F4B71FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIImagePickerPreviewViewController.m; sourceTree = "<group>"; };
+		3126F4B91FB5CFE4003FFB58 /* SSUIImagePickerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIImagePickerHelper.h; sourceTree = "<group>"; };
+		3126F4BA1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIImagePickerHelper.m; sourceTree = "<group>"; };
 		31311E651FA0D04800E54DD0 /* SSUISwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUISwitch.h; sourceTree = "<group>"; };
 		31311E661FA0D04800E54DD0 /* SSUISwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUISwitch.m; sourceTree = "<group>"; };
+		318EC2431FB736FD00387E1C /* SSUIPieProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIPieProgressView.h; sourceTree = "<group>"; };
+		318EC2441FB736FD00387E1C /* SSUIPieProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIPieProgressView.m; sourceTree = "<group>"; };
 		E519009B1F7DE25100F280A0 /* StarShareDevUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarShareDevUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E519009E1F7DE25200F280A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E519009F1F7DE25200F280A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -287,6 +323,36 @@
 			path = SSUIAlertController;
 			sourceTree = "<group>";
 		};
+		3126F4991FB59953003FFB58 /* AssetLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				3126F49A1FB59975003FFB58 /* SSUIAsset.h */,
+				3126F49B1FB59975003FFB58 /* SSUIAsset.m */,
+				3126F4A01FB5A5F7003FFB58 /* SSUIAssetsGroup.h */,
+				3126F4A11FB5A5F7003FFB58 /* SSUIAssetsGroup.m */,
+				3126F49D1FB59FD0003FFB58 /* SSUIAssetsManager.h */,
+				3126F49E1FB59FD0003FFB58 /* SSUIAssetsManager.m */,
+			);
+			path = AssetLibrary;
+			sourceTree = "<group>";
+		};
+		3126F4A31FB5ADED003FFB58 /* ImagePickerLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				3126F4A41FB5AE0C003FFB58 /* SSUIAlbumViewController.h */,
+				3126F4A51FB5AE0C003FFB58 /* SSUIAlbumViewController.m */,
+				3126F4A71FB5AE60003FFB58 /* SSUIImagePickerViewController.h */,
+				3126F4A81FB5AE60003FFB58 /* SSUIImagePickerViewController.m */,
+				3126F4AA1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.h */,
+				3126F4AB1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.m */,
+				3126F4B61FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.h */,
+				3126F4B71FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.m */,
+				3126F4B91FB5CFE4003FFB58 /* SSUIImagePickerHelper.h */,
+				3126F4BA1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m */,
+			);
+			path = ImagePickerLibrary;
+			sourceTree = "<group>";
+		};
 		E51900921F7DE25100F280A0 = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +506,8 @@
 		E54CE1C41F8DEDA700430EC9 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				3126F4A31FB5ADED003FFB58 /* ImagePickerLibrary */,
+				3126F4991FB59953003FFB58 /* AssetLibrary */,
 				E54CE1C51F8DEDA700430EC9 /* UIBubbleView.h */,
 				E54CE1C61F8DEDA700430EC9 /* UIBubbleView.m */,
 				E54CE1C71F8DEDA700430EC9 /* UICollectionViewPagingLayout.h */,
@@ -466,6 +534,14 @@
 				E54CE24D1F8DEE4000430EC9 /* UIGridView.m */,
 				E54CE2551F8DF62C00430EC9 /* UIMarqueeLabel.h */,
 				E54CE2561F8DF62C00430EC9 /* UIMarqueeLabel.m */,
+				3126F4AD1FB5C8EE003FFB58 /* SSUIZoomImageView.h */,
+				3126F4AE1FB5C8EE003FFB58 /* SSUIZoomImageView.m */,
+				3126F4B01FB5CB6C003FFB58 /* SSUIImagePreviewView.h */,
+				3126F4B11FB5CB6C003FFB58 /* SSUIImagePreviewView.m */,
+				3126F4B31FB5CD6C003FFB58 /* SSUIImagePreviewViewController.h */,
+				3126F4B41FB5CD6C003FFB58 /* SSUIImagePreviewViewController.m */,
+				318EC2431FB736FD00387E1C /* SSUIPieProgressView.h */,
+				318EC2441FB736FD00387E1C /* SSUIPieProgressView.m */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -723,6 +799,7 @@
 				E54CE2451F8DEDA800430EC9 /* SSUIButton.m in Sources */,
 				E54CE2411F8DEDA800430EC9 /* SSUIListViewController.m in Sources */,
 				E54CE2511F8DF09B00430EC9 /* SSUISlider.m in Sources */,
+				3126F4B51FB5CD6C003FFB58 /* SSUIImagePreviewViewController.m in Sources */,
 				E54CE2471F8DEDA800430EC9 /* SSUILable.m in Sources */,
 				E54CE2241F8DEDA800430EC9 /* UITabBarItem+UI.m in Sources */,
 				E54CE21C1F8DEDA800430EC9 /* UIControl+UI.m in Sources */,
@@ -731,15 +808,19 @@
 				E54CE2231F8DEDA800430EC9 /* UITabBar+UI.m in Sources */,
 				E54CE2171F8DEDA800430EC9 /* CALayer+UI.m in Sources */,
 				E568163E1F94990E00D01212 /* SSUIVisualEffectView.m in Sources */,
+				3126F4AF1FB5C8EE003FFB58 /* SSUIZoomImageView.m in Sources */,
+				3126F4A61FB5AE0C003FFB58 /* SSUIAlbumViewController.m in Sources */,
 				E54F76D41F972984008136B3 /* UIImageView+UI.m in Sources */,
 				31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */,
 				E54CE2361F8DEDA800430EC9 /* UIStaticTableViewCellDataSource.m in Sources */,
 				E54CE22E1F8DEDA800430EC9 /* UIEmptyView.m in Sources */,
+				3126F4A91FB5AE60003FFB58 /* SSUIImagePickerViewController.m in Sources */,
 				E54CE2151F8DEDA800430EC9 /* NSObject+UI.m in Sources */,
 				E54CE2201F8DEDA800430EC9 /* UILabel+UI.m in Sources */,
 				E54CE2371F8DEDA800430EC9 /* UITableView+UIStaticCell.m in Sources */,
 				E54CE2431F8DEDA800430EC9 /* SSUITabBarController.m in Sources */,
 				E51900A31F7DE25200F280A0 /* ViewController.m in Sources */,
+				3126F4BB1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m in Sources */,
 				E54CE2251F8DEDA800430EC9 /* UITableView+UI.m in Sources */,
 				E54CE24E1F8DEE4000430EC9 /* UIGridView.m in Sources */,
 				E54CE22C1F8DEDA800430EC9 /* UIBubbleView.m in Sources */,
@@ -750,6 +831,7 @@
 				E54CE23A1F8DEDA800430EC9 /* UIToastAnimator.m in Sources */,
 				E51900AE1F7DE25200F280A0 /* main.m in Sources */,
 				E54CE2401F8DEDA800430EC9 /* SSUICollectionViewController.m in Sources */,
+				3126F49C1FB59975003FFB58 /* SSUIAsset.m in Sources */,
 				E54CE2181F8DEDA800430EC9 /* UIBezierPath+UI.m in Sources */,
 				E51900A01F7DE25200F280A0 /* AppDelegate.m in Sources */,
 				E54CE2331F8DEDA800430EC9 /* UINavigationButton.m in Sources */,
@@ -770,6 +852,10 @@
 				E54CE24A1F8DEDA800430EC9 /* SSUITextField.m in Sources */,
 				E54CE22F1F8DEDA800430EC9 /* UIKeyboardManager.m in Sources */,
 				E54CE2491F8DEDA800430EC9 /* SSUITableView.m in Sources */,
+				3126F4B21FB5CB6C003FFB58 /* SSUIImagePreviewView.m in Sources */,
+				318EC2451FB736FD00387E1C /* SSUIPieProgressView.m in Sources */,
+				3126F4AC1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.m in Sources */,
+				3126F49F1FB59FD0003FFB58 /* SSUIAssetsManager.m in Sources */,
 				E54CE2271F8DEDA800430EC9 /* UITextView+UI.m in Sources */,
 				E54CE23F1F8DEDA800430EC9 /* UIHelper.m in Sources */,
 				E54CE23E1F8DEDA800430EC9 /* UIConfiguration.m in Sources */,
@@ -778,9 +864,11 @@
 				E54CE21D1F8DEDA800430EC9 /* UIFont+UI.m in Sources */,
 				E54CE21E1F8DEDA800430EC9 /* UIGestureRecognizer+UI.m in Sources */,
 				E54CE24B1F8DEDA800430EC9 /* SSUITextView.m in Sources */,
+				3126F4A21FB5A5F7003FFB58 /* SSUIAssetsGroup.m in Sources */,
 				E54CE2131F8DEDA800430EC9 /* NSAttributedString+UI.m in Sources */,
 				E54CE2211F8DEDA800430EC9 /* UINavigationController+UI.m in Sources */,
 				E54CE23D1F8DEDA800430EC9 /* UIToastView.m in Sources */,
+				3126F4B81FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

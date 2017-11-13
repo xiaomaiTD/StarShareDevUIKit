@@ -40,6 +40,22 @@
 
 @end
 
+typedef NS_OPTIONS(NSUInteger, SSUIBorderViewPosition) {
+  SSUIBorderViewPositionNone      = 0,
+  SSUIBorderViewPositionTop       = 1 << 0,
+  SSUIBorderViewPositionLeft      = 1 << 1,
+  SSUIBorderViewPositionBottom    = 1 << 2,
+  SSUIBorderViewPositionRight     = 1 << 3
+};
+@interface UIView (Border)
+@property(nonatomic, assign) SSUIBorderViewPosition borderPosition;
+@property(nonatomic, assign) IBInspectable CGFloat borderWidth;
+@property(nonatomic, strong) IBInspectable UIColor *borderColor;
+@property(nonatomic, assign) CGFloat dashPhase;
+@property(nonatomic, copy)   NSArray <NSNumber *> *dashPattern;
+@property(nonatomic, strong, readonly) CAShapeLayer *borderLayer;
+@end
+
 @interface UIView (Layout)
 @property (nonatomic) CGFloat centerX;
 @property (nonatomic) CGFloat centerY;

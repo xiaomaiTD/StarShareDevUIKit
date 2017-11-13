@@ -10,8 +10,9 @@
 #import "SSUISwitch.h"
 #import "SSUIButton.h"
 #import "SSUIAlertController.h"
+#import "StarShareDevUIKit.h"
 
-@interface ViewController ()
+@interface ViewController ()<SSUIAlbumViewControllerDelegate,SSUIImagePickerViewControllerDelegate,SSUIImagePickerPreviewViewControllerDelegate>
 @property (nonatomic, strong) SSUILoadingButton *b;
 @end
 
@@ -43,6 +44,7 @@
   //self.b.activityIndicatorAlignment = SSUILoadingButtonAlignmentRight;
   self.b.loading = sender.isOn;
   
+  /**
   SSUIAlertAction *action1 = [SSUIAlertAction actionWithTitle:@"取消" style:SSUIAlertActionStyleCancel handler:^(SSUIAlertAction *action) {
   }];
   SSUIAlertAction *action2 = [SSUIAlertAction actionWithTitle:@"删除" style:SSUIAlertActionStyleDestructive handler:^(SSUIAlertAction *action) {
@@ -55,6 +57,46 @@
   [alertController addAction:action2];
   [alertController addAction:action3];
   [alertController showWithAnimated:YES];
+   */
+  [self presentAlbumViewControllerWithTitle:@"相册"];
+}
+
+- (void)presentAlbumViewControllerWithTitle:(NSString *)title {
+  
+  // 创建一个 QMUIAlbumViewController 实例用于呈现相簿列表
+  SSUIAlbumViewController *albumViewController = [[SSUIAlbumViewController alloc] init];
+  albumViewController.albumViewControllerDelegate = self;
+  albumViewController.contentType = SSUIAlbumContentTypeOnlyPhoto;
+  albumViewController.title = title;
+  
+  SSUINavigationController *navigationController = [[SSUINavigationController alloc] initWithRootViewController:albumViewController];
+  
+  // 获取最近发送图片时使用过的相簿，如果有则直接进入该相簿
+  SSUIAssetsGroup *assetsGroup = [SSUIImagePickerHelper assetsGroupOfLastestPickerAlbumWithUserIdentify:nil];
+  if (assetsGroup) {
+    SSUIImagePickerViewController *imagePickerViewController = [self imagePickerViewControllerForAlbumViewController:albumViewController];
+    imagePickerViewController.allowsMultipleSelection = YES;
+    [imagePickerViewController refreshWithAssetsGroup:assetsGroup];
+    imagePickerViewController.title = [assetsGroup name];
+    [navigationController pushViewController:imagePickerViewController animated:NO];
+  }
+  
+  [self presentViewController:navigationController animated:YES completion:NULL];
+}
+
+#pragma mark - <SSUIAlbumViewControllerDelegate>
+
+- (SSUIImagePickerViewController *)imagePickerViewControllerForAlbumViewController:(SSUIAlbumViewController *)albumViewController {
+  SSUIImagePickerViewController *imagePickerViewController = [[SSUIImagePickerViewController alloc] init];
+  imagePickerViewController.imagePickerViewControllerDelegate = self;
+  imagePickerViewController.maximumSelectImageCount = 9;
+  return imagePickerViewController;
+}
+
+- (SSUIImagePickerPreviewViewController *)imagePickerPreviewViewControllerForImagePickerViewController:(SSUIImagePickerViewController *)imagePickerViewController {
+  SSUIImagePickerPreviewViewController *imagePickerPreviewViewController = [[SSUIImagePickerPreviewViewController alloc] init];
+  imagePickerPreviewViewController.delegate = self;
+  return imagePickerPreviewViewController;
 }
 
 - (void)didReceiveMemoryWarning {

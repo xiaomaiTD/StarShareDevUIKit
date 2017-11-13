@@ -495,6 +495,22 @@ static char kAssociatedObjectKey_orientationBeforeChangedByHelper;
 #pragma clang diagnostic pop
 }
 
++ (void)renderStatusBarHidenAnimation:(BOOL)animation
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  [[UIApplication sharedApplication] setStatusBarHidden:YES animated:animation];
+#pragma clang diagnostic pop
+}
+
++ (void)renderStatusBarShowAnimation:(BOOL)animation
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  [[UIApplication sharedApplication] setStatusBarHidden:NO animated:animation];
+#pragma clang diagnostic pop
+}
+
 + (void)dimmedApplicationWindow {
   UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
   window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;

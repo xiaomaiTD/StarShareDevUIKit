@@ -9,7 +9,6 @@
 #import "SSUIListViewController.h"
 #import "SSUIViewController.h"
 #import "SSUITableView.h"
-#import "UIComponents.h"
 
 @interface SSUIListViewController : SSUIViewController<SSUITableViewDelegate, SSUITableViewDataSource>
 - (instancetype)initWithStyle:(UITableViewStyle)style NS_DESIGNATED_INITIALIZER;
