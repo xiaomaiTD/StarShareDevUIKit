@@ -40,7 +40,17 @@
   self.textInsets = TextFieldTextInsets;
   self.shouldResponseToProgrammaticallyTextChanges = YES;
   self.maximumTextLength = NSUIntegerMax;
+  self.shouldBanPasteAndCopy = NO;
   [self addTarget:self action:@selector(handleTextChangeEvent:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+  UIMenuController *menuController = [UIMenuController sharedMenuController];
+  if (menuController) {
+    [UIMenuController sharedMenuController].menuVisible = !self.shouldBanPasteAndCopy;
+  }
+  return !self.shouldBanPasteAndCopy;
 }
 
 - (void)dealloc {

@@ -22,4 +22,5 @@
 @property(nonatomic, assign) IBInspectable BOOL shouldResponseToProgrammaticallyTextChanges;
 @property(nonatomic, assign) IBInspectable NSUInteger maximumTextLength;
 @property(nonatomic, assign) IBInspectable BOOL shouldCountingNonASCIICharacterAsTwo;
+@property(nonatomic, assign) IBInspectable BOOL shouldBanPasteAndCopy;
 @end
