@@ -25,3 +25,4 @@
 #import "UITabBar+UI.h"
 #import "UIWindow+UI.h"
 #import "UILabel+UI.h"
+#import "NSDate+UI.h"
