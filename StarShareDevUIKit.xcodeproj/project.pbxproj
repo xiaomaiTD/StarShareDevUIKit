@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310259301FBD8F0D0023BCDB /* SSUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3102592F1FBD8F0D0023BCDB /* SSUIWebViewController.m */; };
+		310259331FBD919E0023BCDB /* SSWebSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 310259321FBD919E0023BCDB /* SSWebSecurityPolicy.m */; };
 		3126F4931FB546A4003FFB58 /* SSUIAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4921FB546A4003FFB58 /* SSUIAlertController.m */; };
 		3126F49C1FB59975003FFB58 /* SSUIAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F49B1FB59975003FFB58 /* SSUIAsset.m */; };
 		3126F49F1FB59FD0003FFB58 /* SSUIAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F49E1FB59FD0003FFB58 /* SSUIAssetsManager.m */; };
@@ -112,6 +114,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3102592E1FBD8F0D0023BCDB /* SSUIWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIWebViewController.h; sourceTree = "<group>"; };
+		3102592F1FBD8F0D0023BCDB /* SSUIWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIWebViewController.m; sourceTree = "<group>"; };
+		310259311FBD919E0023BCDB /* SSWebSecurityPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSWebSecurityPolicy.h; sourceTree = "<group>"; };
+		310259321FBD919E0023BCDB /* SSWebSecurityPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSWebSecurityPolicy.m; sourceTree = "<group>"; };
 		3126F4911FB546A4003FFB58 /* SSUIAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAlertController.h; sourceTree = "<group>"; };
 		3126F4921FB546A4003FFB58 /* SSUIAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAlertController.m; sourceTree = "<group>"; };
 		3126F49A1FB59975003FFB58 /* SSUIAsset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAsset.h; sourceTree = "<group>"; };
@@ -317,6 +323,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3102592D1FBD8EEA0023BCDB /* SSUIWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3102592E1FBD8F0D0023BCDB /* SSUIWebViewController.h */,
+				3102592F1FBD8F0D0023BCDB /* SSUIWebViewController.m */,
+				310259311FBD919E0023BCDB /* SSWebSecurityPolicy.h */,
+				310259321FBD919E0023BCDB /* SSWebSecurityPolicy.m */,
+			);
+			path = SSUIWebViewController;
+			sourceTree = "<group>";
+		};
 		3126F48E1FB54678003FFB58 /* SSUIAlertController */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +636,7 @@
 		E54CE1F81F8DEDA700430EC9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3102592D1FBD8EEA0023BCDB /* SSUIWebViewController */,
 				3126F48E1FB54678003FFB58 /* SSUIAlertController */,
 				E54CE1F91F8DEDA700430EC9 /* SSUICollectionViewController.h */,
 				E54CE1FA1F8DEDA700430EC9 /* SSUICollectionViewController.m */,
@@ -815,6 +833,7 @@
 				E568163E1F94990E00D01212 /* SSUIVisualEffectView.m in Sources */,
 				3126F4AF1FB5C8EE003FFB58 /* SSUIZoomImageView.m in Sources */,
 				3126F4A61FB5AE0C003FFB58 /* SSUIAlbumViewController.m in Sources */,
+				310259331FBD919E0023BCDB /* SSWebSecurityPolicy.m in Sources */,
 				E54F76D41F972984008136B3 /* UIImageView+UI.m in Sources */,
 				31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */,
 				E54CE2361F8DEDA800430EC9 /* UIStaticTableViewCellDataSource.m in Sources */,
@@ -863,6 +882,7 @@
 				3126F4AC1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.m in Sources */,
 				3126F49F1FB59FD0003FFB58 /* SSUIAssetsManager.m in Sources */,
 				E54CE2271F8DEDA800430EC9 /* UITextView+UI.m in Sources */,
+				310259301FBD8F0D0023BCDB /* SSUIWebViewController.m in Sources */,
 				E54CE23F1F8DEDA800430EC9 /* UIHelper.m in Sources */,
 				E54CE23E1F8DEDA800430EC9 /* UIConfiguration.m in Sources */,
 				E54CE21B1F8DEDA800430EC9 /* UIColor+UI.m in Sources */,

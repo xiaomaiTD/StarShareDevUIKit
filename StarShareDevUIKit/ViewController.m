@@ -11,7 +11,8 @@
 #import "SSUIButton.h"
 #import "SSUIAlertController.h"
 #import "StarShareDevUIKit.h"
-
+#import "SSUIWebViewController.h"
+#import "SSUINavigationController.h"
 @interface ViewController ()<SSUIAlbumViewControllerDelegate,SSUIImagePickerViewControllerDelegate,SSUIImagePickerPreviewViewControllerDelegate>
 @property (nonatomic, strong) SSUILoadingButton *b;
 @end
@@ -58,7 +59,15 @@
   [alertController addAction:action3];
   [alertController showWithAnimated:YES];
    */
-  [self presentAlbumViewControllerWithTitle:@"相册"];
+  
+  
+  //[self presentAlbumViewControllerWithTitle:@"相册"];
+  
+  SSUIWebViewController *web = [[SSUIWebViewController alloc] initWithURLString:@"https://www.baidu.com"];
+  SSUINavigationController *nav = [[SSUINavigationController alloc] initWithRootViewController:web];
+  [self presentViewController:nav animated:YES completion:^{
+    
+  }];
 }
 
 - (void)presentAlbumViewControllerWithTitle:(NSString *)title {
