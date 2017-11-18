@@ -104,11 +104,6 @@ static NSString *const kSSNetworkErrorURLKey = @"NETWORK_ERROR";
 - (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated
 {
   [super setNavigationItemsIsInEditMode:isInEditMode animated:YES];
-  UIBarButtonItem *back = [UINavigationButton barButtonItemWithImage:NavBarBackIndicatorImage
-                                                            position:UINavigationButtonPositionLeft
-                                                              target:self
-                                                              action:@selector(goBack)];
-  self.navigationItem.leftBarButtonItems = @[back];
 }
 
 - (void)initSubviews
@@ -215,6 +210,13 @@ static NSString *const kSSNetworkErrorURLKey = @"NETWORK_ERROR";
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  if (self.isPresented) {
+    UIBarButtonItem *close = [UINavigationButton barButtonItemWithImage:NavBarCloseButtonImage
+                                                               position:UINavigationButtonPositionLeft
+                                                                 target:self
+                                                                 action:@selector(_closeWeb)];
+  }
+  
   if (_request) {
     [self loadURLRequest:_request];
   } else if (_URL) {
@@ -225,6 +227,7 @@ static NSString *const kSSNetworkErrorURLKey = @"NETWORK_ERROR";
     [self loadURL:[NSURL fileURLWithPath:@"404"]];
   }
   [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:NULL];
+  
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -341,14 +344,6 @@ static NSString *const kSSNetworkErrorURLKey = @"NETWORK_ERROR";
   [self willGoBack];
   if ([_webView canGoBack]) {
     _navigation = [_webView goBack];
-  }else{
-    if (self.isPresented) {
-      [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-      }];
-    }else{
-      [self.navigationController popViewControllerAnimated:YES];
-    }
   }
 }
 
@@ -367,6 +362,13 @@ static NSString *const kSSNetworkErrorURLKey = @"NETWORK_ERROR";
 - (void)stop {
   [self willStop];
   [_webView stopLoading];
+}
+
+- (void)_closeWeb
+{
+  [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    
+  }];
 }
 
 #pragma mark - WKUIDelegate
@@ -633,6 +635,24 @@ static NSString *const kSSNetworkErrorURLKey = @"NETWORK_ERROR";
 - (void)setShowsBackgroundLabel:(BOOL)showsBackgroundLabel{
   _backgroundLabel.hidden = !showsBackgroundLabel;
   _showsBackgroundLabel = showsBackgroundLabel;
+}
+
+#pragma mark - back handle
+
+- (BOOL)shouldHoldBackButtonEvent
+{
+  return YES;
+}
+
+- (BOOL)canPopViewController
+{
+  [self willGoBack];
+  if ([_webView canGoBack]) {
+    _navigation = [_webView goBack];
+    return NO;
+  }else{
+    return YES;
+  }
 }
 
 @end
