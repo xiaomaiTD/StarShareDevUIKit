@@ -126,6 +126,7 @@ static SSUIAlertController *alertControllerAppearance;
     
     alertControllerAppearance.alertContentMargin = UIEdgeInsetsMake(0, 0, 0, 0);
     alertControllerAppearance.alertContentMaximumWidth = 270;
+    alertControllerAppearance.contentEffectPaddings = UIEdgeInsetsMake(0, 0, 0, 0);
     alertControllerAppearance.alertSeperatorColor = UIColorMake(211, 211, 219);
     alertControllerAppearance.alertTitleAttributes = @{NSForegroundColorAttributeName:UIColorBlack,NSFontAttributeName:UIFontBoldMake(17),NSParagraphStyleAttributeName:[NSMutableParagraphStyle paragraphStyleWithLineHeight:0 lineBreakMode:NSLineBreakByTruncatingTail]};
     alertControllerAppearance.alertMessageAttributes = @{NSForegroundColorAttributeName:UIColorBlack,NSFontAttributeName:UIFontMake(13),NSParagraphStyleAttributeName:[NSMutableParagraphStyle paragraphStyleWithLineHeight:0 lineBreakMode:NSLineBreakByTruncatingTail]};
@@ -219,6 +220,7 @@ static SSUIAlertController *alertControllerAppearance;
   if (alertControllerAppearance) {
     self.alertContentMargin = [SSUIAlertController appearance].alertContentMargin;
     self.alertContentMaximumWidth = [SSUIAlertController appearance].alertContentMaximumWidth;
+    self.contentEffectPaddings = [SSUIAlertController appearance].contentEffectPaddings;
     self.alertSeperatorColor = [SSUIAlertController appearance].alertSeperatorColor;
     self.alertContentCornerRadius = [SSUIAlertController appearance].alertContentCornerRadius;
     self.alertTitleAttributes = [SSUIAlertController appearance].alertTitleAttributes;
@@ -565,7 +567,7 @@ static SSUIAlertController *alertControllerAppearance;
       screenSpaceHeight += 20;
     }
     self.scrollWrapView.frame =  CGRectMake(0, 0, CGRectGetWidth(self.scrollWrapView.bounds), contentHeight);
-    self.headerEffectView.frame = self.scrollWrapView.bounds;
+    self.headerEffectView.frame = CGRectMake(self.contentEffectPaddings.left, self.contentEffectPaddings.top, self.scrollWrapView.width - self.contentEffectPaddings.left - self.contentEffectPaddings.right, self.scrollWrapView.height-self.contentEffectPaddings.top - self.contentEffectPaddings.bottom);
     
     CGRect containerRect = CGRectMake((CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.containerView.bounds)) / 2, (screenSpaceHeight - contentHeight - self.keyboardHeight) / 2, CGRectGetWidth(self.containerView.bounds), CGRectGetHeight(self.scrollWrapView.bounds));
     self.containerView.frame = CGRectFlatted(CGRectApplyAffineTransform(containerRect, self.containerView.transform));
@@ -627,7 +629,7 @@ static SSUIAlertController *alertControllerAppearance;
     self.buttonScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.buttonScrollView.bounds), contentOriginY);
     // 容器最终布局
     self.scrollWrapView.frame =  CGRectMake(0, 0, CGRectGetWidth(self.scrollWrapView.bounds), CGRectGetMaxY(self.buttonScrollView.frame));
-    self.headerEffectView.frame = self.scrollWrapView.bounds;
+    self.headerEffectView.frame = CGRectMake(self.contentEffectPaddings.left, self.contentEffectPaddings.top, self.scrollWrapView.width - self.contentEffectPaddings.left - self.contentEffectPaddings.right, self.scrollWrapView.height-self.contentEffectPaddings.top - self.contentEffectPaddings.bottom);
     contentOriginY = CGRectGetMaxY(self.scrollWrapView.frame) + self.sheetCancelButtonMarginTop;
     if (self.cancelAction) {
       self.cancelButtoneEffectView.frame = CGRectMake(0, contentOriginY, CGRectGetWidth(self.containerView.bounds), self.sheetButtonHeight);

@@ -78,6 +78,9 @@ typedef NS_ENUM(NSInteger, SSUIAlertControllerStyle) {
 /// alert的最大宽度，默认270。
 @property(nonatomic, assign) CGFloat alertContentMaximumWidth UI_APPEARANCE_SELECTOR;
 
+/// Effect View， 其实分割线的颜色就是 Effect 的背景色，所有内容在上面布局，默认UIEdgeInsetsMake(0, 0, 0, 0)。
+@property(nonatomic, assign) UIEdgeInsets contentEffectPaddings;
+
 /// alert上分隔线颜色，默认UIColorMake(211, 211, 219)。
 @property(nonatomic, strong) UIColor *alertSeperatorColor UI_APPEARANCE_SELECTOR;
 
