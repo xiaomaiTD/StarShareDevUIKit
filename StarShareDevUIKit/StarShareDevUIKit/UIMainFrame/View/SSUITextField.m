@@ -46,11 +46,22 @@
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-  UIMenuController *menuController = [UIMenuController sharedMenuController];
-  if (menuController) {
-    [UIMenuController sharedMenuController].menuVisible = !self.shouldBanPasteAndCopy;
+  if (action == @selector(paste:)) {
+    return !self.shouldBanPasteAndCopy;
   }
-  return !self.shouldBanPasteAndCopy;
+  if (action == @selector(select:)) {
+    return !self.shouldBanPasteAndCopy;
+  }
+  if (action == @selector(selectAll:)) {
+    return !self.shouldBanPasteAndCopy;
+  }
+  if (action == @selector(copy:)) {
+    return !self.shouldBanPasteAndCopy;
+  }
+  if (action == @selector(cut:)) {
+    return !self.shouldBanPasteAndCopy;
+  }
+  return [super canPerformAction:action withSender:sender];
 }
 
 - (void)dealloc {
