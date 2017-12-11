@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		310259301FBD8F0D0023BCDB /* SSUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3102592F1FBD8F0D0023BCDB /* SSUIWebViewController.m */; };
 		310259331FBD919E0023BCDB /* SSWebSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 310259321FBD919E0023BCDB /* SSWebSecurityPolicy.m */; };
+		31165F0C1FDE31CB001B326A /* SSUIMenuNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 31165F041FDE31CB001B326A /* SSUIMenuNode.m */; };
+		31165F0D1FDE31CB001B326A /* SSUIMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31165F051FDE31CB001B326A /* SSUIMenuView.m */; };
+		31165F0E1FDE31CB001B326A /* SSUIMenuPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = 31165F071FDE31CB001B326A /* SSUIMenuPointer.m */; };
+		31165F0F1FDE31CB001B326A /* SSUIMenuScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31165F0A1FDE31CB001B326A /* SSUIMenuScrollView.m */; };
 		3126F4931FB546A4003FFB58 /* SSUIAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4921FB546A4003FFB58 /* SSUIAlertController.m */; };
 		3126F49C1FB59975003FFB58 /* SSUIAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F49B1FB59975003FFB58 /* SSUIAsset.m */; };
 		3126F49F1FB59FD0003FFB58 /* SSUIAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F49E1FB59FD0003FFB58 /* SSUIAssetsManager.m */; };
@@ -118,6 +122,14 @@
 		3102592F1FBD8F0D0023BCDB /* SSUIWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIWebViewController.m; sourceTree = "<group>"; };
 		310259311FBD919E0023BCDB /* SSWebSecurityPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSWebSecurityPolicy.h; sourceTree = "<group>"; };
 		310259321FBD919E0023BCDB /* SSWebSecurityPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSWebSecurityPolicy.m; sourceTree = "<group>"; };
+		31165F041FDE31CB001B326A /* SSUIMenuNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSUIMenuNode.m; sourceTree = "<group>"; };
+		31165F051FDE31CB001B326A /* SSUIMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSUIMenuView.m; sourceTree = "<group>"; };
+		31165F061FDE31CB001B326A /* SSUIMenuScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSUIMenuScrollView.h; sourceTree = "<group>"; };
+		31165F071FDE31CB001B326A /* SSUIMenuPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSUIMenuPointer.m; sourceTree = "<group>"; };
+		31165F081FDE31CB001B326A /* SSUIMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSUIMenuView.h; sourceTree = "<group>"; };
+		31165F091FDE31CB001B326A /* SSUIMenuNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSUIMenuNode.h; sourceTree = "<group>"; };
+		31165F0A1FDE31CB001B326A /* SSUIMenuScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSUIMenuScrollView.m; sourceTree = "<group>"; };
+		31165F0B1FDE31CB001B326A /* SSUIMenuPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSUIMenuPointer.h; sourceTree = "<group>"; };
 		3126F4911FB546A4003FFB58 /* SSUIAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAlertController.h; sourceTree = "<group>"; };
 		3126F4921FB546A4003FFB58 /* SSUIAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIAlertController.m; sourceTree = "<group>"; };
 		3126F49A1FB59975003FFB58 /* SSUIAsset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIAsset.h; sourceTree = "<group>"; };
@@ -334,6 +346,21 @@
 			path = SSUIWebViewController;
 			sourceTree = "<group>";
 		};
+		31165F031FDE31CB001B326A /* SSUIMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				31165F041FDE31CB001B326A /* SSUIMenuNode.m */,
+				31165F051FDE31CB001B326A /* SSUIMenuView.m */,
+				31165F061FDE31CB001B326A /* SSUIMenuScrollView.h */,
+				31165F071FDE31CB001B326A /* SSUIMenuPointer.m */,
+				31165F081FDE31CB001B326A /* SSUIMenuView.h */,
+				31165F091FDE31CB001B326A /* SSUIMenuNode.h */,
+				31165F0A1FDE31CB001B326A /* SSUIMenuScrollView.m */,
+				31165F0B1FDE31CB001B326A /* SSUIMenuPointer.h */,
+			);
+			path = SSUIMenuView;
+			sourceTree = "<group>";
+		};
 		3126F48E1FB54678003FFB58 /* SSUIAlertController */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +555,7 @@
 		E54CE1C41F8DEDA700430EC9 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				31165F031FDE31CB001B326A /* SSUIMenuView */,
 				3126F4A31FB5ADED003FFB58 /* ImagePickerLibrary */,
 				3126F4991FB59953003FFB58 /* AssetLibrary */,
 				E54CE1C51F8DEDA700430EC9 /* UIBubbleView.h */,
@@ -836,6 +864,7 @@
 				310259331FBD919E0023BCDB /* SSWebSecurityPolicy.m in Sources */,
 				E54F76D41F972984008136B3 /* UIImageView+UI.m in Sources */,
 				31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */,
+				31165F0E1FDE31CB001B326A /* SSUIMenuPointer.m in Sources */,
 				E54CE2361F8DEDA800430EC9 /* UIStaticTableViewCellDataSource.m in Sources */,
 				E54CE22E1F8DEDA800430EC9 /* UIEmptyView.m in Sources */,
 				3126F4A91FB5AE60003FFB58 /* SSUIImagePickerViewController.m in Sources */,
@@ -852,6 +881,7 @@
 				E54CE22D1F8DEDA800430EC9 /* UICollectionViewPagingLayout.m in Sources */,
 				E54CE2221F8DEDA800430EC9 /* UIScrollView+UI.m in Sources */,
 				E54CE2321F8DEDA800430EC9 /* UINavigationController+NavigationBarTransition.m in Sources */,
+				31165F0D1FDE31CB001B326A /* SSUIMenuView.m in Sources */,
 				E54CE23A1F8DEDA800430EC9 /* UIToastAnimator.m in Sources */,
 				E51900AE1F7DE25200F280A0 /* main.m in Sources */,
 				E54CE2401F8DEDA800430EC9 /* SSUICollectionViewController.m in Sources */,
@@ -876,6 +906,7 @@
 				E54CE2571F8DF62C00430EC9 /* UIMarqueeLabel.m in Sources */,
 				E54CE24A1F8DEDA800430EC9 /* SSUITextField.m in Sources */,
 				E54CE22F1F8DEDA800430EC9 /* UIKeyboardManager.m in Sources */,
+				31165F0F1FDE31CB001B326A /* SSUIMenuScrollView.m in Sources */,
 				E54CE2491F8DEDA800430EC9 /* SSUITableView.m in Sources */,
 				3126F4B21FB5CB6C003FFB58 /* SSUIImagePreviewView.m in Sources */,
 				318EC2451FB736FD00387E1C /* SSUIPieProgressView.m in Sources */,
@@ -888,6 +919,7 @@
 				E54CE21B1F8DEDA800430EC9 /* UIColor+UI.m in Sources */,
 				E54CE2161F8DEDA800430EC9 /* NSString+UI.m in Sources */,
 				E54CE21D1F8DEDA800430EC9 /* UIFont+UI.m in Sources */,
+				31165F0C1FDE31CB001B326A /* SSUIMenuNode.m in Sources */,
 				E54CE21E1F8DEDA800430EC9 /* UIGestureRecognizer+UI.m in Sources */,
 				E54CE24B1F8DEDA800430EC9 /* SSUITextView.m in Sources */,
 				3126F4A21FB5A5F7003FFB58 /* SSUIAssetsGroup.m in Sources */,
