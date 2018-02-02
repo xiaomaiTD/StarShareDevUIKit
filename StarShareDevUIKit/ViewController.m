@@ -61,18 +61,20 @@
    */
   
   
-  //[self presentAlbumViewControllerWithTitle:@"相册"];
+  [self presentAlbumViewControllerWithTitle:@"相册"];
   
+  /**
   SSUIWebViewController *web = [[SSUIWebViewController alloc] initWithURLString:@"https://www.baidu.com"];
   SSUINavigationController *nav = [[SSUINavigationController alloc] initWithRootViewController:web];
   [self presentViewController:nav animated:YES completion:^{
     
   }];
+   */
 }
 
 - (void)presentAlbumViewControllerWithTitle:(NSString *)title {
   
-  // 创建一个 QMUIAlbumViewController 实例用于呈现相簿列表
+  // 创建一个 SSUIAlbumViewController 实例用于呈现相簿列表
   SSUIAlbumViewController *albumViewController = [[SSUIAlbumViewController alloc] init];
   albumViewController.albumViewControllerDelegate = self;
   albumViewController.contentType = SSUIAlbumContentTypeOnlyPhoto;
@@ -102,16 +104,21 @@
   return imagePickerViewController;
 }
 
+#pragma mark - <SSUIImagePickerViewControllerDelegate>
+
+- (void)imagePickerViewController:(SSUIImagePickerViewController *)imagePickerViewController didFinishPickingImageWithImagesAssetArray:(NSMutableArray<SSUIAsset *> *)imagesAssetArray {
+  [SSUIImagePickerHelper updateLastestAlbumWithAssetsGroup:imagePickerViewController.assetsGroup
+                                          ablumContentType:SSUIAlbumContentTypeOnlyPhoto
+                                              userIdentify:nil];
+}
+
 - (SSUIImagePickerPreviewViewController *)imagePickerPreviewViewControllerForImagePickerViewController:(SSUIImagePickerViewController *)imagePickerViewController {
   SSUIImagePickerPreviewViewController *imagePickerPreviewViewController = [[SSUIImagePickerPreviewViewController alloc] init];
   imagePickerPreviewViewController.delegate = self;
   return imagePickerPreviewViewController;
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
+#pragma mark - <SSUIImagePickerPreviewViewControllerDelegate>
 
 
 @end
