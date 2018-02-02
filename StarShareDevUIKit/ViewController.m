@@ -13,7 +13,7 @@
 #import "StarShareDevUIKit.h"
 #import "SSUIWebViewController.h"
 #import "SSUINavigationController.h"
-@interface ViewController ()<SSUIAlbumViewControllerDelegate,SSUIImagePickerViewControllerDelegate,SSUIImagePickerPreviewViewControllerDelegate>
+@interface ViewController ()<SSUIAlbumViewControllerDelegate,SSUIImagePickerViewControllerDelegate,SSUIImagePickerPreviewViewControllerDelegate,SSUISingleImagePickerPreviewViewControllerDelegate>
 @property (nonatomic, strong) SSUILoadingButton *b;
 @end
 
@@ -86,7 +86,7 @@
   SSUIAssetsGroup *assetsGroup = [SSUIImagePickerHelper assetsGroupOfLastestPickerAlbumWithUserIdentify:nil];
   if (assetsGroup) {
     SSUIImagePickerViewController *imagePickerViewController = [self imagePickerViewControllerForAlbumViewController:albumViewController];
-    imagePickerViewController.allowsMultipleSelection = YES;
+    imagePickerViewController.allowsMultipleSelection = NO;
     [imagePickerViewController refreshWithAssetsGroup:assetsGroup];
     imagePickerViewController.title = [assetsGroup name];
     [navigationController pushViewController:imagePickerViewController animated:NO];
@@ -100,7 +100,8 @@
 - (SSUIImagePickerViewController *)imagePickerViewControllerForAlbumViewController:(SSUIAlbumViewController *)albumViewController {
   SSUIImagePickerViewController *imagePickerViewController = [[SSUIImagePickerViewController alloc] init];
   imagePickerViewController.imagePickerViewControllerDelegate = self;
-  imagePickerViewController.maximumSelectImageCount = 9;
+  imagePickerViewController.maximumSelectImageCount = 1;
+  imagePickerViewController.minimumSelectImageCount = 1;
   return imagePickerViewController;
 }
 
@@ -113,12 +114,14 @@
 }
 
 - (SSUIImagePickerPreviewViewController *)imagePickerPreviewViewControllerForImagePickerViewController:(SSUIImagePickerViewController *)imagePickerViewController {
-  SSUIImagePickerPreviewViewController *imagePickerPreviewViewController = [[SSUIImagePickerPreviewViewController alloc] init];
+  SSUISingleImagePickerPreviewViewController *imagePickerPreviewViewController = [[SSUISingleImagePickerPreviewViewController alloc] init];
   imagePickerPreviewViewController.delegate = self;
   return imagePickerPreviewViewController;
 }
 
-#pragma mark - <SSUIImagePickerPreviewViewControllerDelegate>
-
+#pragma mark - <SSUISingleImagePickerPreviewViewControllerDelegate>
+- (void)imagePickerPreviewViewController:(SSUISingleImagePickerPreviewViewController *)imagePickerPreviewViewController didSelectImageWithImagesAsset:(SSUIAsset *)imageAsset {
+  
+}
 
 @end

@@ -23,6 +23,7 @@
 		3126F4BB1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3126F4BA1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m */; };
 		31311E671FA0D04800E54DD0 /* SSUISwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 31311E661FA0D04800E54DD0 /* SSUISwitch.m */; };
 		318EC2451FB736FD00387E1C /* SSUIPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 318EC2441FB736FD00387E1C /* SSUIPieProgressView.m */; };
+		318EDE1820246C8800BB2795 /* SSUISingleImagePickerPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318EDE1720246C8800BB2795 /* SSUISingleImagePickerPreviewViewController.m */; };
 		31B5ADE01FBC45350087B163 /* NSDate+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B5ADDF1FBC45350087B163 /* NSDate+UI.m */; };
 		E51900A01F7DE25200F280A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E519009F1F7DE25200F280A0 /* AppDelegate.m */; };
 		E51900A31F7DE25200F280A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E51900A21F7DE25200F280A0 /* ViewController.m */; };
@@ -146,6 +147,8 @@
 		31311E661FA0D04800E54DD0 /* SSUISwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUISwitch.m; sourceTree = "<group>"; };
 		318EC2431FB736FD00387E1C /* SSUIPieProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUIPieProgressView.h; sourceTree = "<group>"; };
 		318EC2441FB736FD00387E1C /* SSUIPieProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUIPieProgressView.m; sourceTree = "<group>"; };
+		318EDE1620246C8800BB2795 /* SSUISingleImagePickerPreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSUISingleImagePickerPreviewViewController.h; sourceTree = "<group>"; };
+		318EDE1720246C8800BB2795 /* SSUISingleImagePickerPreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSUISingleImagePickerPreviewViewController.m; sourceTree = "<group>"; };
 		31B5ADDE1FBC45350087B163 /* NSDate+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+UI.h"; sourceTree = "<group>"; };
 		31B5ADDF1FBC45350087B163 /* NSDate+UI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+UI.m"; sourceTree = "<group>"; };
 		E519009B1F7DE25100F280A0 /* StarShareDevUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarShareDevUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -369,6 +372,8 @@
 				3126F4B71FB5CE97003FFB58 /* SSUIImagePickerPreviewViewController.m */,
 				3126F4B91FB5CFE4003FFB58 /* SSUIImagePickerHelper.h */,
 				3126F4BA1FB5CFE4003FFB58 /* SSUIImagePickerHelper.m */,
+				318EDE1620246C8800BB2795 /* SSUISingleImagePickerPreviewViewController.h */,
+				318EDE1720246C8800BB2795 /* SSUISingleImagePickerPreviewViewController.m */,
 			);
 			path = ImagePickerLibrary;
 			sourceTree = "<group>";
@@ -877,6 +882,7 @@
 				E54CE24A1F8DEDA800430EC9 /* SSUITextField.m in Sources */,
 				E54CE22F1F8DEDA800430EC9 /* UIKeyboardManager.m in Sources */,
 				E54CE2491F8DEDA800430EC9 /* SSUITableView.m in Sources */,
+				318EDE1820246C8800BB2795 /* SSUISingleImagePickerPreviewViewController.m in Sources */,
 				3126F4B21FB5CB6C003FFB58 /* SSUIImagePreviewView.m in Sources */,
 				318EC2451FB736FD00387E1C /* SSUIPieProgressView.m in Sources */,
 				3126F4AC1FB5BE96003FFB58 /* SSUIImagePickerCollectionViewCell.m in Sources */,

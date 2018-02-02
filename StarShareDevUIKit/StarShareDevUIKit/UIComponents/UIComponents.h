@@ -18,6 +18,7 @@
 #import "SSUIAlbumViewController.h"
 #import "SSUIImagePickerViewController.h"
 #import "SSUIImagePickerPreviewViewController.h"
+#import "SSUISingleImagePickerPreviewViewController.h"
 #import "SSUIImagePickerHelper.h"
 #import "SSUIAsset.h"
 #import "SSUIAssetsGroup.h"
