@@ -299,9 +299,15 @@ static SSUIImagePickerViewController *imagePickerViewControllerAppearance;
   BOOL hasDataLoaded = [self.collectionView numberOfItemsInSection:0] > 0;
   if (self.collectionView.window && hasDataLoaded && !self.hasScrollToInitialPosition) {
     if ([self.imagePickerViewControllerDelegate respondsToSelector:@selector(albumSortTypeForImagePickerViewController:)] && [self.imagePickerViewControllerDelegate albumSortTypeForImagePickerViewController:self] == SSUIAlbumSortTypeReverse) {
-      [self.collectionView scrollToTop];
+      [self.collectionView scrollToTopForce:NO animated:NO];
     } else {
-      [self.collectionView scrollToBottom];
+      if ([self.collectionView canScroll]) {
+        [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x,
+                                                          self.collectionView.contentSize.height +
+                                                          self.collectionView.contentInset.bottom -
+                                                          CGRectGetHeight(self.collectionView.bounds))
+                                     animated:NO];
+      }
     }
     
     self.hasScrollToInitialPosition = YES;
