@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class SSUINavigationController;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationController (UI)
