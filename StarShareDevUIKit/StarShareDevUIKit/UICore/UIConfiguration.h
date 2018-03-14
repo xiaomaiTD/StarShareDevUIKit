@@ -85,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) CGFloat            navBarLoadingMarginRight;
 @property(nonatomic, assign) CGFloat            navBarAccessoryViewMarginLeft;
 @property(nonatomic, assign) UIActivityIndicatorViewStyle navBarActivityIndicatorViewStyle;
+@property(nonatomic, assign) BOOL               navPreventConcurrentTransitions;
 
 #pragma mark - TabBar
 

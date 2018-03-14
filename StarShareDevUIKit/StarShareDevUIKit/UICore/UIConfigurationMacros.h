@@ -89,7 +89,7 @@
 #define NavBarLoadingMarginRight                        [UICMI navBarLoadingMarginRight]
 #define NavBarAccessoryViewMarginLeft                   [UICMI navBarAccessoryViewMarginLeft]
 #define NavBarActivityIndicatorViewStyle                [UICMI navBarActivityIndicatorViewStyle]
-
+#define NavPreventConcurrentTransitions                 [UICMI navPreventConcurrentTransitions]
 
 #pragma mark - TabBar
 

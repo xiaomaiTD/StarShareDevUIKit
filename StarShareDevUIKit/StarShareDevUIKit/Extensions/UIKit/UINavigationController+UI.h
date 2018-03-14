@@ -62,6 +62,16 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
+ *  当前界面正处于手势返回的过程中，可自行通过 gestureRecognizer.state 来区分手势返回的各个阶段。手势返回有多个阶段（手势返回开始、拖拽过程中、松手并成功返回、松手但不切换界面），不同阶段的 viewController 的状态可能不一样。
+ *  @param navigationController 当前正在手势返回的 QMUINavigationController，由于某些阶段下无法通过 vc.navigationController 获取到 nav 的引用，所以直接传一个参数
+ *  @param gestureRecognizer 手势对象
+ *  @param viewControllerWillDisappear 手势返回中顶部的那个 vc
+ *  @param viewControllerWillAppear 手势返回中背后的那个 vc
+ */
+- (void)navigationController:(nonnull SSUINavigationController *)navigationController poppingByInteractiveGestureRecognizer:(nullable UIScreenEdgePanGestureRecognizer *)gestureRecognizer viewControllerWillDisappear:(nullable UIViewController *)viewControllerWillDisappear viewControllerWillAppear:(nullable UIViewController *)viewControllerWillAppear;
+
+
+/**
  *  在 self.navigationController 进行以下 4 个操作前，相应的 viewController 的 willPopInNavigationControllerWithAnimated: 方法会被调用：
  *  1. popViewControllerAnimated:
  *  2. popToViewController:animated:

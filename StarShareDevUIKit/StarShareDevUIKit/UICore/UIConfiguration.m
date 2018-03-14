@@ -107,6 +107,7 @@
   self.navBarLoadingMarginRight = 3;
   self.navBarAccessoryViewMarginLeft = 5;
   self.navBarActivityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+  self.navPreventConcurrentTransitions = YES;
   
 #pragma mark - TabBar
   

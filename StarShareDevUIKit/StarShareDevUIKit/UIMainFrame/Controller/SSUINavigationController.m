@@ -13,17 +13,47 @@
 #import <objc/runtime.h>
 #import "UICore.h"
 
-@interface UIViewController (SSUINavigationController)
+@implementation UIViewController (SSUINavigationController)
+
+- (BOOL)navigationControllerPoppingInteracted {
+  return self.poppingByInteractivePopGestureRecognizer || self.willAppearByInteractivePopGestureRecognizer;
+}
+
+static char kAssociatedObjectKey_poppingByInteractivePopGestureRecognizer;
+- (void)setPoppingByInteractivePopGestureRecognizer:(BOOL)poppingByInteractivePopGestureRecognizer {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_poppingByInteractivePopGestureRecognizer,
+                           @(poppingByInteractivePopGestureRecognizer),
+                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)poppingByInteractivePopGestureRecognizer {
+  return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_poppingByInteractivePopGestureRecognizer)) boolValue];
+}
+
+static char kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer;
+- (void)setWillAppearByInteractivePopGestureRecognizer:(BOOL)willAppearByInteractivePopGestureRecognizer {
+  objc_setAssociatedObject(self, &kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer,
+                           @(willAppearByInteractivePopGestureRecognizer),
+                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)willAppearByInteractivePopGestureRecognizer {
+  return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer)) boolValue];
+}
+@end
+
+@interface UIViewController (SSUINavigationControllerTransition)
 @property(nonatomic, assign) BOOL isViewWillAppear;
 @end
 
-@implementation UIViewController (SSUINavigationController)
+@implementation UIViewController (SSUINavigationControllerTransition)
 
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     Class cls = [self class];
     ReplaceMethod(cls, @selector(viewWillAppear:), @selector(observe_viewWillAppear:));
+    ReplaceMethod(cls, @selector(viewDidAppear:), @selector(observe_viewDidAppear:));
     ReplaceMethod(cls, @selector(viewDidDisappear:), @selector(observe_viewDidDisappear:));
   });
 }
@@ -33,9 +63,17 @@
   self.isViewWillAppear = YES;
 }
 
+- (void)observe_viewDidAppear:(BOOL)animated {
+  [self observe_viewDidAppear:animated];
+  self.poppingByInteractivePopGestureRecognizer = NO;
+  self.willAppearByInteractivePopGestureRecognizer = NO;
+}
+
 - (void)observe_viewDidDisappear:(BOOL)animated {
   [self observe_viewDidDisappear:animated];
   self.isViewWillAppear = NO;
+  self.poppingByInteractivePopGestureRecognizer = NO;
+  self.willAppearByInteractivePopGestureRecognizer = NO;
 }
 
 - (BOOL)isViewWillAppear {
@@ -51,6 +89,7 @@
 @end
 
 @interface SSUINavigationController ()
+
 @property(nonatomic, assign) BOOL isViewControllerTransiting;
 @property(nonatomic, weak) UIViewController *viewControllerPopping;
 @property(nonatomic, weak) id <UINavigationControllerDelegate> delegateProxy;
@@ -88,7 +127,8 @@
   if (!self.delegate) {
     self.delegate = self;
   }
-  [self.interactivePopGestureRecognizer addTarget:self action:@selector(handleInteractivePopGestureRecognizer:)];
+  [self.interactivePopGestureRecognizer addTarget:self
+                                           action:@selector(handleInteractivePopGestureRecognizer:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -218,8 +258,12 @@
     return;
   }
   
-  if (animated) {
+  if (!self.presentedViewController && animated) {
     self.isViewControllerTransiting = YES;
+  }
+  
+  if (self.presentedViewController) {
+    SSUIKitLog(@"push 的时候 navigationController 存在一个盖在上面的 presentedViewController，可能导致一些 UINavigationControllerDelegate 不会被调用");
   }
   
   UIViewController *currentViewController = self.topViewController;
@@ -255,18 +299,49 @@
   return self.topViewController;
 }
 
+#pragma mark - 自定义方法
+
+- (BOOL)isViewControllerTransiting {
+  // 如果配置表里这个开关关闭，则为了使 isViewControllerTransiting 功能失效，强制返回 NO
+  if (!NavPreventConcurrentTransitions) {
+    return NO;
+  }
+  return _isViewControllerTransiting;
+}
+
 #pragma mark - 接管系统手势返回的回调
 
 - (void)handleInteractivePopGestureRecognizer:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer {
   UIGestureRecognizerState state = gestureRecognizer.state;
   if (state == UIGestureRecognizerStateBegan) {
     [self.viewControllerPopping addObserver:self forKeyPath:@"isViewWillAppear" options:NSKeyValueObservingOptionNew context:nil];
-  } else if (state == UIGestureRecognizerStateEnded) {
+  }
+  
+  UIViewController *viewControllerWillDisappear = self.viewControllerPopping;
+  UIViewController *viewControllerWillAppear = self.topViewController;
+  
+  if (state == UIGestureRecognizerStateEnded) {
     if (CGRectGetMinX(self.topViewController.view.superview.frame) < 0) {
       SSUIKitLog(@"手势返回放弃了");
+      viewControllerWillDisappear = self.topViewController;
+      viewControllerWillAppear = self.viewControllerPopping;
     } else {
       SSUIKitLog(@"执行手势返回");
     }
+  }
+  
+  viewControllerWillDisappear.poppingByInteractivePopGestureRecognizer = YES;
+  viewControllerWillDisappear.willAppearByInteractivePopGestureRecognizer = NO;
+  
+  viewControllerWillDisappear.poppingByInteractivePopGestureRecognizer = NO;
+  viewControllerWillAppear.willAppearByInteractivePopGestureRecognizer = YES;
+  
+  if ([viewControllerWillDisappear respondsToSelector:@selector(navigationController:poppingByInteractiveGestureRecognizer:viewControllerWillDisappear:viewControllerWillAppear:)]) {
+    [((UIViewController<UINavigationCustomTransitionDelegate> *)viewControllerWillDisappear) navigationController:self poppingByInteractiveGestureRecognizer:gestureRecognizer viewControllerWillDisappear:viewControllerWillDisappear viewControllerWillAppear:viewControllerWillAppear];
+  }
+  
+  if ([viewControllerWillAppear respondsToSelector:@selector(navigationController:poppingByInteractiveGestureRecognizer:viewControllerWillDisappear:viewControllerWillAppear:)]) {
+    [((UIViewController<UINavigationCustomTransitionDelegate> *)viewControllerWillAppear) navigationController:self poppingByInteractiveGestureRecognizer:gestureRecognizer viewControllerWillDisappear:viewControllerWillDisappear viewControllerWillAppear:viewControllerWillAppear];
   }
 }
 
