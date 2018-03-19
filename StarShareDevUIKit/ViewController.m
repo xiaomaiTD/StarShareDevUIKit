@@ -13,6 +13,8 @@
 #import "StarShareDevUIKit.h"
 #import "SSUIWebViewController.h"
 #import "SSUINavigationController.h"
+#import "NSString+UI.h"
+
 @interface ViewController ()<SSUIAlbumViewControllerDelegate,SSUIImagePickerViewControllerDelegate,SSUIImagePickerPreviewViewControllerDelegate,SSUISingleImagePickerPreviewViewControllerDelegate>
 @property (nonatomic, strong) SSUILoadingButton *b;
 @end
@@ -36,6 +38,8 @@
   self.b.shouldProhibitUserInteractionWhenLoading = NO;
   self.b.activityIndicatorAlignment = SSUILoadingButtonAlignmentCenter;
   self.b.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+  
+  NSLog(@"%li",[@"一" lengthWhenCountingNonASCIICharacterAsTwo]);
 }
 
 - (void)switchAction:(SSUISwitch *)sender

@@ -108,6 +108,7 @@
   self.navBarAccessoryViewMarginLeft = 5;
   self.navBarActivityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
   self.navPreventConcurrentTransitions = YES;
+  self.navBarBackIndicatorImageAdaptationSize = NO;
   
 #pragma mark - TabBar
   
@@ -324,7 +325,7 @@
     
     CGSize systemBackIndicatorImageSize = CGSizeMake(13, 21); // 在iOS 8-11 上实际测量得到
     CGSize customBackIndicatorImageSize = _navBarBackIndicatorImage.size;
-    if (!CGSizeEqualToSize(customBackIndicatorImageSize, systemBackIndicatorImageSize)) {
+    if (!CGSizeEqualToSize(customBackIndicatorImageSize, systemBackIndicatorImageSize) && self.navBarBackIndicatorImageAdaptationSize) {
       CGFloat imageExtensionVerticalFloat = CGFloatGetCenter(systemBackIndicatorImageSize.height, customBackIndicatorImageSize.height);
       UIEdgeInsets insets = UIEdgeInsetsMake(imageExtensionVerticalFloat,
                                              _navBarBackIndicatorFixLeft * 2.0,
@@ -344,6 +345,18 @@
     navBarAppearance.backIndicatorTransitionMaskImage = navBarAppearance.backIndicatorImage;
     navigationBar.backIndicatorImage = _navBarBackIndicatorImage;
     navigationBar.backIndicatorTransitionMaskImage = navigationBar.backIndicatorImage;
+  }
+}
+
+/**
+ 设置导航栏返回按钮图片适应系统大小
+ @param navBarBackIndicatorImageAdaptationSize bool
+ */
+- (void)setNavBarBackIndicatorImageAdaptationSize:(BOOL)navBarBackIndicatorImageAdaptationSize {
+  BOOL history = _navBarBackIndicatorImageAdaptationSize;
+  _navBarBackIndicatorImageAdaptationSize = navBarBackIndicatorImageAdaptationSize;
+  if (_navBarBackIndicatorImageAdaptationSize != history) {
+    [self setNavBarBackIndicatorImage:self.navBarBackIndicatorImage];
   }
 }
 
