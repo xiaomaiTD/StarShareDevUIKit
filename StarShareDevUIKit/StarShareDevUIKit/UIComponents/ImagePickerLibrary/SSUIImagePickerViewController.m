@@ -442,6 +442,35 @@ static SSUIImagePickerViewController *imagePickerViewControllerAppearance;
     [self updateImageCountAndCheckLimited];
   } else {
     // 选中该资源
+    
+    if ([_selectedImageAssetArray count] >= _maximumSelectImageCount) {
+      if (!_alertTitleWhenExceedMaxSelectImageCount) {
+        _alertTitleWhenExceedMaxSelectImageCount = [NSString stringWithFormat:@"你最多只能选择%@张图片", @(_maximumSelectImageCount)];
+      }
+      if (!_alertButtonTitleWhenExceedMaxSelectImageCount) {
+        _alertButtonTitleWhenExceedMaxSelectImageCount = [NSString stringWithFormat:@"我知道了"];
+      }
+      
+      SSUIAlertController *alertController = [SSUIAlertController alertControllerWithTitle:_alertTitleWhenExceedMaxSelectImageCount message:nil preferredStyle:SSUIAlertControllerStyleAlert];
+      [alertController addAction:[SSUIAlertAction actionWithTitle:_alertButtonTitleWhenExceedMaxSelectImageCount style:SSUIAlertActionStyleCancel handler:nil]];
+      [alertController showWithAnimated:YES];
+      return;
+    }
+    
+    if ([self.imagePickerViewControllerDelegate respondsToSelector:@selector(imagePickerViewController:willCheckImageAtIndex:)]) {
+      [self.imagePickerViewControllerDelegate imagePickerViewController:self willCheckImageAtIndex:indexPath.item];
+    }
+    
+    cell.checked = YES;
+    [_selectedImageAssetArray addObject:imageAsset];
+    
+    if ([self.imagePickerViewControllerDelegate respondsToSelector:@selector(imagePickerViewController:didCheckImageAtIndex:)]) {
+      [self.imagePickerViewControllerDelegate imagePickerViewController:self didCheckImageAtIndex:indexPath.item];
+    }
+    
+    // 根据选择图片数控制预览和发送按钮的 enable，以及修改已选中的图片数
+    [self updateImageCountAndCheckLimited];
+    
     // 发出请求获取大图，如果图片在 iCloud，则会发出网络请求下载图片。这里同时保存请求 id，供取消请求使用
     [self requestImageWithIndexPath:indexPath];
   }
@@ -497,33 +526,6 @@ static SSUIImagePickerViewController *imagePickerViewControllerAppearance;
       [imageAsset updateDownloadStatusWithDownloadResult:YES];
       cell.downloadStatus = SSUIAssetDownloadStatusSucceed;
       
-      if ([_selectedImageAssetArray count] >= _maximumSelectImageCount) {
-        if (!_alertTitleWhenExceedMaxSelectImageCount) {
-          _alertTitleWhenExceedMaxSelectImageCount = [NSString stringWithFormat:@"你最多只能选择%@张图片", @(_maximumSelectImageCount)];
-        }
-        if (!_alertButtonTitleWhenExceedMaxSelectImageCount) {
-          _alertButtonTitleWhenExceedMaxSelectImageCount = [NSString stringWithFormat:@"我知道了"];
-        }
-        
-        SSUIAlertController *alertController = [SSUIAlertController alertControllerWithTitle:_alertTitleWhenExceedMaxSelectImageCount message:nil preferredStyle:SSUIAlertControllerStyleAlert];
-        [alertController addAction:[SSUIAlertAction actionWithTitle:_alertButtonTitleWhenExceedMaxSelectImageCount style:SSUIAlertActionStyleCancel handler:nil]];
-        [alertController showWithAnimated:YES];
-        return;
-      }
-      
-      if ([self.imagePickerViewControllerDelegate respondsToSelector:@selector(imagePickerViewController:willCheckImageAtIndex:)]) {
-        [self.imagePickerViewControllerDelegate imagePickerViewController:self willCheckImageAtIndex:indexPath.item];
-      }
-      
-      cell.checked = YES;
-      [_selectedImageAssetArray addObject:imageAsset];
-      
-      if ([self.imagePickerViewControllerDelegate respondsToSelector:@selector(imagePickerViewController:didCheckImageAtIndex:)]) {
-        [self.imagePickerViewControllerDelegate imagePickerViewController:self didCheckImageAtIndex:indexPath.item];
-      }
-      
-      // 根据选择图片数控制预览和发送按钮的 enable，以及修改已选中的图片数
-      [self updateImageCountAndCheckLimited];
     } else if ([info objectForKey:PHImageErrorKey] ) {
       // 下载错误
       [imageAsset updateDownloadStatusWithDownloadResult:NO];
@@ -533,12 +535,12 @@ static SSUIImagePickerViewController *imagePickerViewControllerAppearance;
   } withProgressHandler:^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
     imageAsset.downloadProgress = progress;
     
-    if ([self.collectionView itemVisibleAtIndexPath:indexPath]) {
-      /**
-       *  withProgressHandler 不在主线程执行，若用户在该 block 中操作 UI 时会产生一些问题，
-       *  为了避免这种情况，这里该 block 主动放到主线程执行。
-       */
-      dispatch_async(dispatch_get_main_queue(), ^{
+    /**
+     *  withProgressHandler 不在主线程执行，若用户在该 block 中操作 UI 时会产生一些问题，
+     *  为了避免这种情况，这里该 block 主动放到主线程执行。
+     */
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if ([self.collectionView itemVisibleAtIndexPath:indexPath]) {
         SSUIKitLog(@"Download iCloud image, current progress is : %f", progress);
         
         if (cell.downloadStatus != SSUIAssetDownloadStatusDownloading) {
@@ -559,9 +561,8 @@ static SSUIImagePickerViewController *imagePickerViewControllerAppearance;
           SSUIKitLog(@"Download iCloud image Failed, current progress is: %f", progress);
           cell.downloadStatus = SSUIAssetDownloadStatusFailed;
         }
-      });
-    }
+      }
+    });
   }];
 }
-
 @end
