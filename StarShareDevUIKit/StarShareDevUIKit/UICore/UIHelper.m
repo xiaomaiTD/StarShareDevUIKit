@@ -329,6 +329,30 @@ static NSInteger is35InchScreen = -1;
 + (CGSize)screenSizeFor35Inch {
   return CGSizeMake(320, 480);
 }
+
++ (UIEdgeInsets)safeAreaInsetsForIPhoneX {
+  if (![self is58InchScreen]) {
+    return UIEdgeInsetsZero;
+  }
+  
+  UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+  
+  switch (orientation) {
+    case UIInterfaceOrientationPortrait:
+      return UIEdgeInsetsMake(44, 0, 34, 0);
+      
+    case UIInterfaceOrientationPortraitUpsideDown:
+      return UIEdgeInsetsMake(34, 0, 44, 0);
+      
+    case UIInterfaceOrientationLandscapeLeft:
+    case UIInterfaceOrientationLandscapeRight:
+      return UIEdgeInsetsMake(0, 44, 21, 44);
+      
+    case UIInterfaceOrientationUnknown:
+    default:
+      return UIEdgeInsetsMake(44, 0, 34, 0);
+  }
+}
 @end
 
 @implementation UIHelper (UIGraphic)

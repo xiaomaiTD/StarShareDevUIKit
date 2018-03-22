@@ -99,10 +99,25 @@
 
 #define PreferredVarForDevices(varFor55Inch, varFor47or58Inch, varFor40Inch, varFor35Inch) PreferredVarForUniversalDevices(varFor55Inch, varFor55Inch, varFor47or58Inch, varFor40Inch, varFor35Inch)
 
-#define PreferredVarForUniversalDevices(varForPad, varFor55Inch, varFor47or58Inch, varFor40Inch, varFor35Inch) (IS_IPAD ? varForPad : (IS_35INCH_SCREEN ? varFor35Inch : (IS_40INCH_SCREEN ? varFor40Inch : (IS_47INCH_SCREEN || IS_58INCH_SCREEN ? varFor47or58Inch : varFor55Inch))))
+#define PreferredVarForUniversalDevices(varForPad, varFor55Inch, varFor47or58Inch, varFor40Inch, varFor35Inch) PreferredVarForUniversalDevicesIncludingIPhoneX(varForPad, varFor55Inch, varFor47or58Inch, varFor47or58Inch, varFor40Inch, varFor35Inch)
 
+#define PreferredVarForUniversalDevicesIncludingIPhoneX(varForPad, varFor55Inch, varFor58Inch, varFor47Inch, varFor40Inch, varFor35Inch) (IS_IPAD ? varForPad : (IS_35INCH_SCREEN ? varFor35Inch : (IS_40INCH_SCREEN ? varFor40Inch : (IS_47INCH_SCREEN ? varFor47Inch : (IS_55INCH_SCREEN ? varFor55Inch : varFor58Inch)))))
+
+#define ScreenBoundsSize ([[UIScreen mainScreen] bounds].size)
+#define ScreenNativeBoundsSize ([[UIScreen mainScreen] nativeBounds].size)
 #define ScreenScale ([[UIScreen mainScreen] scale])
+#define ScreenNativeScale ([[UIScreen mainScreen] nativeScale])
 #define PixelOne [UIHelper pixelOne]
+
+#define StatusBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height)
+#define NavigationBarHeight (IS_LANDSCAPE ? PreferredVarForDevices(44, 32, 32, 32) : 44)
+#define ToolBarHeight (IS_LANDSCAPE ? PreferredVarForUniversalDevicesIncludingIPhoneX(44, 44, 53, 32, 32, 32) : PreferredVarForUniversalDevicesIncludingIPhoneX(44, 44, 83, 44, 44, 44))
+#define TabBarHeight (IS_LANDSCAPE ? PreferredVarForUniversalDevicesIncludingIPhoneX(49, 49, 53, 32, 32, 32) : PreferredVarForUniversalDevicesIncludingIPhoneX(49, 49, 83, 49, 49, 49))
+
+#define IPhoneXSafeAreaInsets [UIHelper safeAreaInsetsForIPhoneX]
+
+#define NavigationContentTop (StatusBarHeight + NavigationBarHeight)
+#define NavigationContentStaticTop NavigationContentTop
 
 #define CGContextInspectSize(size) [UIHelper inspectContextSize:size]
 #ifdef DEBUG

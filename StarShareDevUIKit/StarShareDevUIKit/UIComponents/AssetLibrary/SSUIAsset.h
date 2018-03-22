@@ -13,10 +13,15 @@
 typedef NS_ENUM(NSUInteger, SSUIAssetType) {
   SSUIAssetTypeUnknow,                              // 未知类型的 Asset
   SSUIAssetTypeImage,                               // 图片类型的 Asset
-  SSUIAssetTypeGIF,                                 // GIF类型的 Asset
   SSUIAssetTypeVideo,                               // 视频类型的 Asset
-  SSUIAssetTypeAudio NS_ENUM_AVAILABLE_IOS(8_0),    // 音频类型的 Asset，仅被 PhotoKit 支持，因此只适用于 iOS 8.0
-  SSUIAssetTypeLivePhoto NS_ENUM_AVAILABLE_IOS(9_1) // Live Photo 类型的 Asset，仅被 PhotoKit 支持，因此只适用于 iOS 9.1
+  SSUIAssetTypeAudio,                               // 音频类型的 Asset
+};
+
+typedef NS_ENUM(NSUInteger, SSUIAssetSubType) {
+  SSUIAssetSubTypeUnknow,                                 // 未知类型
+  SSUIAssetSubTypeImage,                                  // 静态图片类型
+  SSUIAssetSubTypeLivePhoto NS_ENUM_AVAILABLE_IOS(9_1),   // Live Photo 类型
+  SSUIAssetSubTypeGIF                                     // GIF类型
 };
 
 /// 从 iCloud 请求 Asset 大图的状态
@@ -32,9 +37,11 @@ typedef NS_ENUM(NSUInteger, SSUIAssetDownloadStatus) {
 @interface SSUIAsset : NSObject
 
 @property(nonatomic, assign, readonly) SSUIAssetType assetType;
+@property(nonatomic, assign, readonly) SSUIAssetSubType assetSubType;
 
 - (instancetype)initWithAsset:(PHAsset *)asset;
 
+@property(nonatomic, strong, readonly) PHAsset *asset;
 @property(nonatomic, assign, readonly) SSUIAssetDownloadStatus downloadStatus; // 从 iCloud 下载资源大图的状态
 @property(nonatomic, assign) double downloadProgress; // 从 iCloud 下载资源大图的进度
 @property(nonatomic, assign) NSInteger requestID; // 从 iCloud 请求获得资源的大图的请求 ID
@@ -47,6 +54,9 @@ typedef NS_ENUM(NSUInteger, SSUIAssetDownloadStatus) {
 
 /// Asset 的预览图 (仿照 ALAssetsLibrary 的做法输出与当前设备屏幕大小相同尺寸的图片，如果图片原图小于当前设备屏幕的尺寸，则只输出原图大小的图片)
 - (UIImage *)previewImage;
+
+/// 获取图片的 UIImageOrientation 值，仅 assetType 为 QMUIAssetTypeImage 或 QMUIAssetTypeLivePhoto 时有效
+- (UIImageOrientation)imageOrientation;
 
 /// Asset 的标识 (每个 SSUIAsset 的标识值不相同，该标识值经过 md5 处理，避免了特殊字符)
 - (NSString *)assetIdentity;
@@ -126,7 +136,7 @@ typedef NS_ENUM(NSUInteger, SSUIAssetDownloadStatus) {
  *
  *  @wraning iOS 8.0 以下中并没有异步请求 Data 的接口，因此实际上为同步请求，这时 block 中的第二个参数（图片信息）返回的为 nil。
  */
-- (void)requestImageData:(void (^)(NSData *imageData, NSDictionary<NSString *, id> *info, BOOL isGif))completion;
+- (void)requestImageData:(void (^)(NSData *imageData, NSDictionary<NSString *, id> *info, BOOL isGif, BOOL isHEIC))completion;
 
 /// 更新下载资源的结果
 - (void)updateDownloadStatusWithDownloadResult:(BOOL)succeed;

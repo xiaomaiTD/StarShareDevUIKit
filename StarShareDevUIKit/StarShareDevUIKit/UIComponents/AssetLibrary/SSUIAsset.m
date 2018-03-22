@@ -37,34 +37,46 @@ BeginIgnoreAvailabilityWarning
 - (instancetype)initWithAsset:(PHAsset *)asset {
   if (self = [super init]) {
     _asset = asset;
-    
     switch (asset.mediaType) {
       case PHAssetMediaTypeImage:
-        if ([[asset valueForKey:@"filename"] hasSuffix:@"GIF"]) {
-          self.assetType = SSUIAssetTypeGIF;
-        }else if (asset.mediaSubtypes & PHAssetMediaSubtypePhotoLive || asset.mediaType & 10) {
-          self.assetType = SSUIAssetTypeLivePhoto;
+        _assetType = SSUIAssetTypeImage;
+        if ([[asset valueForKey:@"uniformTypeIdentifier"] isEqualToString:(__bridge NSString *)kUTTypeGIF]) {
+          _assetSubType = SSUIAssetSubTypeGIF;
         } else {
-          self.assetType = SSUIAssetTypeImage;
+          if (@available(iOS 9.1, *)) {
+            if (asset.mediaSubtypes & PHAssetMediaSubtypePhotoLive) {
+              _assetSubType = SSUIAssetSubTypeLivePhoto;
+            } else {
+              _assetSubType = SSUIAssetSubTypeImage;
+            }
+          } else {
+            _assetSubType = SSUIAssetSubTypeImage;
+          }
         }
         break;
       case PHAssetMediaTypeVideo:
-        self.assetType = SSUIAssetTypeVideo;
+        _assetType = SSUIAssetTypeVideo;
         break;
       case PHAssetMediaTypeAudio:
-        self.assetType = SSUIAssetTypeAudio;
+        _assetType = SSUIAssetTypeAudio;
         break;
       default:
-        self.assetType = SSUIAssetTypeUnknow;
+        _assetType = SSUIAssetTypeUnknow;
         break;
     }
   }
   return self;
 }
 
+- (PHAsset *)asset {
+  return _asset;
+}
+
 - (UIImage *)originImage {
   __block UIImage *resultImage = nil;
   PHImageRequestOptions *phImageRequestOptions = [[PHImageRequestOptions alloc] init];
+  phImageRequestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+  phImageRequestOptions.networkAccessAllowed = YES;
   phImageRequestOptions.synchronous = YES;
   [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestImageForAsset:_asset
                                                                       targetSize:PHImageManagerMaximumSize
@@ -79,7 +91,7 @@ BeginIgnoreAvailabilityWarning
 - (UIImage *)thumbnailWithSize:(CGSize)size {
   __block UIImage *resultImage;
   PHImageRequestOptions *phImageRequestOptions = [[PHImageRequestOptions alloc] init];
-  phImageRequestOptions.resizeMode = PHImageRequestOptionsResizeModeExact;
+  phImageRequestOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
   // 在 PHImageManager 中，targetSize 等 size 都是使用 px 作为单位，因此需要对targetSize 中对传入的 Size 进行处理，宽高各自乘以 ScreenScale，从而得到正确的图片
   [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestImageForAsset:_asset
                                                                       targetSize:CGSizeMake(size.width * ScreenScale, size.height * ScreenScale)
@@ -93,6 +105,7 @@ BeginIgnoreAvailabilityWarning
 - (UIImage *)previewImage {
   __block UIImage *resultImage = nil;
   PHImageRequestOptions *imageRequestOptions = [[PHImageRequestOptions alloc] init];
+  imageRequestOptions.networkAccessAllowed = YES;
   imageRequestOptions.synchronous = YES;
   [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestImageForAsset:_asset
                                                                       targetSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -138,31 +151,45 @@ BeginIgnoreAvailabilityWarning
 }
 
 - (NSInteger)requestLivePhotoWithCompletion:(void (^)(PHLivePhoto *livePhoto, NSDictionary<NSString *, id> *info))completion withProgressHandler:(PHAssetImageProgressHandler)phProgressHandler {
-  PHLivePhotoRequestOptions *livePhotoRequestOptions = [[PHLivePhotoRequestOptions alloc] init];
-  livePhotoRequestOptions.networkAccessAllowed = YES; // 允许访问网络
-  livePhotoRequestOptions.progressHandler = phProgressHandler;
-  return [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestLivePhotoForAsset:_asset targetSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT) contentMode:PHImageContentModeDefault options:livePhotoRequestOptions resultHandler:^(PHLivePhoto * _Nullable livePhoto, NSDictionary * _Nullable info) {
+  if ([[PHCachingImageManager class] instancesRespondToSelector:@selector(requestLivePhotoForAsset:targetSize:contentMode:options:resultHandler:)]) {
+    PHLivePhotoRequestOptions *livePhotoRequestOptions = [[PHLivePhotoRequestOptions alloc] init];
+    livePhotoRequestOptions.networkAccessAllowed = YES; // 允许访问网络
+    livePhotoRequestOptions.progressHandler = phProgressHandler;
+    return [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestLivePhotoForAsset:_asset targetSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT) contentMode:PHImageContentModeDefault options:livePhotoRequestOptions resultHandler:^(PHLivePhoto * _Nullable livePhoto, NSDictionary * _Nullable info) {
+      if (completion) {
+        completion(livePhoto, info);
+      }
+    }];
+  } else {
     if (completion) {
-      completion(livePhoto, info);
+      completion(nil, nil);
     }
-  }];
+    return 0;
+  }
 }
 
 - (NSInteger)requestPlayerItemWithCompletion:(void (^)(AVPlayerItem *playerItem, NSDictionary<NSString *, id> *info))completion withProgressHandler:(PHAssetVideoProgressHandler)phProgressHandler {
-  PHVideoRequestOptions *videoRequestOptions = [[PHVideoRequestOptions alloc] init];
-  videoRequestOptions.networkAccessAllowed = YES; // 允许访问网络
-  videoRequestOptions.progressHandler = phProgressHandler;
-  return [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestPlayerItemForVideo:_asset options:videoRequestOptions resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
+  if ([[PHCachingImageManager class] instancesRespondToSelector:@selector(requestPlayerItemForVideo:options:resultHandler:)]) {
+    PHVideoRequestOptions *videoRequestOptions = [[PHVideoRequestOptions alloc] init];
+    videoRequestOptions.networkAccessAllowed = YES; // 允许访问网络
+    videoRequestOptions.progressHandler = phProgressHandler;
+    return [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestPlayerItemForVideo:_asset options:videoRequestOptions resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
+      if (completion) {
+        completion(playerItem, info);
+      }
+    }];
+  } else {
     if (completion) {
-      completion(playerItem, info);
+      completion(nil, nil);
     }
-  }];
+    return 0;
+  }
 }
 
-- (void)requestImageData:(void (^)(NSData *imageData, NSDictionary<NSString *, id> *info, BOOL isGif))completion {
-  if (self.assetType != SSUIAssetTypeImage && self.assetType != SSUIAssetTypeGIF && self.assetType != SSUIAssetTypeLivePhoto) {
+- (void)requestImageData:(void (^)(NSData *imageData, NSDictionary<NSString *, id> *info, BOOL isGif, BOOL isHEIC))completion {
+  if (self.assetType != SSUIAssetTypeImage) {
     if (completion) {
-      completion(nil, nil, NO);
+      completion(nil, nil, NO, NO);
     }
     return;
   }
@@ -172,23 +199,25 @@ BeginIgnoreAvailabilityWarning
       _assetInfo = phAssetInfo;
       if (completion) {
         NSString *dataUTI = phAssetInfo[kAssetInfoDataUTI];
-        BOOL isGif = [dataUTI isEqualToString:(__bridge NSString *)kUTTypeGIF];
+        BOOL isGIF = self.assetSubType == SSUIAssetSubTypeGIF;
+        BOOL isHEIC = [dataUTI isEqualToString:@"public.heic"];
         NSDictionary<NSString *, id> *originInfo = phAssetInfo[kAssetInfoOriginInfo];
         /**
          *  这里不在主线程执行，若用户在该 block 中操作 UI 时会产生一些问题，
          *  为了避免这种情况，这里该 block 主动放到主线程执行。
          */
         dispatch_async(dispatch_get_main_queue(), ^{
-          completion(phAssetInfo[kAssetInfoImageData], originInfo, isGif);
+          completion(phAssetInfo[kAssetInfoImageData], originInfo, isGIF, isHEIC);
         });
       }
     }];
   } else {
     if (completion) {
       NSString *dataUTI = _assetInfo[kAssetInfoDataUTI];
-      BOOL isGif = [dataUTI isEqualToString:(__bridge NSString *)kUTTypeGIF];
+      BOOL isGIF = self.assetSubType == SSUIAssetSubTypeGIF;
+      BOOL isHEIC = [@"public.heic" isEqualToString:dataUTI];
       NSDictionary<NSString *, id> *originInfo = _assetInfo[kAssetInfoOriginInfo];
-      completion(_assetInfo[kAssetInfoImageData], originInfo, isGif);
+      completion(_assetInfo[kAssetInfoImageData], originInfo, isGIF, isHEIC);
     }
   }
 }
@@ -225,6 +254,23 @@ BeginIgnoreAvailabilityWarning
       }
     } synchronous:NO];
   }
+}
+
+- (UIImageOrientation)imageOrientation {
+  UIImageOrientation orientation;
+  if (self.assetType == SSUIAssetTypeImage) {
+    if (!_assetInfo) {
+      // PHAsset 的 UIImageOrientation 需要调用过 requestImageDataForAsset 才能获取
+      [self requestImageAssetInfo:^(NSDictionary *phAssetInfo) {
+        _assetInfo = phAssetInfo;
+      } synchronous:YES];
+    }
+    // 从 PhAssetInfo 中获取 UIImageOrientation 对应的字段
+    orientation = (UIImageOrientation)[_assetInfo[kAssetInfoOrientation] integerValue];
+  } else {
+    orientation = UIImageOrientationUp;
+  }
+  return orientation;
 }
 
 - (NSString *)assetIdentity {

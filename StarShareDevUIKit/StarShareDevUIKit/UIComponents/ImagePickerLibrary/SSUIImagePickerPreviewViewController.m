@@ -220,9 +220,12 @@ static SSUIImagePickerPreviewViewController *imagePickerPreviewViewControllerApp
 - (SSUIImagePreviewMediaType)imagePreviewView:(SSUIImagePreviewView *)imagePreviewView assetTypeAtIndex:(NSUInteger)index {
   SSUIAsset *imageAsset = [self.imagesAssetArray objectAtIndex:index];
   if (imageAsset.assetType == SSUIAssetTypeImage) {
+    if (@available(iOS 9.1, *)) {
+      if (imageAsset.assetSubType == SSUIAssetSubTypeLivePhoto) {
+        return SSUIImagePreviewMediaTypeLivePhoto;
+      }
+    }
     return SSUIImagePreviewMediaTypeImage;
-  } else if (imageAsset.assetType == SSUIAssetTypeLivePhoto) {
-    return SSUIImagePreviewMediaTypeLivePhoto;
   } else if (imageAsset.assetType == SSUIAssetTypeVideo) {
     return SSUIImagePreviewMediaTypeVideo;
   } else {
@@ -327,30 +330,29 @@ static SSUIImagePickerPreviewViewController *imagePickerPreviewViewControllerApp
     imageAsset.downloadProgress = progress;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (index == self.imagePreviewView.currentImageIndex) {
-        // 只有当前显示的预览图才会展示下载进度
-        SSUIKitLog(@"Download iCloud image in preview, current progress is: %f", progress);
-        
-        if (self.downloadStatus != SSUIAssetDownloadStatusDownloading) {
-          self.downloadStatus = SSUIAssetDownloadStatusDownloading;
-          // 重置 progressView 的显示的进度为 0
-          [self.progressView setProgress:0 animated:NO];
-        }
-        // 拉取资源的初期，会有一段时间没有进度，猜测是发出网络请求以及与 iCloud 建立连接的耗时，这时预先给个 0.02 的进度值，看上去好看些
-        float targetProgress = fmax(0.02, progress);
-        if ( targetProgress < self.progressView.progress ) {
-          [self.progressView setProgress:targetProgress animated:NO];
-        } else {
-          self.progressView.progress = fmax(0.02, progress);
-        }
-        if (error) {
-          SSUIKitLog(@"Download iCloud image Failed, current progress is: %f", progress);
-          self.downloadStatus = SSUIAssetDownloadStatusFailed;
-        }
+      // 只有当前显示的预览图才会展示下载进度
+      SSUIKitLog(@"Download iCloud image in preview, current progress is: %f", progress);
+      
+      if (self.downloadStatus != SSUIAssetDownloadStatusDownloading) {
+        self.downloadStatus = SSUIAssetDownloadStatusDownloading;
+        // 重置 progressView 的显示的进度为 0
+        [self.progressView setProgress:0 animated:NO];
+      }
+      // 拉取资源的初期，会有一段时间没有进度，猜测是发出网络请求以及与 iCloud 建立连接的耗时，这时预先给个 0.02 的进度值，看上去好看些
+      float targetProgress = fmax(0.02, progress);
+      if ( targetProgress < self.progressView.progress ) {
+        [self.progressView setProgress:targetProgress animated:NO];
+      } else {
+        self.progressView.progress = fmax(0.02, progress);
+      }
+      if (error) {
+        SSUIKitLog(@"Download iCloud image Failed, current progress is: %f", progress);
+        self.downloadStatus = SSUIAssetDownloadStatusFailed;
       }
     });
   };
   
+  /**
   if (imageAsset.assetType == SSUIAssetTypeLivePhoto) {
     imageView.tag = -1;
     imageAsset.requestID = [imageAsset requestLivePhotoWithCompletion:^void(PHLivePhoto *livePhoto, NSDictionary *info) {
@@ -382,7 +384,9 @@ static SSUIImagePickerPreviewViewController *imagePickerPreviewViewControllerApp
       
     } withProgressHandler:phProgressHandler];
     imageView.tag = imageAsset.requestID;
-  } else if (imageAsset.assetType == SSUIAssetTypeVideo) {
+  } else
+    */
+  if (imageAsset.assetType == SSUIAssetTypeVideo) {
     imageView.tag = -1;
     imageAsset.requestID = [imageAsset requestPlayerItemWithCompletion:^(AVPlayerItem *playerItem, NSDictionary *info) {
       // 这里可能因为 imageView 复用，导致前面的请求得到的结果显示到别的 imageView 上，
@@ -398,37 +402,128 @@ static SSUIImagePickerPreviewViewController *imagePickerPreviewViewControllerApp
     } withProgressHandler:phProgressHandler];
     imageView.tag = imageAsset.requestID;
   } else {
-    imageView.tag = -1;
-    imageAsset.requestID = [imageAsset requestPreviewImageWithCompletion:^void(UIImage *result, NSDictionary *info) {
-      // 这里可能因为 imageView 复用，导致前面的请求得到的结果显示到别的 imageView 上，
-      // 因此判断如果是新请求（无复用问题）或者是当前的请求才把获得的图片结果展示出来
-      BOOL isNewRequest = (imageView.tag == -1 && imageAsset.requestID == 0);
-      BOOL isCurrentRequest = imageView.tag == imageAsset.requestID;
-      BOOL loadICloudImageFault = !result || info[PHImageErrorKey];
-      if (!loadICloudImageFault && (isNewRequest || isCurrentRequest)) {
+    if (imageAsset.assetType != SSUIAssetTypeImage) {
+      return;
+    }
+    
+    BOOL isLivePhoto = NO;
+    if (@available(iOS 9.1, *)) {
+      if (imageAsset.assetSubType == SSUIAssetSubTypeLivePhoto) {
+        isLivePhoto = YES;
+      }
+    }
+    
+    if (isLivePhoto) {
+      imageView.tag = -1;
+      imageAsset.requestID = [imageAsset requestLivePhotoWithCompletion:^void(PHLivePhoto *livePhoto, NSDictionary *info) {
+        // 这里可能因为 imageView 复用，导致前面的请求得到的结果显示到别的 imageView 上，
+        // 因此判断如果是新请求（无复用问题）或者是当前的请求才把获得的图片结果展示出来
         dispatch_async(dispatch_get_main_queue(), ^{
-          imageView.image = result;
+          BOOL isNewRequest = (imageView.tag == -1 && imageAsset.requestID == 0);
+          BOOL isCurrentRequest = imageView.tag == imageAsset.requestID;
+          BOOL loadICloudImageFault = !livePhoto || info[PHImageErrorKey];
+          if (!loadICloudImageFault && (isNewRequest || isCurrentRequest)) {
+            // 如果是走 PhotoKit 的逻辑，那么这个 block 会被多次调用，并且第一次调用时返回的图片是一张小图，
+            // 这时需要把图片放大到跟屏幕一样大，避免后面加载大图后图片的显示会有跳动
+            if (@available(iOS 9.1, *)) {
+              imageView.livePhoto = livePhoto;
+            }
+          }
+          BOOL downloadSucceed = (livePhoto && !info) || (![[info objectForKey:PHLivePhotoInfoCancelledKey] boolValue] && ![info objectForKey:PHLivePhotoInfoErrorKey] && ![[info objectForKey:PHLivePhotoInfoIsDegradedKey] boolValue]);
+          if (downloadSucceed) {
+            // 资源资源已经在本地或下载成功
+            [imageAsset updateDownloadStatusWithDownloadResult:YES];
+            self.downloadStatus = SSUIAssetDownloadStatusSucceed;
+          } else if ([info objectForKey:PHLivePhotoInfoErrorKey] ) {
+            // 下载错误
+            [imageAsset updateDownloadStatusWithDownloadResult:NO];
+            self.downloadStatus = SSUIAssetDownloadStatusFailed;
+          }
         });
-      }
-      
-      BOOL downloadSucceed = (result && !info) || (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
-      
-      if (downloadSucceed) {
-        // 资源资源已经在本地或下载成功
-        [imageAsset updateDownloadStatusWithDownloadResult:YES];
-        self.downloadStatus = SSUIAssetDownloadStatusSucceed;
-        
-      } else if ([info objectForKey:PHImageErrorKey] ) {
-        // 下载错误
-        [imageAsset updateDownloadStatusWithDownloadResult:NO];
-        self.downloadStatus = SSUIAssetDownloadStatusFailed;
-      }
-      
-    } withProgressHandler:phProgressHandler];
-    imageView.tag = imageAsset.requestID;
+      } withProgressHandler:phProgressHandler];
+      imageView.tag = imageAsset.requestID;
+    } else if (imageAsset.assetSubType == SSUIAssetSubTypeGIF) {
+      [imageAsset requestImageData:^(NSData *imageData, NSDictionary<NSString *,id> *info, BOOL isGIF, BOOL isHEIC) {
+        UIImage *resultImage = [SSUIImagePickerPreviewViewController animatedGIFWithData:imageData];
+        imageView.image = resultImage;
+      }];
+    } else {
+      imageView.tag = -1;
+      imageAsset.requestID = [imageAsset requestPreviewImageWithCompletion:^void(UIImage *result, NSDictionary *info) {
+        // 这里可能因为 imageView 复用，导致前面的请求得到的结果显示到别的 imageView 上，
+        // 因此判断如果是新请求（无复用问题）或者是当前的请求才把获得的图片结果展示出来
+        dispatch_async(dispatch_get_main_queue(), ^{
+          BOOL isNewRequest = (imageView.tag == -1 && imageAsset.requestID == 0);
+          BOOL isCurrentRequest = imageView.tag == imageAsset.requestID;
+          BOOL loadICloudImageFault = !result || info[PHImageErrorKey];
+          if (!loadICloudImageFault && (isNewRequest || isCurrentRequest)) {
+            imageView.image = result;
+          }
+          BOOL downloadSucceed = (result && !info) || (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
+          if (downloadSucceed) {
+            // 资源资源已经在本地或下载成功
+            [imageAsset updateDownloadStatusWithDownloadResult:YES];
+            self.downloadStatus = SSUIAssetDownloadStatusSucceed;
+          } else if ([info objectForKey:PHImageErrorKey] ) {
+            // 下载错误
+            [imageAsset updateDownloadStatusWithDownloadResult:NO];
+            self.downloadStatus = SSUIAssetDownloadStatusFailed;
+          }
+        });
+      } withProgressHandler:phProgressHandler];
+      imageView.tag = imageAsset.requestID;
+    }
   }
 }
 
++ (UIImage *)animatedGIFWithData:(NSData *)data {
+  // http://www.jianshu.com/p/767af9c690a3
+  // https://github.com/rs/SDWebImage
+  if (!data) {
+    return nil;
+  }
+  CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+  size_t count = CGImageSourceGetCount(source);
+  UIImage *animatedImage;
+  if (count <= 1) {
+    animatedImage = [[UIImage alloc] initWithData:data];
+  } else {
+    NSMutableArray <UIImage *> *images = [NSMutableArray array];
+    NSTimeInterval duration = 0.0f;
+    for (size_t i = 0; i < count; i++) {
+      CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
+      duration += [self frameDurationAtIndex:i source:source];
+      [images addObject:[UIImage imageWithCGImage:image scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp]];
+      CGImageRelease(image);
+    }
+    if (!duration) {
+      duration = (1.0f / 10.0f) * count;
+    }
+    animatedImage = [UIImage animatedImageWithImages:images duration:duration];
+  }
+  CFRelease(source);
+  return animatedImage;
+}
+
++ (float)frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
+  // http://www.jianshu.com/p/767af9c690a3
+  // https://github.com/rs/SDWebImage
+  float frameDuration = 0.1f;
+  CFDictionaryRef cfFrameProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil);
+  NSDictionary <NSString *, NSDictionary *> *frameProperties = (__bridge NSDictionary *)cfFrameProperties;
+  NSDictionary <NSString *, NSNumber *> *gifProperties = frameProperties[(NSString *)kCGImagePropertyGIFDictionary];
+  NSNumber *delayTimeUnclampedProp = gifProperties[(NSString *)kCGImagePropertyGIFUnclampedDelayTime];
+  if (delayTimeUnclampedProp) {
+    frameDuration = [delayTimeUnclampedProp floatValue];
+  } else {
+    NSNumber *delayTimeProp = gifProperties[(NSString *)kCGImagePropertyGIFDelayTime];
+    if (delayTimeProp) {
+      frameDuration = [delayTimeProp floatValue];
+    }
+  }
+  CFRelease(cfFrameProperties);
+  return frameDuration;
+}
 @end
 
 EndIgnoreAvailabilityWarning

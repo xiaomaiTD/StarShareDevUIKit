@@ -161,6 +161,8 @@ extern NSString *const _Nonnull UIResourcesMainBundleName;
 + (CGSize)screenSizeFor47Inch;
 + (CGSize)screenSizeFor40Inch;
 + (CGSize)screenSizeFor35Inch;
+
++ (UIEdgeInsets)safeAreaInsetsForIPhoneX;
 @end
 
 @interface UIHelper (UIGraphic)

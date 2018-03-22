@@ -21,7 +21,6 @@
 
 /// Asset授权的状态
 typedef NS_ENUM(NSUInteger, SSUIAssetAuthorizationStatus) {
-  SSUIAssetAuthorizationStatusNotUsingPhotoKit,   // 对于iOS7及以下不支持PhotoKit的系统，没有所谓的“授权状态”，所以定义一个特定的status用于表示这种情况
   SSUIAssetAuthorizationStatusNotDetermined,      // 还不确定有没有授权
   SSUIAssetAuthorizationStatusAuthorized,         // 已经授权
   SSUIAssetAuthorizationStatusNotAuthorized       // 手动禁止了授权
