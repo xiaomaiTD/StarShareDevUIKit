@@ -61,9 +61,6 @@ typedef NS_ENUM(NSUInteger, SSUIAssetDownloadStatus) {
 /// Asset 的标识 (每个 SSUIAsset 的标识值不相同，该标识值经过 md5 处理，避免了特殊字符)
 - (NSString *)assetIdentity;
 
-/// 获取图片的 UIImageOrientation 值 (SSUIAssetTypeImage 或 SSUIAssetTypeLivePhoto 时有效)
-- (UIImageOrientation)imageOrientation;
-
 /// 获取 Asset 的体积（数据大小）
 - (void)assetSize:(void (^)(long long size))completion;
 - (NSTimeInterval)duration;

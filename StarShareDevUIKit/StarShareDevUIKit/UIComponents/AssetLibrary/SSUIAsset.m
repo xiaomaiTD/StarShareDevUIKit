@@ -131,6 +131,7 @@ BeginIgnoreAvailabilityWarning
 - (NSInteger)requestThumbnailImageWithSize:(CGSize)size completion:(void (^)(UIImage *result, NSDictionary<NSString *, id> *info))completion {
   PHImageRequestOptions *imageRequestOptions = [[PHImageRequestOptions alloc] init];
   imageRequestOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+  imageRequestOptions.networkAccessAllowed = YES; // 允许访问网络
   // 在 PHImageManager 中，targetSize 等 size 都是使用 px 作为单位，因此需要对targetSize 中对传入的 Size 进行处理，宽高各自乘以 ScreenScale，从而得到正确的图片
   return [[[SSUIAssetsManager sharedInstance] cachingImageManager] requestImageForAsset:_asset targetSize:CGSizeMake(size.width * ScreenScale, size.height * ScreenScale) contentMode:PHImageContentModeAspectFill options:imageRequestOptions resultHandler:^(UIImage *result, NSDictionary *info) {
     if (completion) {
