@@ -180,13 +180,8 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
 
 - (void)setPlaceholder:(NSString *)placeholder {
   _placeholder = placeholder;
-  if (self.placeholderAttributes) {
-    self.placeholderLabel.attributedText = [[NSAttributedString alloc] initWithString:_placeholder
-                                                                           attributes:_placeholderAttributes];
-  } else {
-    self.placeholderLabel.attributedText = [[NSAttributedString alloc] initWithString:_placeholder
-                                                                           attributes:self.typingAttributes];
-  }
+  self.placeholderLabel.attributedText = [[NSAttributedString alloc] initWithString:_placeholder
+                                                                         attributes:self.typingAttributes];
   if (self.placeholderColor) {
     self.placeholderLabel.textColor = self.placeholderColor;
   }
@@ -194,9 +189,12 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
   [self setNeedsLayout];
 }
 
-- (void)setPlaceholderAttributes:(NSDictionary<NSString *,id> *)placeholderAttributes {
-  _placeholderAttributes = placeholderAttributes;
-  [self updatePlaceholderStyle];
+- (void)setAttributedPlaceholder:(NSAttributedString *)attributedPlaceholder {
+  _attributedPlaceholder = attributedPlaceholder;
+  _placeholder = _attributedPlaceholder.string;
+  self.placeholderLabel.attributedText = _attributedPlaceholder;
+  [self sendSubviewToBack:self.placeholderLabel];
+  [self setNeedsLayout];
 }
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor {
@@ -205,7 +203,12 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
 }
 
 - (void)updatePlaceholderStyle {
-  self.placeholder = self.placeholder;// 触发文字样式的更新
+  // 触发文字样式的更新
+  if (self.attributedPlaceholder) {
+    self.attributedPlaceholder = self.attributedPlaceholder;
+  } else {
+    self.placeholder = self.placeholder;
+  }
 }
 
 - (void)handleTextChanged:(id)sender {
