@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/StarShare/StarShareDevUIKit.git", :tag => "0.7.2" }
+  s.source       = { :git => "https://github.com/StarShare/StarShareDevUIKit.git", :tag => "0.7.3" }
   s.resource     = 'StarShareDevUIKit/StarShareDevUIKit/**/*.bundle'
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
