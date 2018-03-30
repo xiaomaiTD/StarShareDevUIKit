@@ -21,7 +21,7 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
 @property(nonatomic, assign) BOOL debug;
 @property(nonatomic, assign) BOOL shouldRejectSystemScroll;// 如果在 handleTextChanged: 里主动调整 contentOffset，则为了避免被系统的自动调整覆盖，会利用这个标记去屏蔽系统对 setContentOffset: 的调用
 @property(nonatomic, strong) UILabel *placeholderLabel;
-@property(nonatomic, weak)   id<SSUITextViewDelegate> originalDelegate;
+@property(nonatomic,   weak) id<SSUITextViewDelegate> originalDelegate;
 @end
 
 @implementation SSUITextView
@@ -180,12 +180,23 @@ const UIEdgeInsets kSystemTextViewFixTextInsets = {0, 5, 0, 5};
 
 - (void)setPlaceholder:(NSString *)placeholder {
   _placeholder = placeholder;
-  self.placeholderLabel.attributedText = [[NSAttributedString alloc] initWithString:_placeholder attributes:self.typingAttributes];
+  if (self.placeholderAttributes) {
+    self.placeholderLabel.attributedText = [[NSAttributedString alloc] initWithString:_placeholder
+                                                                           attributes:_placeholderAttributes];
+  } else {
+    self.placeholderLabel.attributedText = [[NSAttributedString alloc] initWithString:_placeholder
+                                                                           attributes:self.typingAttributes];
+  }
   if (self.placeholderColor) {
     self.placeholderLabel.textColor = self.placeholderColor;
   }
   [self sendSubviewToBack:self.placeholderLabel];
   [self setNeedsLayout];
+}
+
+- (void)setPlaceholderAttributes:(NSDictionary<NSString *,id> *)placeholderAttributes {
+  _placeholderAttributes = placeholderAttributes;
+  [self updatePlaceholderStyle];
 }
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor {

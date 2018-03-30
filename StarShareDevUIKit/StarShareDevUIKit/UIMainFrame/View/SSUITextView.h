@@ -22,7 +22,8 @@
 @property(nonatomic, assign) IBInspectable BOOL shouldResponseToProgrammaticallyTextChanges;
 @property(nonatomic, assign) IBInspectable NSUInteger maximumTextLength;
 @property(nonatomic, assign) IBInspectable BOOL shouldCountingNonASCIICharacterAsTwo;
-@property(nonatomic, copy) IBInspectable NSString *placeholder;
+@property(nonatomic,   copy) IBInspectable NSString *placeholder;
+@property(nonatomic,   copy) NSDictionary<NSString *, id> *placeholderAttributes;
 @property(nonatomic, strong) IBInspectable UIColor *placeholderColor;
 @property(nonatomic, assign) UIEdgeInsets placeholderMargins;
 @property(nonatomic, assign) BOOL autoResizable;
