@@ -249,6 +249,7 @@ static NSUInteger const kTagForCenteredPlayButton = 1;
     mediaSize = self.videoSize;
   }
   
+  /**
   CGFloat minScale = 1;
   CGFloat scaleX = CGRectGetWidth(viewport) / mediaSize.width;
   CGFloat scaleY = CGRectGetHeight(viewport) / mediaSize.height;
@@ -263,7 +264,9 @@ static NSUInteger const kTagForCenteredPlayButton = 1;
       minScale = fmin(scaleX, scaleY);
     }
   }
-  return minScale;
+   */
+  
+  return CGRectGetWidth(viewport) / mediaSize.width;
 }
 
 - (void)revertZooming {
