@@ -31,6 +31,36 @@
   return self;
 }
 
+static BOOL _hasAppliedInitialTemplate_;
+- (void)applyInitialTemplate {
+  if (_hasAppliedInitialTemplate_) {
+    return;
+  }
+  
+  Protocol *protocol = @protocol(UIConfigurationTemplateProtocol);
+  int numberOfClasses = objc_getClassList(NULL, 0);
+  if (numberOfClasses > 0) {
+    Class *classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numberOfClasses);
+    numberOfClasses = objc_getClassList(classes, numberOfClasses);
+    for (int i = 0; i < numberOfClasses; i++) {
+      Class class = classes[i];
+      if ([NSStringFromClass(class) containsString:@"UIConfigurationTemplate"] && [class conformsToProtocol:protocol]) {
+        if ([class instancesRespondToSelector:@selector(shouldApplyTemplateAutomatically)]) {
+          id<UIConfigurationTemplateProtocol> template = [[class alloc] init];
+          if ([template shouldApplyTemplateAutomatically]) {
+            _hasAppliedInitialTemplate_ = YES;
+            [template applyConfigurationTemplate];
+            break;
+          }
+        }
+      }
+    }
+    free(classes);
+  }
+  
+  _hasAppliedInitialTemplate_ = YES;
+}
+
 - (void)initDefaultConfiguration
 {
 #pragma mark - Global Color
@@ -99,6 +129,8 @@
   self.navBarTintColor = nil;
   self.navBarTitleColor = self.blackColor;
   self.navBarTitleFont = nil;
+  self.navBarLargeTitleColor = nil;
+  self.navBarLargeTitleFont = nil;
   self.navBarBackButtonTitlePositionAdjustment = UIOffsetZero;
   self.navBarBackIndicatorFixLeft = 0.0;
   self.navBarBackIndicatorImage = nil;
@@ -147,6 +179,8 @@
   self.searchBarTextFieldCornerRadius = 2.0;
   
 #pragma mark - TableView / TableViewCell
+  
+  self.tableViewEstimatedHeightEnabled = NO;
   
   self.tableViewBackgroundColor = nil;
   self.tableViewGroupedBackgroundColor = nil;
@@ -215,6 +249,7 @@
   self.needsBackBarButtonItemTitle = NO;
   self.hidesBottomBarWhenPushedInitially = NO;
   self.navigationBarHiddenInitially = NO;
+  self.shouldFixTabBarTransitionBugInIPhoneX = NO;
 }
 
 #pragma mark setter
@@ -280,6 +315,22 @@
  */
 - (void)setNavBarTitleFont:(UIFont *)navBarTitleFont {
   _navBarTitleFont = navBarTitleFont;
+  [self updateNavigationBarTitleAttributesIfNeeded];
+}
+
+/**
+ 设置导航栏 title 颜色
+ @param navBarTitleColor color
+ */
+- (void)setNavBarTitleColor:(UIColor *)navBarTitleColor {
+  _navBarTitleColor = navBarTitleColor;
+  [self updateNavigationBarTitleAttributesIfNeeded];
+}
+
+/**
+ 更新导航栏 title 樣式
+ */
+- (void)updateNavigationBarTitleAttributesIfNeeded {
   if (self.navBarTitleFont || self.navBarTitleColor) {
     NSMutableDictionary<NSString *, id> *titleTextAttributes = [[NSMutableDictionary alloc] init];
     if (self.navBarTitleFont) {
@@ -294,21 +345,39 @@
 }
 
 /**
- 设置导航栏 title 颜色
- @param navBarTitleColor color
+ 设置导航栏 Large title 字体
+ @param navBarLargeTitleFont font
  */
-- (void)setNavBarTitleColor:(UIColor *)navBarTitleColor {
-  _navBarTitleColor = navBarTitleColor;
-  if (self.navBarTitleFont || self.navBarTitleColor) {
-    NSMutableDictionary<NSString *, id> *titleTextAttributes = [[NSMutableDictionary alloc] init];
-    if (self.navBarTitleFont) {
-      [titleTextAttributes setValue:self.navBarTitleFont forKey:NSFontAttributeName];
+- (void)setNavBarLargeTitleFont:(UIFont *)navBarLargeTitleFont {
+  _navBarLargeTitleFont = navBarLargeTitleFont;
+  [self updateNavigationBarLargeTitleTextAttributesIfNeeded];
+}
+
+/**
+ 设置导航栏 Large title 颜色
+ @param navBarLargeTitleColor color
+ */
+- (void)setNavBarLargeTitleColor:(UIColor *)navBarLargeTitleColor {
+  _navBarLargeTitleColor = navBarLargeTitleColor;
+  [self updateNavigationBarLargeTitleTextAttributesIfNeeded];
+}
+
+/**
+ 更新导航栏 Large title 樣式
+ */
+- (void)updateNavigationBarLargeTitleTextAttributesIfNeeded {
+  if (@available(iOS 11, *)) {
+    if (self.navBarLargeTitleFont || self.navBarLargeTitleColor) {
+      NSMutableDictionary<NSString *, id> *largeTitleTextAttributes = [[NSMutableDictionary alloc] init];
+      if (self.navBarLargeTitleFont) {
+        largeTitleTextAttributes[NSFontAttributeName] = self.navBarLargeTitleFont;
+      }
+      if (self.navBarLargeTitleColor) {
+        largeTitleTextAttributes[NSForegroundColorAttributeName] = self.navBarLargeTitleColor;
+      }
+      [UINavigationBar appearance].largeTitleTextAttributes = largeTitleTextAttributes;
+      [UIHelper visibleViewController].navigationController.navigationBar.largeTitleTextAttributes = largeTitleTextAttributes;
     }
-    if (self.navBarTitleColor) {
-      [titleTextAttributes setValue:self.navBarTitleColor forKey:NSForegroundColorAttributeName];
-    }
-    [UINavigationBar appearance].titleTextAttributes = titleTextAttributes;
-    [UIHelper visibleViewController].navigationController.navigationBar.titleTextAttributes = titleTextAttributes;
   }
 }
 

@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "UIConfiguration.h"
 
-@protocol UIThemeProtocol <NSObject>
+@protocol UIThemeProtocol <UIConfigurationTemplateProtocol>
 @required
-- (void)setupConfigurationTemplate;
 - (UIColor *)themeTintColor;
 - (UIColor *)themeListTextColor;
 - (UIColor *)themeCodeColor;
@@ -21,14 +21,15 @@
 
 @protocol UIChangingThemeDelegate <NSObject>
 @required
-- (void)themeBeforeChanged:(NSObject<UIThemeProtocol> *)themeBeforeChanged afterChanged:(NSObject<UIThemeProtocol> *)themeAfterChanged;
+- (void)themeBeforeChanged:(NSObject<UIThemeProtocol> *)themeBeforeChanged
+              afterChanged:(NSObject<UIThemeProtocol> *)themeAfterChanged;
 @end
 
 extern NSString *const UIThemeChangedNotification;
 extern NSString *const UIThemeBeforeChangedName;
 extern NSString *const UIThemeAfterChangedName;
 
-@interface UIThemeManager : NSObject
+@interface UIThemeManager : NSObject<UIChangingThemeDelegate>
 + (instancetype)sharedInstance;
 @property(nonatomic, strong) NSObject<UIThemeProtocol> *currentTheme;
 @end

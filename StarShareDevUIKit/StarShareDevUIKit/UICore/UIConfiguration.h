@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@protocol UIConfigurationTemplateProtocol <NSObject>
+
+@required
+- (void)applyConfigurationTemplate;
+@optional
+- (BOOL)shouldApplyTemplateAutomatically;
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIConfiguration : NSObject
@@ -77,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) UIColor  *navBarTintColor;
 @property(nonatomic, strong, nullable) UIColor  *navBarTitleColor;
 @property(nonatomic, strong, nullable) UIFont   *navBarTitleFont;
+@property(nonatomic, strong, nullable) UIColor  *navBarLargeTitleColor;
+@property(nonatomic, strong, nullable) UIFont   *navBarLargeTitleFont;
 @property(nonatomic, assign) UIOffset           navBarBackButtonTitlePositionAdjustment;
 @property(nonatomic, assign) CGFloat            navBarBackIndicatorFixLeft;
 @property(nonatomic, strong, nullable) UIImage  *navBarBackIndicatorImage;
@@ -120,12 +130,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) UIColor  *searchBarTextColor;
 @property(nonatomic, strong, nullable) UIColor  *searchBarPlaceholderColor;
 @property(nonatomic, strong, nullable) UIFont   *searchBarFont;
-/// 搜索框放大镜icon的图片，大小必须为13x13pt，否则会失真（系统的限制）
 @property(nonatomic, strong, nullable) UIImage  *searchBarSearchIconImage;
 @property(nonatomic, strong, nullable) UIImage  *searchBarClearIconImage;
 @property(nonatomic, assign) CGFloat            searchBarTextFieldCornerRadius;
 
 #pragma mark - TableView / TableViewCell
+
+@property(nonatomic, assign) BOOL               tableViewEstimatedHeightEnabled;
 
 @property(nonatomic, strong, nullable) UIColor  *tableViewBackgroundColor;
 @property(nonatomic, strong, nullable) UIColor  *tableViewGroupedBackgroundColor;
@@ -194,10 +205,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) BOOL               needsBackBarButtonItemTitle;
 @property(nonatomic, assign) BOOL               hidesBottomBarWhenPushedInitially;
 @property(nonatomic, assign) BOOL               navigationBarHiddenInitially;
+@property(nonatomic, assign) BOOL               shouldFixTabBarTransitionBugInIPhoneX;
 
 /// 单例对象
 + (instancetype)shareConfiguration;
-
+- (void)applyInitialTemplate;
 @end
 
 NS_ASSUME_NONNULL_END

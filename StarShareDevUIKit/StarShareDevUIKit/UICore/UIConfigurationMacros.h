@@ -8,7 +8,7 @@
 
 #import "UIConfiguration.h"
 
-#define UICMI [UIConfiguration shareConfiguration]
+#define UICMI ({[[UIConfiguration shareConfiguration] applyInitialTemplate];[UIConfiguration shareConfiguration];})
 
 #pragma mark - Global Color
 
@@ -132,6 +132,8 @@
 
 #pragma mark - TableView / TableViewCell
 
+#define TableViewEstimatedHeightEnabled            [UICMI tableViewEstimatedHeightEnabled]
+
 #define TableViewBackgroundColor                   [UICMI tableViewBackgroundColor]
 #define TableViewGroupedBackgroundColor            [UICMI tableViewGroupedBackgroundColor]
 #define TableSectionIndexColor                     [UICMI tableSectionIndexColor]
@@ -200,3 +202,4 @@
 #define NeedsBackBarButtonItemTitle                     [UICMI needsBackBarButtonItemTitle]
 #define HidesBottomBarWhenPushedInitially               [UICMI hidesBottomBarWhenPushedInitially]
 #define NavigationBarHiddenInitially                    [UICMI navigationBarHiddenInitially]
+#define ShouldFixTabBarTransitionBugInIPhoneX           [UICMI shouldFixTabBarTransitionBugInIPhoneX]

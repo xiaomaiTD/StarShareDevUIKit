@@ -12,7 +12,43 @@
 
 @implementation UITableView (UI)
 
++ (void)load {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    ReplaceMethod([self class], @selector(initWithFrame:style:), @selector(ss_initWithFrame:style:));
+    ReplaceMethod([self class], @selector(sizeThatFits:), @selector(ss_sizeThatFits:));
+  });
+}
+
+- (instancetype)ss_initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
+  [self ss_initWithFrame:frame style:style];
+  
+  // iOS 11 之后 estimatedRowHeight 如果值为 UITableViewAutomaticDimension，estimate 效果也会生效（iOS 11 以前要 > 0 才会生效）。
+  // 而当使用 estimate 效果时，会导致 contentSize 之类的计算不准确，所以这里给一个途径让项目可以方便地控制 SSUITableView（及其子类） 和 UITableView（不包含子类，例如 UIPickerTableView）的 estimatedRowHeight 效果的开关
+  if ([self isKindOfClass:NSClassFromString(@"SSUITableView")] || [NSStringFromClass(self.class) isEqualToString:@"UITableView"]) {
+    if (TableViewEstimatedHeightEnabled) {
+      self.estimatedRowHeight = TableViewCellNormalHeight;
+      self.estimatedSectionHeaderHeight = TableViewCellNormalHeight;
+      self.estimatedSectionFooterHeight = TableViewCellNormalHeight;
+    } else {
+      self.estimatedRowHeight = 0;
+      self.estimatedSectionHeaderHeight = 0;
+      self.estimatedSectionFooterHeight = 0;
+    }
+  }
+  return self;
+}
+
+- (CGSize)ss_sizeThatFits:(CGSize)size {
+  [self alertEstimatedHeightUsageIfDetected];
+  CGSize result = [self ss_sizeThatFits:size];
+  return result;
+}
+
 - (void)renderGlobalStyle {
+  
+  self.rowHeight = TableViewCellNormalHeight;
+  
   UIColor *backgroundColor = nil;
   if (self.style == UITableViewStylePlain) {
     ///< 去掉空白的cell
@@ -32,13 +68,6 @@
   self.sectionIndexColor = TableSectionIndexColor;
   self.sectionIndexTrackingBackgroundColor = TableSectionIndexTrackingBackgroundColor;
   self.sectionIndexBackgroundColor = TableSectionIndexBackgroundColor;
-  
-  if (@available(iOS 11,*)) {
-    self.estimatedRowHeight = 0;
-    self.estimatedSectionHeaderHeight = 0;
-    self.estimatedSectionFooterHeight = 0;
-    self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-  }
 }
 
 - (NSIndexPath *)indexPathForRowAtView:(UIView *)view {
@@ -55,6 +84,8 @@
 }
 
 - (NSInteger)indexForSectionHeaderAtView:(UIView *)view {
+  [self alertEstimatedHeightUsageIfDetected];
+  
   if (!view || ![view isKindOfClass:[UIView class]]) {
     return -1;
   }
@@ -111,6 +142,8 @@
 }
 
 - (void)scrollToRowFittingOffsetY:(CGFloat)offsetY atIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+  [self alertEstimatedHeightUsageIfDetected];
+  
   if (![self canScroll]) {
     return;
   }
@@ -129,6 +162,8 @@
 }
 
 - (CGSize)realContentSize {
+  [self alertEstimatedHeightUsageIfDetected];
+  
   if (!self.dataSource || !self.delegate) {
     return CGSizeZero;
   }
@@ -160,6 +195,20 @@
   } else {
     return [super canScroll];
   }
+}
+
+- (void)alertEstimatedHeightUsageIfDetected {
+  BOOL usingEstimatedRowHeight = self.estimatedRowHeight == UITableViewAutomaticDimension;
+  BOOL usingEstimatedSectionHeaderHeight = self.estimatedSectionHeaderHeight == UITableViewAutomaticDimension;
+  BOOL usingEstimatedSectionFooterHeight = self.estimatedSectionFooterHeight == UITableViewAutomaticDimension;
+  
+  if (usingEstimatedRowHeight || usingEstimatedSectionHeaderHeight || usingEstimatedSectionFooterHeight) {
+    [self UISymbolicUsingTableViewEstimatedHeightMakeWarning];
+  }
+}
+
+- (void)UISymbolicUsingTableViewEstimatedHeightMakeWarning {
+  NSLog(@"UITableView 的 estimatedRow(SectionHeader / SectionFooter)Height 属性会影响 contentSize、sizeThatFits:、rectForXxx 等方法的计算，导致计算结果不准确，建议重新考虑是否要使用 estimated。可添加 '%@' 的 Symbolic Breakpoint 以捕捉此类信息\n%@", NSStringFromSelector(_cmd), [NSThread callStackSymbols]);
 }
 
 @end
