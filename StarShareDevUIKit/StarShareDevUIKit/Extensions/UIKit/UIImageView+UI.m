@@ -14,15 +14,11 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(didMoveToSuperview), @selector(ss_didMoveToSuperview));
+    ExchangeImplementations([self class], @selector(didMoveToSuperview), @selector(ss_didMoveToSuperview));
   });
 }
 
-- (void)ss_didMoveToSuperview
-{
-  
+- (void)ss_didMoveToSuperview{
   [self ss_didMoveToSuperview];
 }
-
-
 @end

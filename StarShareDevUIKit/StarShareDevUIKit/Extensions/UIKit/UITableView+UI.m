@@ -15,8 +15,8 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(initWithFrame:style:), @selector(ss_initWithFrame:style:));
-    ReplaceMethod([self class], @selector(sizeThatFits:), @selector(ss_sizeThatFits:));
+    ExchangeImplementations([self class], @selector(initWithFrame:style:), @selector(ss_initWithFrame:style:));
+    ExchangeImplementations([self class], @selector(sizeThatFits:), @selector(ss_sizeThatFits:));
   });
 }
 

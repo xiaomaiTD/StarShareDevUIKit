@@ -18,7 +18,7 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(layoutSubviews), @selector(titleView_navigationBarLayoutSubviews));
+    ExchangeImplementations([self class], @selector(layoutSubviews), @selector(titleView_navigationBarLayoutSubviews));
   });
 }
 

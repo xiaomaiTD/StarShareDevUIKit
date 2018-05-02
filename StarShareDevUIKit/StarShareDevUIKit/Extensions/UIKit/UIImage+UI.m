@@ -20,7 +20,7 @@ CGSizeFlatSpecificScale(CGSize size, float scale) {
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(description), @selector(ss_description));
+    ExchangeImplementations([self class], @selector(description), @selector(ss_description));
   });
 }
 

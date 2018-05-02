@@ -17,12 +17,12 @@
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     // 类簇对不同的init方法对应不同的私有class，所以要用实例来得到真正的class
-    ReplaceMethod([[[NSAttributedString alloc] initWithString:@""] class],
-                  @selector(initWithString:),
-                  @selector(ss_initWithString:));
-    ReplaceMethod([[[NSAttributedString alloc] initWithString:@"" attributes:nil] class],
-                  @selector(initWithString:attributes:),
-                  @selector(ss_initWithString:attributes:));
+    ExchangeImplementations([[[NSAttributedString alloc] initWithString:@""] class],
+                            @selector(initWithString:),
+                            @selector(ss_initWithString:));
+    ExchangeImplementations([[[NSAttributedString alloc] initWithString:@"" attributes:nil] class],
+                            @selector(initWithString:attributes:),
+                            @selector(ss_initWithString:attributes:));
   });
 }
 

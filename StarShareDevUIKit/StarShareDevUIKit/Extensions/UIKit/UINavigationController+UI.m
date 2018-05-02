@@ -30,8 +30,8 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(viewDidLoad), @selector(ui_viewDidLoad));
-    ReplaceMethod([self class], @selector(navigationBar:shouldPopItem:), @selector(ui_navigationBar:shouldPopItem:));
+    ExchangeImplementations([self class], @selector(viewDidLoad), @selector(ui_viewDidLoad));
+    ExchangeImplementations([self class], @selector(navigationBar:shouldPopItem:), @selector(ui_navigationBar:shouldPopItem:));
   });
 }
 

@@ -30,7 +30,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   dispatch_once(&onceToken, ^{
     
     // 为 description 增加更丰富的信息
-    ReplaceMethod([UIViewController class], @selector(description), @selector(ss_description));
+    ExchangeImplementations([UIViewController class], @selector(description), @selector(ss_description));
     
     // 兼容 iOS 9.0 以下的版本对 loadViewIfNeeded 方法的调用
     if (![[UIViewController class] instancesRespondToSelector:@selector(loadViewIfNeeded)]) {
@@ -40,8 +40,8 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
     }
     
     // 实现 AutomaticallyRotateDeviceOrientation 开关的功能
-    ReplaceMethod([UIViewController class], @selector(viewWillAppear:), @selector(ss_viewWillAppear:));
-    ReplaceMethod([UIViewController class], @selector(viewWillDisappear:), @selector(ss_viewWillDisappear:));
+    ExchangeImplementations([UIViewController class], @selector(viewWillAppear:), @selector(ss_viewWillAppear:));
+    ExchangeImplementations([UIViewController class], @selector(viewWillDisappear:), @selector(ss_viewWillDisappear:));
   });
 }
 
@@ -326,7 +326,7 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod(self.class, @selector(viewDidAppear:), @selector(pr_viewDidAppear:));
+    ExchangeImplementations(self.class, @selector(viewDidAppear:), @selector(pr_viewDidAppear:));
   });
 }
 

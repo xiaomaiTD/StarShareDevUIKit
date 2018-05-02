@@ -36,8 +36,8 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(becomeFirstResponder), @selector(keyboardManager_becomeFirstResponder));
-    ReplaceMethod([self class], @selector(resignFirstResponder), @selector(keyboardManager_resignFirstResponder));
+    ExchangeImplementations([self class], @selector(becomeFirstResponder), @selector(keyboardManager_becomeFirstResponder));
+    ExchangeImplementations([self class], @selector(resignFirstResponder), @selector(keyboardManager_resignFirstResponder));
   });
 }
 

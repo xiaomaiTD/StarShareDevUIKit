@@ -75,11 +75,11 @@ static char kAssociatedObjectKey_outsideEdge;
     SEL pointInsideSelector = @selector(pointInside:withEvent:);
     SEL swizzled_pointInsideSelector = @selector(pr_pointInside:withEvent:);
     
-    ReplaceMethod(clz, beginSelector, swizzled_beginSelector);
-    ReplaceMethod(clz, moveSelector, swizzled_moveSelector);
-    ReplaceMethod(clz, endSelector, swizzled_endSelector);
-    ReplaceMethod(clz, cancelSelector, swizzled_cancelSelector);
-    ReplaceMethod(clz, pointInsideSelector, swizzled_pointInsideSelector);
+    ExchangeImplementations(clz, beginSelector, swizzled_beginSelector);
+    ExchangeImplementations(clz, moveSelector, swizzled_moveSelector);
+    ExchangeImplementations(clz, endSelector, swizzled_endSelector);
+    ExchangeImplementations(clz, cancelSelector, swizzled_cancelSelector);
+    ExchangeImplementations(clz, pointInsideSelector, swizzled_pointInsideSelector);
     
   });
 }

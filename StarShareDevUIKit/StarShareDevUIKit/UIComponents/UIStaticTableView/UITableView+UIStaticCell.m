@@ -18,8 +18,8 @@
 @implementation UITableView (UIStaticCell)
 
 + (void)load {
-  ReplaceMethod([UITableView class], @selector(setDataSource:), @selector(staticCell_setDataSource:));
-  ReplaceMethod([UITableView class], @selector(setDelegate:), @selector(staticCell_setDelegate:));
+  ExchangeImplementations([UITableView class], @selector(setDataSource:), @selector(staticCell_setDataSource:));
+  ExchangeImplementations([UITableView class], @selector(setDelegate:), @selector(staticCell_setDelegate:));
 }
 
 static char kAssociatedObjectKey_staticCellDataSource;

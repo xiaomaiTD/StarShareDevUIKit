@@ -13,8 +13,8 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(setTitle:forState:), @selector(ss_setTitle:forState:));
-    ReplaceMethod([self class], @selector(setTitleColor:forState:), @selector(ss_setTitleColor:forState:));
+    ExchangeImplementations([self class], @selector(setTitle:forState:), @selector(ss_setTitle:forState:));
+    ExchangeImplementations([self class], @selector(setTitleColor:forState:), @selector(ss_setTitleColor:forState:));
   });
 }
 

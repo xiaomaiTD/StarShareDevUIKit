@@ -46,10 +46,10 @@
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     Class cls = [self class];
-    ReplaceMethod(cls, @selector(viewWillLayoutSubviews), @selector(NavigationBarTransition_viewWillLayoutSubviews));
-    ReplaceMethod(cls, @selector(viewWillAppear:), @selector(NavigationBarTransition_viewWillAppear:));
-    ReplaceMethod(cls, @selector(viewDidAppear:), @selector(NavigationBarTransition_viewDidAppear:));
-    ReplaceMethod(cls, @selector(viewDidDisappear:), @selector(NavigationBarTransition_viewDidDisappear:));
+    ExchangeImplementations(cls, @selector(viewWillLayoutSubviews), @selector(NavigationBarTransition_viewWillLayoutSubviews));
+    ExchangeImplementations(cls, @selector(viewWillAppear:), @selector(NavigationBarTransition_viewWillAppear:));
+    ExchangeImplementations(cls, @selector(viewDidAppear:), @selector(NavigationBarTransition_viewDidAppear:));
+    ExchangeImplementations(cls, @selector(viewDidDisappear:), @selector(NavigationBarTransition_viewDidDisappear:));
   });
 }
 
@@ -444,10 +444,10 @@
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     Class cls = [self class];
-    ReplaceMethod(cls, @selector(pushViewController:animated:), @selector(NavigationBarTransition_pushViewController:animated:));
-    ReplaceMethod(cls, @selector(popViewControllerAnimated:), @selector(NavigationBarTransition_popViewControllerAnimated:));
-    ReplaceMethod(cls, @selector(popToViewController:animated:), @selector(NavigationBarTransition_popToViewController:animated:));
-    ReplaceMethod(cls, @selector(popToRootViewControllerAnimated:), @selector(NavigationBarTransition_popToRootViewControllerAnimated:));
+    ExchangeImplementations(cls, @selector(pushViewController:animated:), @selector(NavigationBarTransition_pushViewController:animated:));
+    ExchangeImplementations(cls, @selector(popViewControllerAnimated:), @selector(NavigationBarTransition_popViewControllerAnimated:));
+    ExchangeImplementations(cls, @selector(popToViewController:animated:), @selector(NavigationBarTransition_popToViewController:animated:));
+    ExchangeImplementations(cls, @selector(popToRootViewControllerAnimated:), @selector(NavigationBarTransition_popToRootViewControllerAnimated:));
   });
 }
 

@@ -52,9 +52,9 @@ static char kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     Class cls = [self class];
-    ReplaceMethod(cls, @selector(viewWillAppear:), @selector(observe_viewWillAppear:));
-    ReplaceMethod(cls, @selector(viewDidAppear:), @selector(observe_viewDidAppear:));
-    ReplaceMethod(cls, @selector(viewDidDisappear:), @selector(observe_viewDidDisappear:));
+    ExchangeImplementations(cls, @selector(viewWillAppear:), @selector(observe_viewWillAppear:));
+    ExchangeImplementations(cls, @selector(viewDidAppear:), @selector(observe_viewDidAppear:));
+    ExchangeImplementations(cls, @selector(viewDidDisappear:), @selector(observe_viewDidDisappear:));
   });
 }
 

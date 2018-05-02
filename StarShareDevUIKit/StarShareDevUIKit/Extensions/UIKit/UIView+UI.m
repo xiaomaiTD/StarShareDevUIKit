@@ -171,9 +171,9 @@
 + (void)load {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    ReplaceMethod([self class], @selector(initWithFrame:), @selector(pr_initWithFrame:));
-    ReplaceMethod([self class], @selector(initWithCoder:), @selector(pr_initWithCoder:));
-    ReplaceMethod([self class], @selector(layoutSublayersOfLayer:), @selector(pr_layoutSublayersOfLayer:));
+    ExchangeImplementations([self class], @selector(initWithFrame:), @selector(pr_initWithFrame:));
+    ExchangeImplementations([self class], @selector(initWithCoder:), @selector(pr_initWithCoder:));
+    ExchangeImplementations([self class], @selector(layoutSublayersOfLayer:), @selector(pr_layoutSublayersOfLayer:));
   });
 }
 
