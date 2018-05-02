@@ -35,13 +35,12 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
     // 兼容 iOS 9.0 以下的版本对 loadViewIfNeeded 方法的调用
     if (![[UIViewController class] instancesRespondToSelector:@selector(loadViewIfNeeded)]) {
       Class metaclass = [self class];
-      BOOL success = class_addMethod(metaclass, @selector(loadViewIfNeeded), (IMP)ss_loadViewIfNeeded, "v@:");
-      SSUIKitLog(@"%@ %s, success = %@", NSStringFromClass([self class]), __func__, StringFromBOOL(success));
+      class_addMethod(metaclass, @selector(loadViewIfNeeded), (IMP)ss_loadViewIfNeeded, "v@:");
     }
     
     // 实现 AutomaticallyRotateDeviceOrientation 开关的功能
-    ExchangeImplementations([UIViewController class], @selector(viewWillAppear:), @selector(ss_viewWillAppear:));
-    ExchangeImplementations([UIViewController class], @selector(viewWillDisappear:), @selector(ss_viewWillDisappear:));
+    ExchangeImplementations([self class], @selector(viewWillAppear:), @selector(rotate_viewWillAppear:));
+    ExchangeImplementations([self class], @selector(viewWillDisappear:), @selector(rotate_viewWillDisappear:));
   });
 }
 
@@ -74,8 +73,8 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   return [string copy];
 }
 
-- (void)ss_viewWillAppear:(BOOL)animated {
-  [self ss_viewWillAppear:animated];
+- (void)rotate_viewWillAppear:(BOOL)animated {
+  [self rotate_viewWillAppear:animated];
   self.ss_isViewDisappear = NO;
   if (!AutomaticallyRotateDeviceOrientation) {
     return;
@@ -115,9 +114,9 @@ void ss_loadViewIfNeeded (id current_self, SEL current_cmd) {
   [UIHelper rotateToDeviceOrientation:deviceOrientationToRotate];
 }
 
-- (void)ss_viewWillDisappear:(BOOL)animated
+- (void)rotate_viewWillDisappear:(BOOL)animated
 {
-  [self ss_viewWillDisappear:animated];
+  [self rotate_viewWillDisappear:animated];
   self.ss_isViewDisappear = YES;
 }
 
