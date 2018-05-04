@@ -359,20 +359,52 @@ static char kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer;
 
 #pragma mark - <UINavigationControllerDelegate>
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated {
   [self willShowViewController:viewController animated:animated];
   if ([self.delegateProxy respondsToSelector:_cmd]) {
-    [self.delegateProxy navigationController:navigationController willShowViewController:viewController animated:animated];
+    [self.delegateProxy navigationController:navigationController
+                      willShowViewController:viewController
+                                    animated:animated];
   }
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated {
   self.viewControllerPopping = nil;
   self.isViewControllerTransiting = NO;
   [self didShowViewController:viewController animated:animated];
   if ([self.delegateProxy respondsToSelector:_cmd]) {
-    [self.delegateProxy navigationController:navigationController didShowViewController:viewController animated:animated];
+    [self.delegateProxy navigationController:navigationController
+                       didShowViewController:viewController
+                                    animated:animated];
   }
+}
+
+- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
+  if ([self.delegateProxy respondsToSelector:_cmd]) {
+    return [self.delegateProxy navigationController:navigationController
+        interactionControllerForAnimationController:animationController];
+  }
+  
+  return nil;
+}
+
+- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                            animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                         fromViewController:(UIViewController *)fromVC
+                                                           toViewController:(UIViewController *)toVC {
+  if ([self.delegateProxy respondsToSelector:_cmd]) {
+    return [self.delegateProxy navigationController:navigationController
+                    animationControllerForOperation:operation
+                                 fromViewController:fromVC
+                                   toViewController:toVC];
+  }
+  
+  return nil;
 }
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
@@ -390,8 +422,15 @@ static char kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer;
 }
 
 - (BOOL)shouldRespondDelegeateProxyWithSelector:(SEL)aSelctor {
-  return [NSStringFromSelector(aSelctor) isEqualToString:@"navigationController:willShowViewController:animated:"] ||
-  [NSStringFromSelector(aSelctor) isEqualToString:@"navigationController:didShowViewController:animated:"];
+  return
+  [NSStringFromSelector(aSelctor)
+   isEqualToString:@"navigationController:willShowViewController:animated:"] ||
+  [NSStringFromSelector(aSelctor)
+   isEqualToString:@"navigationController:didShowViewController:animated:"] ||
+  [NSStringFromSelector(aSelctor)
+   isEqualToString:@"navigationController:interactionControllerForAnimationController:"] ||
+  [NSStringFromSelector(aSelctor)
+   isEqualToString:@"navigationController:animationControllerForOperation:fromViewController:toViewController:"];
 }
 
 #pragma mark - 屏幕旋转
@@ -403,10 +442,5 @@ static char kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer;
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
   return [self.topViewController hasOverrideUIKitMethod:_cmd] ? [self.topViewController supportedInterfaceOrientations] : UIInterfaceOrientationMaskPortrait;
 }
-  
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-}
-
 @end
 
