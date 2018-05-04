@@ -383,30 +383,6 @@ static char kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer;
   }
 }
 
-- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
-                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
-  if ([self.delegateProxy respondsToSelector:_cmd]) {
-    return [self.delegateProxy navigationController:navigationController
-        interactionControllerForAnimationController:animationController];
-  }
-  
-  return nil;
-}
-
-- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                            animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                         fromViewController:(UIViewController *)fromVC
-                                                           toViewController:(UIViewController *)toVC {
-  if ([self.delegateProxy respondsToSelector:_cmd]) {
-    return [self.delegateProxy navigationController:navigationController
-                    animationControllerForOperation:operation
-                                 fromViewController:fromVC
-                                   toViewController:toVC];
-  }
-  
-  return nil;
-}
-
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
   return [super methodSignatureForSelector:aSelector] ?: [(id)self.delegateProxy methodSignatureForSelector:aSelector];
 }
@@ -423,14 +399,8 @@ static char kAssociatedObjectKey_willAppearByInteractivePopGestureRecognizer;
 
 - (BOOL)shouldRespondDelegeateProxyWithSelector:(SEL)aSelctor {
   return
-  [NSStringFromSelector(aSelctor)
-   isEqualToString:@"navigationController:willShowViewController:animated:"] ||
-  [NSStringFromSelector(aSelctor)
-   isEqualToString:@"navigationController:didShowViewController:animated:"] ||
-  [NSStringFromSelector(aSelctor)
-   isEqualToString:@"navigationController:interactionControllerForAnimationController:"] ||
-  [NSStringFromSelector(aSelctor)
-   isEqualToString:@"navigationController:animationControllerForOperation:fromViewController:toViewController:"];
+  [NSStringFromSelector(aSelctor) isEqualToString:@"navigationController:willShowViewController:animated:"] ||
+  [NSStringFromSelector(aSelctor) isEqualToString:@"navigationController:didShowViewController:animated:"];
 }
 
 #pragma mark - 屏幕旋转
